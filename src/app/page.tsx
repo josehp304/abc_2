@@ -143,19 +143,13 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
   }, [heroImages.length]);
 
-  const handleSubscribe = () => {
-    if (email) {
-      // Add subscription logic here
-      console.log('Subscribing email:', email);
-      setEmail("");
-    }
-  };
+  
 
   const firstRow = reviews.slice(0, reviews.length / 2);
   const secondRow = reviews.slice(reviews.length / 2);
 
   return (
-    <div className="w-full min-h-screen bg-background dark:bg-background text-foreground dark:text-foreground md:pd-[200px]">
+    <div className="w-full min-h-screen bg-background overflow-hidden dark:bg-background text-foreground dark:text-foreground p-6 md:p-16 lg:p-24">
       <ThemeToggle />
       
       {/* Header */}
@@ -270,23 +264,7 @@ const App: React.FC = () => {
         </div>
       </div>
 
-      {/* Newsletter Subscription */}
-      {/* <div className="w-full px-4 md:px-8 lg:px-16 mb-8">
-        <div className="max-w-md mx-auto">
-          <h3 className="text-xl font-semibold mb-4">Subscribe to Our Newsletter</h3>
-          <div className="flex gap-2">
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="flex-1"
-            />
-            <Button onClick={handleSubscribe}>Subscribe</Button>
-          </div>
-        </div>
-      </div>
-       */}
+  
        <section className="container relative mx-auto px-6 py-16 sm:py-24 overflow:hidden">
         <div className="relative">
           <div className="absolute inset-0 flex items-center" aria-hidden="true">

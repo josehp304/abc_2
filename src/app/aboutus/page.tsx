@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaSun, FaMoon, FaPlay, FaQuoteLeft, FaAward, FaUsers, FaLightbulb, FaHeart, FaTrophy, FaLinkedin, FaBehance, FaGithub } from "react-icons/fa";
 import { motion, useScroll, useTransform } from "framer-motion";
-
+import HeroVideoDialog from "@/components/magicui/hero-video-dialog";
 export default function AboutPage() {
   const [darkTheme, setDarkTheme] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -323,7 +323,7 @@ export default function AboutPage() {
               transition={{ delay: 0.7, duration: 0.7 }}
             >
               <motion.button
-                className="px-8 py-3 rounded-full bg-primary text-foreground font-medium shadow-lg hover:shadow-xl w-full sm:w-auto"
+                className="px-8 py-3 rounded-full font-medium border-2 shadow-lg w-full sm:w-auto bg-card text-foreground hover:bg-accent/30"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -345,56 +345,14 @@ export default function AboutPage() {
       </section>
 
       {/* Reel Section */}
-      <section className="py-20 bg-card">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <motion.h2 
-            className="text-3xl md:text-4xl font-bold text-center mb-16 relative inline-block left-1/2 transform -translate-x-1/2 text-card-foreground"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-          >
-            Watch our passion come to life
-            <span className="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 w-20 h-1 bg-primary"></span>
-          </motion.h2>
-          
-          <motion.div
-            className="relative rounded-2xl overflow-hidden shadow-2xl max-w-4xl mx-auto aspect-video"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-          >
-            {!isVideoPlaying ? (
-              <div 
-                className="z-[1000] relative w-full h-full cursor-pointer"
-                onClick={() => setIsVideoPlaying(true)}
-              >
-      
-                <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center transition-opacity hover:bg-opacity-50">
-                  <motion.div 
-                    className="w-20 h-20 rounded-full bg-primary flex items-center justify-center mb-4"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <FaPlay className="text-foreground text-2xl ml-1" />
-                  </motion.div>
-                  <p className="text-foreground text-lg">Watch Our Story</p>
-                </div>
-              </div>
-            ) : (
-              <iframe 
-                width="100%" 
-                height="100%" 
-                src="https://www.youtube.com/embed/xvFZjo5PgG0?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=1&loop=1&playlist=xvFZjo5PgG0" 
-                title="ABC Studio Showreel" 
-                frameBorder="0" 
-                allowFullScreen
-                className="absolute inset-0"
-              />
-            )}
-          </motion.div>
-        </div>
+      <section className="w-full flex items-center justify-center py-20 bg-card">
+     
+        <HeroVideoDialog  className="z-[1000] max-w-[600px]"
+        animationStyle="from-center"
+        videoSrc="https://www.youtube.com/embed/xvFZjo5PgG0?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=1&loop=1&playlist=xvFZjo5PgG0"
+        thumbnailSrc="/images/8878659.jpg"
+        thumbnailAlt="Hero Video" />
+         
       </section>
 
       {/* Our Story Timeline Section */}

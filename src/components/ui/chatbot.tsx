@@ -53,30 +53,8 @@ export function Chatbot({ className }: ChatbotProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  // Detect dark mode from localStorage
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      setIsDarkTheme(true);
-    }
-
-    // Listen for theme changes
-    const observer = new MutationObserver(() => {
-      const isDark = document.documentElement.classList.contains("dark");
-      setIsDarkTheme(isDark);
-    });
-    
-    observer.observe(document.documentElement, { 
-      attributes: true, 
-      attributeFilter: ['class'] 
-    });
-
-    return () => observer.disconnect();
-  }, []);
 
   // Initial greeting when the chat is opened
   useEffect(() => {
@@ -118,7 +96,6 @@ export function Chatbot({ className }: ChatbotProps) {
   const generateBotResponse = (userMessage: string): string => {
     const normalizedMessage = userMessage.toLowerCase();
     
-    // Check for keywords in the user's message
     if (normalizedMessage.match(/hi|hello|hey|howdy/i)) {
       return BOT_RESPONSES.greeting[Math.floor(Math.random() * BOT_RESPONSES.greeting.length)];
     } else if (normalizedMessage.match(/service|offer|provide|do you do|photograph|videograph|film|editing/i)) {
@@ -139,7 +116,6 @@ export function Chatbot({ className }: ChatbotProps) {
     
     if (!inputValue.trim()) return;
     
-    // Add user message
     const userMessage = {
       id: Date.now().toString(),
       text: inputValue,
@@ -151,7 +127,6 @@ export function Chatbot({ className }: ChatbotProps) {
     setInputValue("");
     setIsTyping(true);
     
-    // Simulate bot typing and response
     setTimeout(() => {
       const botResponse = {
         id: (Date.now() + 1).toString(),
@@ -162,7 +137,7 @@ export function Chatbot({ className }: ChatbotProps) {
       
       setMessages((prev) => [...prev, botResponse]);
       setIsTyping(false);
-    }, 1000 + Math.random() * 1000); // Random delay between 1-2 seconds
+    }, 1000 + Math.random() * 1000);
   };
 
   const formatTime = (date: Date) => {
@@ -171,14 +146,10 @@ export function Chatbot({ className }: ChatbotProps) {
 
   return (
     <div className={cn("fixed bottom-6 right-6 z-50", className)}>
-      {/* Chatbot button */}
+      {/* Chat toggle button */}
       <motion.button
         onClick={toggleChat}
-        className={`flex items-center justify-center gap-2 ${
-          isDarkTheme 
-            ? "bg-indigo-600 hover:bg-indigo-700" 
-            : "bg-indigo-600 hover:bg-indigo-700"
-        } text-white rounded-full py-3 px-5 shadow-lg font-medium`}
+        className="flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground rounded-full py-3 px-5 shadow-lg font-medium"
         aria-label={isOpen ? "Close chat" : "Open chat"}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -208,147 +179,78 @@ export function Chatbot({ className }: ChatbotProps) {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ 
-              type: "spring", 
-              stiffness: 300, 
-              damping: 25 
-            }}
-            className={`absolute bottom-16 right-0 w-96 max-w-[calc(100vw-2rem)] ${
-              isDarkTheme 
-                ? "bg-gray-800 text-white" 
-                : "bg-white text-gray-900"
-            } rounded-2xl shadow-xl overflow-hidden flex flex-col`}
-            style={{ height: "500px" }}
+            transition={{ duration: 0.2 }}
+            className="absolute bottom-20 right-0 w-96 bg-card shadow-lg rounded-lg overflow-hidden border border-border/10"
           >
             {/* Chat header */}
-            <motion.div 
-              className="flex items-center justify-between px-4 py-4 bg-indigo-600 text-white"
-              whileHover={{ backgroundColor: "#4338ca" }}
-              transition={{ duration: 0.2 }}
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center">
-                  <FaRegComment size={18} />
-                </div>
-                <div>
-                  <h3 className="font-semibold">ABC Studios Assistant</h3>
-                  <p className="text-xs opacity-80">Ask me anything about our services</p>
-                </div>
-              </div>
-              <motion.button 
-                onClick={toggleChat} 
-                className="p-2 hover:bg-indigo-700 rounded-full transition-colors"
-                aria-label="Close chat"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <FaTimes size={16} />
-              </motion.button>
-            </motion.div>
-
-            {/* Chat messages */}
-            <div className={`flex-1 p-4 overflow-y-auto ${
-              isDarkTheme ? "bg-gray-900" : "bg-gray-50"
-            }`}>
-              <div className="space-y-4">
-                {messages.map((message) => (
-                  <motion.div
-                    key={message.id}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className={cn(
-                      "flex",
-                      message.sender === "user" ? "justify-end" : "justify-start"
-                    )}
-                  >
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      className={cn(
-                        "max-w-[75%] rounded-2xl px-4 py-3 break-words",
-                        message.sender === "user"
-                          ? "bg-indigo-600 text-white rounded-tr-none"
-                          : isDarkTheme 
-                            ? "bg-gray-700 text-white rounded-tl-none" 
-                            : "bg-gray-200 text-gray-800 rounded-tl-none"
-                      )}
-                    >
-                      <div className="text-sm">{message.text}</div>
-                      <div
-                        className={cn(
-                          "text-xs mt-1",
-                          message.sender === "user"
-                            ? "text-indigo-200"
-                            : isDarkTheme 
-                              ? "text-gray-400" 
-                              : "text-gray-500"
-                        )}
-                      >
-                        {formatTime(message.timestamp)}
-                      </div>
-                    </motion.div>
-                  </motion.div>
-                ))}
-                {isTyping && (
-                  <motion.div 
-                    className="flex justify-start"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                  >
-                    <div className={`rounded-2xl px-4 py-3 rounded-tl-none ${
-                      isDarkTheme ? "bg-gray-700" : "bg-gray-200"
-                    }`}>
-                      <div className="flex space-x-1">
-                        <motion.div 
-                          className={`w-2 h-2 rounded-full ${isDarkTheme ? "bg-gray-500" : "bg-gray-400"}`}
-                          animate={{ y: [0, -5, 0] }}
-                          transition={{ repeat: Infinity, duration: 0.6 }}
-                        ></motion.div>
-                        <motion.div 
-                          className={`w-2 h-2 rounded-full ${isDarkTheme ? "bg-gray-500" : "bg-gray-400"}`}
-                          animate={{ y: [0, -5, 0] }}
-                          transition={{ repeat: Infinity, duration: 0.6, delay: 0.2 }}
-                        ></motion.div>
-                        <motion.div 
-                          className={`w-2 h-2 rounded-full ${isDarkTheme ? "bg-gray-500" : "bg-gray-400"}`}
-                          animate={{ y: [0, -5, 0] }}
-                          transition={{ repeat: Infinity, duration: 0.6, delay: 0.4 }}
-                        ></motion.div>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-                <div ref={messagesEndRef} />
-              </div>
+            <div className="bg-primary text-primary-foreground p-4">
+              <h2 className="text-lg font-semibold">Chat with ABC Studios</h2>
             </div>
 
-            {/* Chat input */}
-            <form onSubmit={handleSendMessage} className={`p-3 border-t ${
-              isDarkTheme ? "border-gray-700 bg-gray-800" : "border-gray-200 bg-white"
-            }`}>
+            {/* Messages container */}
+            <div className="h-96 overflow-y-auto p-4 space-y-4 bg-background">
+              {messages.map((message) => (
+                <motion.div
+                  key={message.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={cn(
+                    "flex flex-col max-w-[80%] space-y-1",
+                    message.sender === "user" ? "ml-auto items-end" : "items-start"
+                  )}
+                >
+                  <div
+                    className={cn(
+                      "rounded-lg px-4 py-2",
+                      message.sender === "user"
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-muted text-muted-foreground"
+                    )}
+                  >
+                    {message.text}
+                  </div>
+                  <span className="text-xs text-muted-foreground">
+                    {formatTime(message.timestamp)}
+                  </span>
+                </motion.div>
+              ))}
+              {isTyping && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-center space-x-2 text-muted-foreground"
+                >
+                  <span className="text-sm">Typing</span>
+                  <motion.span
+                    animate={{ opacity: [0.4, 1, 0.4] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    ...
+                  </motion.span>
+                </motion.div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Input form */}
+            <form onSubmit={handleSendMessage} className="p-4 bg-card border-t border-border/10">
               <div className="flex items-center gap-2">
                 <input
                   ref={inputRef}
                   type="text"
-                  placeholder="Type your message..."
                   value={inputValue}
                   onChange={handleInputChange}
-                  className={`flex-1 py-2 px-3 rounded-full ${
-                    isDarkTheme 
-                      ? "bg-gray-700 text-white placeholder:text-gray-400 focus:ring-indigo-400" 
-                      : "bg-gray-100 text-gray-800 placeholder:text-gray-500 focus:ring-indigo-500"
-                  } outline-none focus:ring-2 transition-all duration-200`}
+                  placeholder="Type your message..."
+                  className="flex-1 px-4 py-2 rounded-lg bg-background text-foreground placeholder:text-muted-foreground border border-border focus:outline-none focus:ring-2 focus:ring-ring"
                 />
                 <motion.button
                   type="submit"
+                  className="p-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-ring disabled:opacity-50"
                   disabled={!inputValue.trim()}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  transition={{ duration: 0.2 }}
-                  className="p-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                  aria-label="Send message"
                 >
-                  <IoSend size={18} />
+                  <IoSend size={20} />
                 </motion.button>
               </div>
             </form>
