@@ -354,7 +354,7 @@ export default function AboutPage() {
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeInUp}
           >
-            Our Creative Reel
+            Watch our passion come to life
             <span className="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 w-20 h-1 bg-primary"></span>
           </motion.h2>
           

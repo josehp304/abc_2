@@ -65,7 +65,7 @@ const Projects: React.FC = () => {
                     See what our clients have to say about their experience working with us.
                 </motion.p>
                 <motion.div variants={fadeInUp}>
-                    <AnimatedTestimonials testimonials={testimonials} />
+                    <AnimatedTestimonials testimonials={testimonials} autoplay={true} />
                 </motion.div>
             </motion.div>
 

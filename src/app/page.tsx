@@ -6,6 +6,9 @@ import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Image from 'next/image'
 import ThemeToggle from "@/components/theme-toggle";
+import { Marquee } from "@/components/magicui/marquee";
+import ReviewCard from "@/components/magicui/reviewcard";
+
 
 const App: React.FC = () => {
   const [activeService, setActiveService] = useState(0);
@@ -70,6 +73,13 @@ const App: React.FC = () => {
         "/images/8878659.jpg",
     },
     {
+      title: "Live Streaming",
+      icon: "fa-video",
+      description: "Professional streaming solutions for any scale",
+      image:
+        "/images/8878659.jpg",
+    },
+    {
       title: "Esports Services",
       icon: "fa-gamepad",
       description: "Complete tournament and league solutions",
@@ -83,6 +93,45 @@ const App: React.FC = () => {
     { number: "500+", label: "Events Managed" },
     { number: "10M+", label: "Global Viewers" },
     { number: "200+", label: "Tournaments Hosted" },
+  ];
+
+  const reviews = [
+    {
+      name: "Jack",
+      username: "@jack",
+      body: "I've never seen anything like this before. It's amazing. I love it.",
+      img: "https://avatar.vercel.sh/jack",
+    },
+    {
+      name: "Jill",
+      username: "@jill",
+      body: "I don't know what to say. I'm speechless. This is amazing.",
+      img: "https://avatar.vercel.sh/jill",
+    },
+    {
+      name: "John",
+      username: "@john",
+      body: "I'm at a loss for words. This is amazing. I love it.",
+      img: "https://avatar.vercel.sh/john",
+    },
+    {
+      name: "Jane",
+      username: "@jane",
+      body: "I'm at a loss for words. This is amazing. I love it.",
+      img: "https://avatar.vercel.sh/jane",
+    },
+    {
+      name: "Jenny",
+      username: "@jenny",
+      body: "I'm at a loss for words. This is amazing. I love it.",
+      img: "https://avatar.vercel.sh/jenny",
+    },
+    {
+      name: "James",
+      username: "@james",
+      body: "I'm at a loss for words. This is amazing. I love it.",
+      img: "https://avatar.vercel.sh/james",
+    },
   ];
 
   useEffect(() => {
@@ -100,6 +149,9 @@ const App: React.FC = () => {
       setEmail("");
     }
   };
+
+  const firstRow = reviews.slice(0, reviews.length / 2);
+  const secondRow = reviews.slice(reviews.length / 2);
 
   return (
     <div className="w-full min-h-screen bg-background dark:bg-background text-foreground dark:text-foreground md:pd-[200px]">
@@ -176,7 +228,7 @@ const App: React.FC = () => {
       {/* Services Grid */}
       <div id="services" className="px-4 md:px-8 lg:px-16 mb-8">
         <h2 className="text-2xl md:text-3xl font-bold mb-4">Our Services</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-6">
           {services.map((service, index) => (
             <Card
               key={index}
@@ -218,7 +270,7 @@ const App: React.FC = () => {
       </div>
 
       {/* Newsletter Subscription */}
-      <div className="w-full px-4 md:px-8 lg:px-16 mb-8">
+      {/* <div className="w-full px-4 md:px-8 lg:px-16 mb-8">
         <div className="max-w-md mx-auto">
           <h3 className="text-xl font-semibold mb-4">Subscribe to Our Newsletter</h3>
           <div className="flex gap-2">
@@ -233,6 +285,22 @@ const App: React.FC = () => {
           </div>
         </div>
       </div>
+       */}
+       <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
+      <Marquee pauseOnHover className="[--duration:20s]">
+        {firstRow.map((review) => (
+          <ReviewCard key={review.username} {...review} />
+        ))}
+      </Marquee>
+      <Marquee reverse pauseOnHover className="[--duration:20s]">
+        {secondRow.map((review) => (
+          <ReviewCard key={review.username} {...review} />
+        ))}
+      </Marquee>
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-background"></div>
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-background"></div>
+    </div>
+    <div className="h-[100px]"></div>
     </div>
   );
 };
