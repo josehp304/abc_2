@@ -11,7 +11,7 @@ const Projects: React.FC = () => {
             "We organized the biggest gaming event in the world with over $20 millon price pool .",
           name: "fortnight world cup",
           designation: "worlds biggest esports event",
-          src: "/images/ge.jpg",
+          src: "/images/fn.png",
         },
         {
           quote:
@@ -20,6 +20,27 @@ const Projects: React.FC = () => {
           designation: "YouTuber",
           src: "/images/8878659.jpg",
         },
+        {
+            quote:
+              "we have developed multiple high value shopify shops",
+            name: "Shopify digital marketing",
+            designation: "multi-million dollar stores",
+            src: "/images/sp.png",
+          },
+          {
+            quote:
+              "We have generated millions of impressions for our clients with our experienced content generation team ",
+            name: "Our top clients",
+            designation: "Video production",
+            src: "/images/bc.png",
+          },
+             {
+            quote:
+              "",
+            name: "",
+            designation: "",
+            src: "/images/.jpg",
+          },
 
       ]
 

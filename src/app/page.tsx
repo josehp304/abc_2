@@ -18,27 +18,27 @@ const App: React.FC = () => {
 
   const heroImages = [
     {
-      url: "/images/8878659.jpg",
+      url: "/images/ss.jpg",
       title: "Create. Stream. Dominate.",
       description: "Transforming digital dreams into viral reality. We don't just create content - we create culture."
     },
     {
-      url:"/images/8878659.jpg",
+      url:"/images/kai.jpg",
       title:"We Will carry you to the top",
       description:"With our gaming live streaming services, you'll be in the spotlight like never before."
 
     },
     {
-      url: "/images/8878659.jpg",
-      title: "Professional Live Streaming",
+      url: "/images/faze.webp",
+      title: "Become a professional gamer",
       description: "High-quality streaming solutions for events of any scale."
     },
-    {url:"/images/8878659.jpg",
+    {url:"/images/sp.png",
       title:"Wanna see results like this?",
       description:"With our digital marketing services, you'll be able to crake the algorithm."
     },
     {
-      url: "/images/8878659.jpg",
+      url: "/images/mf.jpg",
       title: "Cinematic Production",
       description: "Creating compelling visual stories that captivate audiences."
     }
@@ -50,42 +50,42 @@ const App: React.FC = () => {
       icon: "fa-video",
       description: "Professional streaming solutions for any scale",
       image:
-        "/images/8878659.jpg",
+        "/images/ttv.webp",
     },
     {
-      title: "Media Production",
+      title: "Media Production",  
       icon: "fa-film",
       description: "Cinematic content that captures attention",
       image:
-        "/images/8878659.jpg",
+        "/images/mp.jpg",
     },
     {
       title: "Digital Marketing",
       icon: "fa-chart-line",
       description: "Strategic campaigns that drive results",
       image:
-        "/images/8878659.jpg",
+        "/images/dm2.jpg",
     },
     {
       title: "Event Management",
       icon: "fa-calendar-check",
       description: "Seamless experiences from concept to execution",
       image:
-        "/images/8878659.jpg",
+        "/images/em.jpg",
     },
     {
       title: "Live Streaming",
       icon: "fa-video",
       description: "Professional streaming solutions for any scale",
       image:
-        "/images/8878659.jpg",
+        "/images/ss2.webp",
     },
     {
       title: "Esports Services",
       icon: "fa-gamepad",
       description: "Complete tournament and league solutions",
       image:
-        "/images/8878659.jpg",
+        "/images/ep.jpg",
     },
   ];
 
@@ -223,7 +223,7 @@ const App: React.FC = () => {
       {/* Services Grid */}
       <div id="services" className="px-4 md:px-8 lg:px-16 mb-8">
         <h2 className="text-2xl md:text-3xl font-bold mb-4">Our Services</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 md:gap-8">
           {services.map((service, index) => (
             <Card
               key={index}
