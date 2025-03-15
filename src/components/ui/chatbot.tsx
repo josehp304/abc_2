@@ -145,7 +145,7 @@ export function Chatbot({ className }: ChatbotProps) {
   };
 
   return (
-    <div className={cn("fixed bottom-6 right-6 z-50", className)}>
+    <div className={cn("fixed bottom-[100px] sm:right-6 right-4 z-[1000] ", className)}>
       {/* Chat toggle button */}
       <motion.button
         onClick={toggleChat}
@@ -180,7 +180,7 @@ export function Chatbot({ className }: ChatbotProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute bottom-20 right-0 w-96 bg-card shadow-lg rounded-lg overflow-hidden border border-border/10"
+            className="absolute bottom-20 right-0 w-[calc(100vw-2rem)] sm:w-96 max-w-[400px] bg-card shadow-lg rounded-lg overflow-hidden border border-border/10"
           >
             {/* Chat header */}
             <div className="bg-primary text-primary-foreground p-4">
@@ -188,7 +188,7 @@ export function Chatbot({ className }: ChatbotProps) {
             </div>
 
             {/* Messages container */}
-            <div className="h-96 overflow-y-auto p-4 space-y-4 bg-background">
+            <div className="h-[60vh] sm:h-96 overflow-y-auto p-4 space-y-4 bg-background">
               {messages.map((message) => (
                 <motion.div
                   key={message.id}
@@ -233,7 +233,7 @@ export function Chatbot({ className }: ChatbotProps) {
             </div>
 
             {/* Input form */}
-            <form onSubmit={handleSendMessage} className="p-4 bg-card border-t border-border/10">
+            <form onSubmit={handleSendMessage} className="p-3 sm:p-4 bg-card border-t border-border/10">
               <div className="flex items-center gap-2">
                 <input
                   ref={inputRef}
@@ -241,7 +241,7 @@ export function Chatbot({ className }: ChatbotProps) {
                   value={inputValue}
                   onChange={handleInputChange}
                   placeholder="Type your message..."
-                  className="flex-1 px-4 py-2 rounded-lg bg-background text-foreground placeholder:text-muted-foreground border border-border focus:outline-none focus:ring-2 focus:ring-ring"
+                  className="flex-1 px-3 sm:px-4 py-2 text-sm sm:text-base rounded-lg bg-background text-foreground placeholder:text-muted-foreground border border-border focus:outline-none focus:ring-2 focus:ring-ring"
                 />
                 <motion.button
                   type="submit"

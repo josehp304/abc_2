@@ -4,57 +4,58 @@ import { useState, useEffect } from "react";
 import { FaSun, FaMoon } from "react-icons/fa";
 
 export default function ThemeToggle() {
-  const [darkTheme, setDarkTheme] = useState(false);
+  const [darkTheme, setDarkTheme] = useState<boolean>(() => {
+    // Initialize from localStorage if available, otherwise use system preference
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme !== null) {
+        return savedTheme === "dark";
+      }
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return false;
+  });
 
   // Theme toggle handler
   const toggleTheme = () => {
-    setDarkTheme(!darkTheme);
-    if (typeof window !== 'undefined') {
-      const newTheme = !darkTheme;
-      if (newTheme) {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
+    setDarkTheme(prev => {
+      const newTheme = !prev;
+      if (typeof window !== 'undefined') {
+        // Save to localStorage
+        localStorage.setItem("theme", newTheme ? "dark" : "light");
+        // Update document class
+        document.documentElement.classList.toggle("dark", newTheme);
       }
-    }
+      return newTheme;
+    });
   };
 
-  // Initialize theme from localStorage on mount
+  // Initialize theme on mount and handle system theme changes
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const savedTheme = localStorage.getItem("theme");
-        const isDark = savedTheme === "dark" || 
-          (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
-        
-        setDarkTheme(isDark);
-        if (isDark) {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-      } catch (e) {
-        console.error("Failed to access localStorage:", e);
-      }
-    }
-  }, []);
+    if (typeof window === 'undefined') return;
 
-  // Update localStorage when theme changes
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem("theme", darkTheme ? "dark" : "light");
-      } catch (e) {
-        console.error("Failed to access localStorage:", e);
+    // Apply initial theme
+    document.documentElement.classList.toggle("dark", darkTheme);
+
+    // Listen for system theme changes
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e: MediaQueryListEvent) => {
+      if (!localStorage.getItem("theme")) {
+        // Only update if user hasn't set a preference
+        setDarkTheme(e.matches);
+        document.documentElement.classList.toggle("dark", e.matches);
       }
-    }
-  }, [darkTheme]);
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
 
   return (
     <button
       onClick={toggleTheme}
       className="fixed top-4 right-4 p-2 rounded-full bg-card hover:bg-accent transition-colors focus:outline-none focus:ring-2 focus:ring-ring z-50"
-      aria-label="Toggle theme"
+      aria-label={darkTheme ? "Switch to light mode" : "Switch to dark mode"}
     >
       {darkTheme ? <FaSun className="text-foreground w-6 h-6" /> : <FaMoon className="text-foreground w-6 h-6" />}
     </button>
