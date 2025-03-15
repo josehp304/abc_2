@@ -153,7 +153,7 @@ const App: React.FC = () => {
       <ThemeToggle />
       
       {/* Header */}
-      <header className="fixed z-90 w-full md:hidden bg-background dark:bg-nav-bg text-foreground dark:text-nav-text font-bold tracking-widest text-3xl md:text-4xl lg:text-5xl p-4 md:p-8 lg:p-12">
+      <header className="fixed top-0 z-90 w-full md:hidden bg-background dark:bg-nav-bg text-foreground dark:text-nav-text font-bold tracking-widest text-3xl md:text-4xl lg:text-5xl p-4 md:p-8 lg:p-12">
         <div className="container mx-auto flex justify-center">ABC STUDIOS</div>
       </header>
 
