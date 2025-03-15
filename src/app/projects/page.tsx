@@ -10,7 +10,7 @@ const Projects: React.FC = () => {
           quote:
             "We organized the biggest gaming event in the world with over $20 millon price pool .",
           name: "fortnight world cup",
-          designation: "Product Manager at TechFlow",
+          designation: "worlds biggest esports event",
           src: "/images/ge.jpg",
         },
         {

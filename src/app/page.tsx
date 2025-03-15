@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ThemeToggle } from "@/components/ui/theme-toggle"
 import Image from 'next/image'
+import ThemeToggle from "@/components/theme-toggle";
 
 const App: React.FC = () => {
   const [activeService, setActiveService] = useState(0);
@@ -103,7 +103,6 @@ const App: React.FC = () => {
 
   return (
     <div className="w-full min-h-screen bg-background dark:bg-background text-foreground dark:text-foreground md:pd-[200px]">
-      {/* Theme Toggle */}
       <ThemeToggle />
       
       {/* Header */}
@@ -146,10 +145,10 @@ const App: React.FC = () => {
                   priority={index === 0}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent flex flex-col justify-end p-6 md:p-12">
-                  <h1 className="text-nav-text text-3xl md:text-5xl font-bold mb-2">
+                  <h1 className="text-white text-nav-text text-3xl md:text-5xl font-bold mb-2">
                     {image.title}
                   </h1>
-                  <p className="text-nav-text text-sm md:text-lg opacity-90 max-w-2xl">
+                  <p className="text-white text-nav-text text-sm md:text-lg opacity-90 max-w-2xl">
                     {image.description}
                   </p>
                 </div>
