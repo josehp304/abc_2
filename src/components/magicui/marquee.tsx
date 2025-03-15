@@ -1,73 +1,67 @@
+"use client";
+
 import { cn } from "@/lib/utils";
-import { ComponentPropsWithoutRef } from "react";
+import React from "react";
+import { motion, HTMLMotionProps } from "framer-motion";
 
-interface MarqueeProps extends ComponentPropsWithoutRef<"div"> {
-  /**
-   * Optional CSS class name to apply custom styles
-   */
-  className?: string;
-  /**
-   * Whether to reverse the animation direction
-   * @default false
-   */
-  reverse?: boolean;
-  /**
-   * Whether to pause the animation on hover
-   * @default false
-   */
-  pauseOnHover?: boolean;
-  /**
-   * Content to be displayed in the marquee
-   */
-  children: React.ReactNode;
-  /**
-   * Whether to animate vertically instead of horizontally
-   * @default false
-   */
+interface MarqueeProps extends Omit<HTMLMotionProps<"div">, "children" | "className"> {
   vertical?: boolean;
-  /**
-   * Number of times to repeat the content
-   * @default 4
-   */
-  repeat?: number;
+  reverse?: boolean;
+  pauseOnHover?: boolean;
+  children?: React.ReactNode;
+  className?: string;
 }
 
-export function Marquee({
-  className,
-  reverse = false,
-  pauseOnHover = false,
+export const Marquee = ({
   children,
-  vertical = false,
-  repeat = 4,
+  vertical,
+  reverse,
+  pauseOnHover,
+  className,
   ...props
-}: MarqueeProps) {
+}: MarqueeProps) => {
   return (
-    <div
-      {...props}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
       className={cn(
-        "group flex overflow-hidden p-2 [--duration:40s] [--gap:1rem] [gap:var(--gap)]",
-        {
-          "flex-row": !vertical,
-          "flex-col": vertical,
-        },
-        className,
+        "group flex overflow-hidden relative",
+        vertical ? "flex-col" : "flex-row",
+        "max-w-[100vw] after:absolute after:inset-y-0 after:right-0 after:w-24 after:bg-gradient-to-l after:from-background after:z-10",
+        "before:absolute before:inset-y-0 before:left-0 before:w-24 before:bg-gradient-to-r before:from-background before:z-10",
+        className
       )}
+      {...props}
     >
-      {Array(repeat)
-        .fill(0)
-        .map((_, i) => (
-          <div
-            key={i}
-            className={cn("flex shrink-0 justify-around [gap:var(--gap)]", {
-              "animate-marquee flex-row": !vertical,
-              "animate-marquee-vertical flex-col": vertical,
-              "group-hover:[animation-play-state:paused]": pauseOnHover,
-              "[animation-direction:reverse]": reverse,
-            })}
-          >
-            {children}
-          </div>
-        ))}
-    </div>
+      <div
+        className={cn(
+          "flex shrink-0 gap-[--gap] transition-transform duration-300",
+          vertical ? "flex-col" : "flex-row",
+          vertical ? "animate-marquee-vertical" : "animate-marquee",
+          reverse && "[animation-direction:reverse]",
+          pauseOnHover && "group-hover:[animation-play-state:paused]"
+        )}
+        style={{
+          animationDirection: reverse ? "reverse" : "normal"
+        }}
+      >
+        {children}
+      </div>
+      <div
+        className={cn(
+          "flex shrink-0 gap-[--gap]",
+          vertical ? "flex-col" : "flex-row",
+          vertical ? "animate-marquee-vertical" : "animate-marquee",
+          reverse && "[animation-direction:reverse]",
+          pauseOnHover && "group-hover:[animation-play-state:paused]"
+        )}
+        style={{
+          animationDirection: reverse ? "reverse" : "normal"
+        }}
+      >
+        {children}
+      </div>
+    </motion.div>
   );
-}
+};

@@ -10,6 +10,7 @@ import { Marquee } from "@/components/magicui/marquee";
 import ReviewCard from "@/components/magicui/reviewcard";
 
 
+
 const App: React.FC = () => {
   const [activeService, setActiveService] = useState(0);
   const [email, setEmail] = useState("");
@@ -228,7 +229,7 @@ const App: React.FC = () => {
       {/* Services Grid */}
       <div id="services" className="px-4 md:px-8 lg:px-16 mb-8">
         <h2 className="text-2xl md:text-3xl font-bold mb-4">Our Services</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 md:gap-8">
           {services.map((service, index) => (
             <Card
               key={index}
@@ -286,20 +287,38 @@ const App: React.FC = () => {
         </div>
       </div>
        */}
-       <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
-      <Marquee pauseOnHover className="[--duration:20s]">
-        {firstRow.map((review) => (
-          <ReviewCard key={review.username} {...review} />
-        ))}
-      </Marquee>
-      <Marquee reverse pauseOnHover className="[--duration:20s]">
-        {secondRow.map((review) => (
-          <ReviewCard key={review.username} {...review} />
-        ))}
-      </Marquee>
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-background"></div>
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-background"></div>
-    </div>
+       <section className="container relative mx-auto px-6 py-16 sm:py-24 overflow:hidden">
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center" aria-hidden="true">
+            <div className="w-full border-t border-border/10"></div>
+          </div>
+          <div className="relative flex justify-center">
+            <span className="bg-background px-6 text-lg font-medium text-muted-foreground">
+              Testimonials
+            </span>
+          </div>
+        </div>
+        
+        <h2 className="mt-8 text-4xl md:text-5xl font-bold text-center mb-4 text-foreground">
+          What Our Users Say
+        </h2>
+        <p className="text-lg text-muted-foreground text-center mb-16 max-w-2xl mx-auto">
+          Hear from our community about their experiences with ABC Studios
+        </p>
+        
+        <div className="relative flex w-full flex-col items-center justify-center gap-8">
+          <Marquee className="[--gap:2rem] [--duration:40s] py-4" pauseOnHover>
+            {firstRow.map((review) => (
+              <ReviewCard key={review.username} {...review} />
+            ))}
+          </Marquee>
+          <Marquee className="[--gap:2rem] [--duration:40s] py-4" pauseOnHover reverse>
+            {secondRow.map((review) => (
+              <ReviewCard key={review.username} {...review} />
+            ))}
+          </Marquee>
+        </div>
+      </section>
     <div className="h-[100px]"></div>
     </div>
   );

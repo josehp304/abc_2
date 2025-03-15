@@ -1,6 +1,7 @@
-"use client"
+"use client";
 
 import { cn } from "@/lib/utils";
+import React from "react";
 
 interface ReviewCardProps {
   img: string;
@@ -13,29 +14,30 @@ const ReviewCard = ({ img, name, username, body }: ReviewCardProps) => {
   return (
     <figure
       className={cn(
-        "relative h-full w-64 cursor-pointer overflow-hidden rounded-xl border p-4",
-        // light styles
-        "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
-        // dark styles
-        "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]",
+        "relative h-full w-72 cursor-pointer overflow-hidden rounded-xl border p-6",
+        "bg-card/50 text-card-foreground backdrop-blur-sm",
+        "border-border/20 hover:bg-accent/10",
+        "transition-all duration-300 hover:scale-[1.02]"
       )}
     >
-      <blockquote>
-        <p className="text-sm text-muted-foreground">{body}</p>
-      </blockquote>
-      <figcaption className="relative mt-6 flex items-center justify-start gap-4">
-        <div className="overflow-hidden rounded-full bg-gray-950/10 p-1 dark:bg-gray-50/10">
+      <div className="flex flex-row items-center gap-4">
+        <div className="overflow-hidden rounded-full bg-muted/50 p-0.5 ring-1 ring-border/10">
           <img
-            className="h-8 w-8 rounded-full bg-gray-950/10 object-cover dark:bg-gray-50/10"
+            className="h-10 w-10 rounded-full object-cover"
             src={img}
             alt={name}
           />
         </div>
         <div className="flex flex-col gap-0.5">
-          <div className="text-sm font-medium text-foreground">{name}</div>
-          <div className="text-xs text-muted-foreground">{username}</div>
+          <figcaption className="text-sm font-semibold text-foreground">
+            {name}
+          </figcaption>
+          <p className="text-xs text-muted-foreground/80">{username}</p>
         </div>
-      </figcaption>
+      </div>
+      <blockquote className="mt-4 text-sm text-muted-foreground/90 leading-relaxed">
+        {body}
+      </blockquote>
     </figure>
   );
 };
