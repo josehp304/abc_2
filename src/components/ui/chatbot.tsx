@@ -18,35 +18,18 @@ interface ChatbotProps {
   className?: string;
 }
 
-// Common responses for the bot
-const BOT_RESPONSES: Record<string, string[]> = {
-  greeting: [
-    "Hello! How can I help you today?",
-    "Hi there! What can I assist you with?",
-    "Welcome to ABC Studios! How may I help you?",
-  ],
-  services: [
-    "We offer a wide range of services including photography, videography, film production, and post-production editing.",
-    "Our services include professional photo shoots, video production, film making, and editing services.",
-  ],
-  contact: [
-    "You can reach us at contact@abcstudios.com or call us at +91 (484) 246-1930.",
-    "Feel free to visit our office at St Joseph's College of Engineering and Technology, Choondacherry, Palai, Kottayam, Kerala - 686579 or email us at contact@abcstudios.com.",
-  ],
-  pricing: [
-    "Our pricing varies based on the project requirements. Please email us at contact@abcstudios.com for a custom quote.",
-    "We offer customized pricing based on your specific needs. Please reach out to us for a detailed quotation.",
-  ],
-  hours: [
-    "We're open Monday to Friday, 9am to 6pm, Saturday 10am to 4pm. Closed on Sundays.",
-    "Our working hours are 9am to 6pm on weekdays and 10am to 4pm on Saturdays. We're closed on Sundays.",
-  ],
-  fallback: [
-    "I'm not sure I understand. Could you rephrase that?",
-    "I'm still learning! Could you try asking in a different way?",
-    "I didn't quite catch that. Can you provide more details?",
-  ],
-};
+// System prompt for the AI
+const SYSTEM_PROMPT = `You are a helpful AI assistant for ABC Studios, a creative agency specializing in photography, videography, film production, and post-production editing. 
+Your responses should be friendly, professional, and concise. 
+You can help with inquiries about our services, pricing, contact information, and business hours.
+
+Key information:
+- Business hours: Mon-Fri 9am-6pm, Sat 10am-4pm, Closed on Sundays
+- Contact: contact@abcstudios.com, +91 (484) 246-1930
+- Location: St Joseph's College of Engineering and Technology, Choondacherry, Palai, Kottayam, Kerala - 686579
+- Services: Photography, Videography, Film Production, Post-production editing
+
+Keep responses under 100 words and maintain a helpful, professional tone.`;
 
 export function Chatbot({ className }: ChatbotProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,11 +38,24 @@ export function Chatbot({ className }: ChatbotProps) {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    if (chatContainerRef.current) {
+      const scrollHeight = chatContainerRef.current.scrollHeight;
+      const height = chatContainerRef.current.clientHeight;
+      const maxScrollTop = scrollHeight - height;
+      chatContainerRef.current.scrollTo({
+        top: maxScrollTop,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   // Initial greeting when the chat is opened
   useEffect(() => {
     if (isOpen && messages.length === 0) {
-      const greeting = BOT_RESPONSES.greeting[Math.floor(Math.random() * BOT_RESPONSES.greeting.length)];
+      const greeting = "Hello! How can I help you today?";
       setTimeout(() => {
         setMessages([
           {
@@ -71,12 +67,16 @@ export function Chatbot({ className }: ChatbotProps) {
         ]);
       }, 500);
     }
+    // Scroll to bottom when chat is opened
+    if (isOpen) {
+      setTimeout(scrollToBottom, 100); // Small delay to ensure content is rendered
+    }
   }, [isOpen, messages.length]);
 
   // Scroll to bottom when new messages arrive
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    scrollToBottom();
+  }, [messages, isTyping]);
 
   // Focus input field when chat is opened
   useEffect(() => {
@@ -93,25 +93,38 @@ export function Chatbot({ className }: ChatbotProps) {
     setInputValue(e.target.value);
   };
 
-  const generateBotResponse = (userMessage: string): string => {
-    const normalizedMessage = userMessage.toLowerCase();
-    
-    if (normalizedMessage.match(/hi|hello|hey|howdy/i)) {
-      return BOT_RESPONSES.greeting[Math.floor(Math.random() * BOT_RESPONSES.greeting.length)];
-    } else if (normalizedMessage.match(/service|offer|provide|do you do|photograph|videograph|film|editing/i)) {
-      return BOT_RESPONSES.services[Math.floor(Math.random() * BOT_RESPONSES.services.length)];
-    } else if (normalizedMessage.match(/contact|reach|email|phone|call|address|location|office/i)) {
-      return BOT_RESPONSES.contact[Math.floor(Math.random() * BOT_RESPONSES.contact.length)];
-    } else if (normalizedMessage.match(/price|cost|how much|fee|charge|quote|pricing/i)) {
-      return BOT_RESPONSES.pricing[Math.floor(Math.random() * BOT_RESPONSES.pricing.length)];
-    } else if (normalizedMessage.match(/hours|time|when|open|schedule|weekend|saturday|sunday/i)) {
-      return BOT_RESPONSES.hours[Math.floor(Math.random() * BOT_RESPONSES.hours.length)];
-    } else {
-      return BOT_RESPONSES.fallback[Math.floor(Math.random() * BOT_RESPONSES.fallback.length)];
+  const generateAIResponse = async (userMessage: string): Promise<string> => {
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages: [
+            { role: "system", content: SYSTEM_PROMPT },
+            ...messages.map(msg => ({
+              role: msg.sender === "user" ? "user" : "assistant",
+              content: msg.text
+            })),
+            { role: "user", content: userMessage }
+          ]
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to get AI response');
+      }
+
+      const data = await response.json();
+      return data.response;
+    } catch (error) {
+      console.error('Error getting AI response:', error);
+      return "I apologize, but I'm having trouble connecting right now. Please try again later or contact us directly at contact@abcstudios.com";
     }
   };
 
-  const handleSendMessage = (e?: React.FormEvent) => {
+  const handleSendMessage = async (e?: React.FormEvent) => {
     e?.preventDefault();
     
     if (!inputValue.trim()) return;
@@ -127,17 +140,28 @@ export function Chatbot({ className }: ChatbotProps) {
     setInputValue("");
     setIsTyping(true);
     
-    setTimeout(() => {
+    try {
+      const aiResponse = await generateAIResponse(userMessage.text);
+      
       const botResponse = {
         id: (Date.now() + 1).toString(),
-        text: generateBotResponse(userMessage.text),
+        text: aiResponse,
         sender: "bot",
         timestamp: new Date(),
       } as Message;
       
       setMessages((prev) => [...prev, botResponse]);
+    } catch (error) {
+      console.error('Error in chat:', error);
+      setMessages((prev) => [...prev, {
+        id: (Date.now() + 1).toString(),
+        text: "I apologize, but I'm having trouble responding right now. Please try again later.",
+        sender: "bot",
+        timestamp: new Date(),
+      }]);
+    } finally {
       setIsTyping(false);
-    }, 1000 + Math.random() * 1000);
+    }
   };
 
   const formatTime = (date: Date) => {
@@ -187,8 +211,11 @@ export function Chatbot({ className }: ChatbotProps) {
               <h2 className="text-lg font-semibold">Chat with ABC Studios</h2>
             </div>
 
-            {/* Messages container */}
-            <div className="h-[60vh] sm:h-96 overflow-y-auto p-4 space-y-4 bg-background">
+            {/* Messages container with ref */}
+            <div 
+              ref={chatContainerRef}
+              className="h-[60vh] sm:h-96 overflow-y-auto p-4 space-y-4 bg-background scroll-smooth"
+            >
               {messages.map((message) => (
                 <motion.div
                   key={message.id}
