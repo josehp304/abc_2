@@ -150,22 +150,9 @@ export default function ContactPage() {
   };
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${darkTheme ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"}`}>
+    <div className="min-h-screen bg-background text-foreground">
       <Toaster position="top-center" />
       
-      {/* Theme Toggle Button */}
-      <motion.button
-        onClick={toggleTheme}
-        className={`fixed top-4 right-4 p-3 rounded-full shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 z-50 ${
-          darkTheme ? "bg-gray-800 text-yellow-300" : "bg-white text-indigo-600"
-        }`}
-        aria-label={darkTheme ? "Switch to light mode" : "Switch to dark mode"}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-      >
-        {darkTheme ? <FaSun size={20} /> : <FaMoon size={20} />}
-      </motion.button>
-
       <motion.div 
         className="container mx-auto px-6 py-16 sm:py-24 max-w-6xl"
         initial="hidden"
@@ -174,13 +161,13 @@ export default function ContactPage() {
       >
         <div className="text-center max-w-3xl mx-auto">
           <motion.h1 
-            className={`text-4xl md:text-5xl font-bold mb-4 ${darkTheme ? "text-white" : "text-indigo-600"} transition-colors duration-300`}
+            className="text-4xl md:text-5xl font-bold mb-4 text-foreground"
             variants={fadeInUp}
           >
             Contact Us
           </motion.h1>
           <motion.p 
-            className={`text-lg ${darkTheme ? "text-gray-300" : "text-gray-600"} mb-16 transition-colors duration-300`}
+            className="text-lg text-muted-foreground mb-16"
             variants={fadeInUp}
           >
             We'd love to hear from you. Fill out the form below and we'll get back to you as soon as possible.
@@ -190,13 +177,11 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
           <motion.div 
-            className={`rounded-xl p-8 shadow-lg transition-all duration-300 ${
-              darkTheme ? "bg-gray-800" : "bg-white"
-            }`}
+            className="rounded-xl p-8 shadow-lg bg-card"
             variants={fadeInUp}
             whileHover={{ y: -5, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}
           >
-            <h2 className={`text-2xl font-semibold mb-6 ${darkTheme ? "text-white" : "text-indigo-600"} transition-colors duration-300`}>Send Us a Message</h2>
+            <h2 className="text-2xl font-semibold mb-6 text-card-foreground">Send Us a Message</h2>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name Field */}
@@ -210,11 +195,9 @@ export default function ContactPage() {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className={`peer w-full p-4 pt-6 rounded-lg border-2 outline-none transition-all duration-200 ${
-                    darkTheme 
-                      ? "bg-gray-700 border-gray-600 text-white focus:border-indigo-400" 
-                      : "bg-gray-50 border-gray-200 text-gray-900 focus:border-indigo-500"
-                  } ${formErrors.name ? (darkTheme ? "border-red-400" : "border-red-500") : ""}`}
+                  className={`peer w-full p-4 pt-6 rounded-lg border-2 outline-none transition-all duration-200 
+                    bg-background text-foreground border-input focus:border-ring
+                    ${formErrors.name ? "border-destructive" : ""}`}
                   placeholder=" "
                 />
                 <label
@@ -222,9 +205,7 @@ export default function ContactPage() {
                   className={`absolute left-4 transition-all duration-200 pointer-events-none 
                     ${formData.name ? "text-xs top-2" : "text-base top-4"} 
                     peer-focus:text-xs peer-focus:top-2 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base
-                    ${darkTheme 
-                      ? "text-gray-300 peer-focus:text-indigo-300" 
-                      : "text-gray-600 peer-focus:text-indigo-600"}`}
+                    text-muted-foreground peer-focus:text-primary`}
                 >
                   Name
                 </label>
@@ -234,7 +215,7 @@ export default function ContactPage() {
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0 }}
-                      className={`mt-1 text-sm ${darkTheme ? "text-red-400" : "text-red-500"}`}
+                      className="mt-1 text-sm text-destructive"
                     >
                       {formErrors.name}
                     </motion.p>
@@ -253,11 +234,9 @@ export default function ContactPage() {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className={`peer w-full p-4 pt-6 rounded-lg border-2 outline-none transition-all duration-200 ${
-                    darkTheme 
-                      ? "bg-gray-700 border-gray-600 text-white focus:border-indigo-400" 
-                      : "bg-gray-50 border-gray-200 text-gray-900 focus:border-indigo-500"
-                  } ${formErrors.email ? (darkTheme ? "border-red-400" : "border-red-500") : ""}`}
+                  className={`peer w-full p-4 pt-6 rounded-lg border-2 outline-none transition-all duration-200 
+                    bg-background text-foreground border-input focus:border-ring
+                    ${formErrors.email ? "border-destructive" : ""}`}
                   placeholder=" "
                 />
                 <label
@@ -265,9 +244,7 @@ export default function ContactPage() {
                   className={`absolute left-4 transition-all duration-200 pointer-events-none 
                     ${formData.email ? "text-xs top-2" : "text-base top-4"} 
                     peer-focus:text-xs peer-focus:top-2 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base
-                    ${darkTheme 
-                      ? "text-gray-300 peer-focus:text-indigo-300" 
-                      : "text-gray-600 peer-focus:text-indigo-600"}`}
+                    text-muted-foreground peer-focus:text-primary`}
                 >
                   Email
                 </label>
@@ -277,7 +254,7 @@ export default function ContactPage() {
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0 }}
-                      className={`mt-1 text-sm ${darkTheme ? "text-red-400" : "text-red-500"}`}
+                      className="mt-1 text-sm text-destructive"
                     >
                       {formErrors.email}
                     </motion.p>
@@ -296,11 +273,9 @@ export default function ContactPage() {
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={5}
-                  className={`peer w-full p-4 pt-6 rounded-lg border-2 outline-none transition-all duration-200 resize-none ${
-                    darkTheme 
-                      ? "bg-gray-700 border-gray-600 text-white focus:border-indigo-400" 
-                      : "bg-gray-50 border-gray-200 text-gray-900 focus:border-indigo-500"
-                  } ${formErrors.message ? (darkTheme ? "border-red-400" : "border-red-500") : ""}`}
+                  className={`peer w-full p-4 pt-6 rounded-lg border-2 outline-none transition-all duration-200 resize-none 
+                    bg-background text-foreground border-input focus:border-ring
+                    ${formErrors.message ? "border-destructive" : ""}`}
                   placeholder=" "
                 ></textarea>
                 <label
@@ -308,9 +283,7 @@ export default function ContactPage() {
                   className={`absolute left-4 transition-all duration-200 pointer-events-none 
                     ${formData.message ? "text-xs top-2" : "text-base top-4"} 
                     peer-focus:text-xs peer-focus:top-2 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base
-                    ${darkTheme 
-                      ? "text-gray-300 peer-focus:text-indigo-300" 
-                      : "text-gray-600 peer-focus:text-indigo-600"}`}
+                    text-muted-foreground peer-focus:text-primary`}
                 >
                   Message
                 </label>
@@ -320,7 +293,7 @@ export default function ContactPage() {
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0 }}
-                      className={`mt-1 text-sm ${darkTheme ? "text-red-400" : "text-red-500"}`}
+                      className="mt-1 text-sm text-destructive"
                     >
                       {formErrors.message}
                     </motion.p>
@@ -332,17 +305,17 @@ export default function ContactPage() {
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full py-4 px-6 rounded-lg font-medium text-white transition-all duration-300 
-                  ${darkTheme ? "bg-indigo-600 hover:bg-indigo-700" : "bg-indigo-600 hover:bg-indigo-700"}
+                className="w-full py-4 px-6 rounded-lg font-medium bg-primary text-primary-foreground
+                  hover:bg-primary/90 transition-all duration-300 
                   disabled:opacity-70 disabled:hover:translate-y-0 disabled:hover:shadow-none
-                  focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-opacity-50`}
+                  focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                 variants={fadeInUp}
                 whileHover={!isSubmitting ? { y: -2, boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' } : {}}
                 whileTap={!isSubmitting ? { y: 0, boxShadow: 'none' } : {}}
               >
                 {isSubmitting ? (
                   <span className="flex items-center justify-center">
-                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-primary-foreground" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
@@ -357,13 +330,11 @@ export default function ContactPage() {
 
           {/* Map Section */}
           <motion.div 
-            className={`rounded-xl shadow-lg overflow-hidden transition-all duration-300 h-[600px] relative ${
-              darkTheme ? "bg-gray-800" : "bg-white"
-            }`}
+            className="rounded-xl shadow-lg overflow-hidden h-[600px] relative bg-card"
             variants={fadeInUp}
             whileHover={{ y: -5, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}
           >
-            <h2 className={`text-2xl font-semibold p-6 ${darkTheme ? "text-white" : "text-indigo-600"} transition-colors duration-300`}>Find Us</h2>
+            <h2 className="text-2xl font-semibold p-6 text-card-foreground">Find Us</h2>
             <div className="h-full w-full relative">
               <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.8997028288364!2d76.72164507489573!3d9.607066290489695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b07ce23bc170053%3A0x8757971e61eb21dd!2sSt.%20Joseph&#39;s%20College%20of%20Engineering%20and%20Technology%2C%20Choondacherry%2C%20Palai%2C%20Kerala%20686579!5e0!3m2!1sen!2sin!4v1710506461619!5m2!1sen!2sin" 
@@ -380,13 +351,11 @@ export default function ContactPage() {
 
           {/* Contact Information */}
           <motion.div 
-            className={`rounded-xl p-8 shadow-lg transition-all duration-300 ${
-              darkTheme ? "bg-gray-800" : "bg-white"
-            }`}
+            className="rounded-xl p-8 shadow-lg bg-card"
             variants={fadeInUp}
             whileHover={{ y: -5, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}
           >
-            <h2 className={`text-2xl font-semibold mb-6 ${darkTheme ? "text-white" : "text-indigo-600"} transition-colors duration-300`}>Contact Information</h2>
+            <h2 className="text-2xl font-semibold mb-6 text-card-foreground">Contact Information</h2>
             
             <motion.div 
               className="space-y-6"
@@ -400,7 +369,7 @@ export default function ContactPage() {
                 whileHover={{ x: 5 }}
               >
                 <motion.div 
-                  className={`mt-1 flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full ${darkTheme ? "bg-indigo-900" : "bg-indigo-100"}`}
+                  className="mt-1 flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-primary/10"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                 >
@@ -409,8 +378,8 @@ export default function ContactPage() {
                   </svg>
                 </motion.div>
                 <div>
-                  <h3 className={`text-lg font-medium ${darkTheme ? "text-gray-200" : "text-gray-800"} transition-colors duration-300`}>Phone</h3>
-                  <p className={`mt-1 ${darkTheme ? "text-gray-400" : "text-gray-600"} transition-colors duration-300`}>+91 (484) 246-1930</p>
+                  <h3 className="text-lg font-medium text-card-foreground">Phone</h3>
+                  <p className="mt-1 text-muted-foreground">+91 (484) 246-1930</p>
                 </div>
               </motion.div>
 
@@ -420,7 +389,7 @@ export default function ContactPage() {
                 whileHover={{ x: 5 }}
               >
                 <motion.div 
-                  className={`mt-1 flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full ${darkTheme ? "bg-indigo-900" : "bg-indigo-100"}`}
+                  className="mt-1 flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-primary/10"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                 >
@@ -429,8 +398,8 @@ export default function ContactPage() {
                   </svg>
                 </motion.div>
                 <div>
-                  <h3 className={`text-lg font-medium ${darkTheme ? "text-gray-200" : "text-gray-800"} transition-colors duration-300`}>Email</h3>
-                  <p className={`mt-1 ${darkTheme ? "text-gray-400" : "text-gray-600"} transition-colors duration-300`}>contact@abcstudios.com</p>
+                  <h3 className="text-lg font-medium text-card-foreground">Email</h3>
+                  <p className="mt-1 text-muted-foreground">contact@abcstudios.com</p>
                 </div>
               </motion.div>
 
@@ -440,7 +409,7 @@ export default function ContactPage() {
                 whileHover={{ x: 5 }}
               >
                 <motion.div 
-                  className={`mt-1 flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full ${darkTheme ? "bg-indigo-900" : "bg-indigo-100"}`}
+                  className="mt-1 flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-primary/10"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                 >
@@ -450,8 +419,8 @@ export default function ContactPage() {
                   </svg>
                 </motion.div>
                 <div>
-                  <h3 className={`text-lg font-medium ${darkTheme ? "text-gray-200" : "text-gray-800"} transition-colors duration-300`}>Address</h3>
-                  <p className={`mt-1 ${darkTheme ? "text-gray-400" : "text-gray-600"} transition-colors duration-300`}>
+                  <h3 className="text-lg font-medium text-card-foreground">Address</h3>
+                  <p className="mt-1 text-muted-foreground">
                     St Joseph's College of Engineering and Technology,<br />
                     Choondacherry, Palai, Kottayam,<br />
                     Kerala, India - 686579
@@ -463,13 +432,11 @@ export default function ContactPage() {
 
           {/* Business Hours */}
           <motion.div 
-            className={`rounded-xl p-8 shadow-lg transition-all duration-300 ${
-              darkTheme ? "bg-gray-800" : "bg-white"
-            }`}
+            className="rounded-xl p-8 shadow-lg bg-card"
             variants={fadeInUp}
             whileHover={{ y: -5, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}
           >
-            <h2 className={`text-2xl font-semibold mb-6 ${darkTheme ? "text-white" : "text-indigo-600"} transition-colors duration-300`}>Business Hours</h2>
+            <h2 className="text-2xl font-semibold mb-6 text-card-foreground">Business Hours</h2>
             
             <motion.div 
               className="space-y-4"
@@ -482,8 +449,8 @@ export default function ContactPage() {
                 variants={fadeInUp}
                 whileHover={{ x: 5 }}
               >
-                <span className={`${darkTheme ? "text-gray-300" : "text-gray-700"} transition-colors duration-300`}>Monday - Friday</span>
-                <span className={`font-medium ${darkTheme ? "text-gray-200" : "text-gray-900"} transition-colors duration-300`}>9:00 AM - 6:00 PM</span>
+                <span className="text-muted-foreground">Monday - Friday</span>
+                <span className="font-medium text-card-foreground">9:00 AM - 6:00 PM</span>
               </motion.div>
               
               <motion.div 
@@ -491,8 +458,8 @@ export default function ContactPage() {
                 variants={fadeInUp}
                 whileHover={{ x: 5 }}
               >
-                <span className={`${darkTheme ? "text-gray-300" : "text-gray-700"} transition-colors duration-300`}>Saturday</span>
-                <span className={`font-medium ${darkTheme ? "text-gray-200" : "text-gray-900"} transition-colors duration-300`}>10:00 AM - 4:00 PM</span>
+                <span className="text-muted-foreground">Saturday</span>
+                <span className="font-medium text-card-foreground">10:00 AM - 4:00 PM</span>
               </motion.div>
               
               <motion.div 
@@ -500,8 +467,8 @@ export default function ContactPage() {
                 variants={fadeInUp}
                 whileHover={{ x: 5 }}
               >
-                <span className={`${darkTheme ? "text-gray-300" : "text-gray-700"} transition-colors duration-300`}>Sunday</span>
-                <span className={`font-medium ${darkTheme ? "text-gray-200" : "text-gray-900"} transition-colors duration-300`}>Closed</span>
+                <span className="text-muted-foreground">Sunday</span>
+                <span className="font-medium text-card-foreground">Closed</span>
               </motion.div>
             </motion.div>
           </motion.div>
