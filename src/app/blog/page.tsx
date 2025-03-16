@@ -2,14 +2,21 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaSun, FaMoon, FaSearch, FaTimes } from "react-icons/fa";
+import { FaSun, FaMoon, FaSearch, FaTimes, FaPlus } from "react-icons/fa";
 import Image from "next/image";
 import Head from "next/head";
 import toast, { Toaster } from "react-hot-toast";
+import { BskyAgent, RichText } from '@atproto/api';
 
+// Initialize Bluesky agent with environment variables
+const agent = new BskyAgent({
+  service: 'https://bsky.social',
+  persistSession: (evt, sess) => {
+    // Handle session persistence if needed
+  },
+});
 
-
-
+// Login will be performed when creating a post
 
 interface BlogPost {
   id: string;
@@ -162,6 +169,16 @@ export default function BlogPage() {
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [newPost, setNewPost] = useState({
+    title: "",
+    excerpt: "",
+    content: "",
+    category: "Design",
+    tags: "",
+    imageUrl: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=2000&q=80",
+  });
 
   useEffect(() => {
     // Check for saved theme preference
@@ -269,12 +286,258 @@ export default function BlogPage() {
     toast.success("Back to top", { icon: "⬆️" });
   };
 
+  const handleCreatePost = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    try {
+      // Generate a unique ID for the new post
+      const newId = (blogPosts.length + 1).toString();
+      const currentDate = new Date();
+      const formattedDate = `${currentDate.toLocaleString('default', { month: 'short' })} ${currentDate.getDate()}, ${currentDate.getFullYear()}`;
+      
+      // Calculate read time (rough estimate: 200 words per minute)
+      const wordCount = newPost.content?.split(/\s+/).length || 0;
+      const readTime = Math.max(1, Math.ceil(wordCount / 200));
+      
+      // Create the new blog post
+      const createdPost: BlogPost = {
+        id: newId,
+        title: newPost.title,
+        excerpt: newPost.excerpt,
+        content: newPost.content,
+        category: newPost.category,
+        date: formattedDate,
+        readTime: `${readTime} min read`,
+        imageUrl: newPost.imageUrl,
+        author: {
+          name: "Admin",
+          avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
+        },
+        tags: newPost.tags.split(',').map(tag => tag.trim()),
+      };
+      
+      // Add to Bluesky if credentials are available
+      await postToBluesky(createdPost);
+      
+      // In a real app, you would save this to a database
+      // For now, we'll just add it to our local state
+      blogPosts.unshift(createdPost);
+      
+      // Reset form and close modal
+      setNewPost({
+        title: "",
+        excerpt: "",
+        content: "",
+        category: "Design",
+        tags: "",
+        imageUrl: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=2000&q=80",
+      });
+      setShowCreateModal(false);
+      
+      toast.success("Post created successfully!");
+    } catch (error) {
+      console.error("Error creating post:", error);
+      toast.error("Failed to create post. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+  
+  const postToBluesky = async (post: BlogPost) => {
+    try {
+      // Login to Bluesky
+      await agent.login({
+        identifier: 'handle.example.com', // Replace with your Bluesky handle
+        password: process.env.BLUESKY_APP_PASSWORD || '',
+      });
+      
+      // Create rich text for the post
+      const text = `${post.title}\n\n${post.excerpt}\n\nRead more at ABC Studios Blog`;
+      const rt = new RichText({text});
+      await rt.detectFacets(agent);
+      
+      // Create the post on Bluesky
+      await agent.post({
+        text: rt.text,
+        facets: rt.facets,
+      });
+      
+      console.log("Posted to Bluesky successfully");
+    } catch (error) {
+      console.error("Error posting to Bluesky:", error);
+      // Don't throw the error - we still want to create the local post
+    }
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setNewPost(prev => ({ ...prev, [name]: value }));
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       <Head>
         <title>Blog - ABC Studios</title>
       </Head>
       <Toaster position="bottom-right" />
+
+      {/* Create Post Modal */}
+      <AnimatePresence>
+        {showCreateModal && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowCreateModal(false)}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl max-h-[90vh] bg-white dark:bg-gray-800 rounded-xl shadow-2xl z-50 p-6 overflow-y-auto"
+            >
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Create New Blog Post</h2>
+                <button
+                  onClick={() => setShowCreateModal(false)}
+                  className="p-2 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 transition-colors"
+                  aria-label="Close modal"
+                >
+                  <FaTimes className="w-5 h-5" />
+                </button>
+              </div>
+              
+              <form onSubmit={handleCreatePost} className="space-y-6">
+                <div>
+                  <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Title *
+                  </label>
+                  <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    required
+                    value={newPost.title}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="excerpt" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Excerpt *
+                  </label>
+                  <input
+                    type="text"
+                    id="excerpt"
+                    name="excerpt"
+                    required
+                    value={newPost.excerpt}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="content" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Content *
+                  </label>
+                  <textarea
+                    id="content"
+                    name="content"
+                    required
+                    rows={10}
+                    value={newPost.content}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  />
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="category" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      Category *
+                    </label>
+                    <select
+                      id="category"
+                      name="category"
+                      required
+                      value={newPost.category}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    >
+                      {categories.filter(cat => cat !== "All").map((category) => (
+                        <option key={category} value={category}>{category}</option>
+                      ))}
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="tags" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                      Tags (comma separated)
+                    </label>
+                    <input
+                      type="text"
+                      id="tags"
+                      name="tags"
+                      value={newPost.tags}
+                      onChange={handleInputChange}
+                      placeholder="e.g. Design, UI/UX, Trends"
+                      className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+                
+                <div>
+                  <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    Image URL
+                  </label>
+                  <input
+                    type="url"
+                    id="imageUrl"
+                    name="imageUrl"
+                    value={newPost.imageUrl}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  />
+                </div>
+                
+                <div className="flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() => setShowCreateModal(false)}
+                    className="px-6 py-2 mr-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="px-6 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition-colors disabled:opacity-70 flex items-center"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Creating...
+                      </>
+                    ) : (
+                      'Create Post'
+                    )}
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* Blog Post Modal */}
       <AnimatePresence>
@@ -516,6 +779,19 @@ export default function BlogPage() {
             </div>
           </div>
         </section>
+
+        {/* Create Post Button */}
+        <div className="fixed bottom-6 right-6 z-10">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setShowCreateModal(true)}
+            className="p-4 rounded-full bg-purple-600 text-white shadow-lg hover:bg-purple-700 transition-colors flex items-center justify-center"
+            aria-label="Create new post"
+          >
+            <FaPlus className="w-6 h-6" />
+          </motion.button>
+        </div>
 
         {/* Featured Posts Section */}
         {featuredPosts.length > 0 && searchQuery === "" && selectedCategory === "All" && (

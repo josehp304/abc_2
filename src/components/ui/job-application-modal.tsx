@@ -47,6 +47,7 @@ export default function JobApplicationModal({
         .from('joinus')
         .insert([
           {
+            job_title: jobTitle,
             name: formData.name,
             email: formData.email,
             phoneNo: formData.phoneNo,

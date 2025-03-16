@@ -3,6 +3,8 @@
 import { createClient } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 // Initialize Supabase client
 const supabase = createClient(
@@ -35,6 +37,7 @@ export default function AdminPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'contacts' | 'jobs'>('contacts');
+  const router = useRouter();
 
   useEffect(() => {
     fetchData();
@@ -101,6 +104,13 @@ export default function AdminPage() {
     return date.toLocaleString();
   };
 
+  const handleLogout = () => {
+    // Remove the authentication cookie
+    Cookies.remove('admin_authenticated');
+    // Redirect to login page
+    router.push('/login');
+  };
+
   return (
     <div className="min-h-screen bg-background p-8 pt-[100px]">
       <motion.div
@@ -110,12 +120,20 @@ export default function AdminPage() {
       >
         <div className="flex items-center justify-between">
           <h1 className="text-4xl font-bold text-foreground">Admin Dashboard</h1>
-          <button 
-            onClick={fetchData}
-            className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
-          >
-            Refresh
-          </button>
+          <div className="flex gap-2">
+            <button 
+              onClick={fetchData}
+              className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+            >
+              Refresh
+            </button>
+            <button 
+              onClick={handleLogout}
+              className="px-4 py-2 bg-destructive text-destructive-foreground rounded-lg hover:bg-destructive/90 transition-colors"
+            >
+              Logout
+            </button>
+          </div>
         </div>
 
         {/* Tab Navigation */}
