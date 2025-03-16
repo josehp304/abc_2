@@ -208,7 +208,7 @@ export function Chatbot({ className }: ChatbotProps) {
           >
             {/* Chat header */}
             <div className="bg-primary text-primary-foreground p-4">
-              <h2 className="text-lg font-semibold">Chat with ABC Studios</h2>
+              <h2 className="text-lg font-semibold">Chat with Gooners Studios</h2>
             </div>
 
             {/* Messages container with ref */}
