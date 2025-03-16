@@ -393,7 +393,7 @@ export default function ContactPage() {
             <h2 className="text-2xl font-semibold p-6 text-card-foreground">Find Us</h2>
             <div className="h-full w-full relative">
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.8997028288364!2d76.72164507489573!3d9.607066290489695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b07ce23bc170053%3A0x8757971e61eb21dd!2sSt.%20Joseph&#39;s%20College%20of%20Engineering%20and%20Technology%2C%20Choondacherry%2C%20Palai%2C%20Kerala%20686579!5e0!3m2!1sen!2sin!4v1710506461619!5m2!1sen!2sin" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3932.46233985586!2d76.7235198753563!3d9.726846690365052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b07cc024cb7c83f%3A0xc8944aaebb3ba492!2sSt.%20Joseph&#39;s%20College%20of%20Engineering%20and%20Technology%2C%20Palai!5e0!3m2!1sen!2sin!4v1742109164791!5m2!1sen!2sin" 
                 width="100%" 
                 height="100%" 
                 style={{ border: 0 }} 

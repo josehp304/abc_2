@@ -4,6 +4,9 @@ import { FaVideo, FaCamera, FaBullhorn, FaCalendarCheck, FaGamepad } from 'react
 import { motion, useInView } from 'framer-motion';
 import { ReactNode, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import ThemeToggle from "@/components/theme-toggle";
+import { GridCard } from "@/components/ui/grid-card";
 
 interface ServiceFeature {
   id: number;
@@ -109,45 +112,47 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
   const router = useRouter();
 
   return (
-    <motion.div
-      onClick={() => router.push(`/services${service.url}`)}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.2 }}
-      className="group relative bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-[1.02] cursor-pointer"
-    >
-      <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-15 transition-opacity duration-300`} />
-      
-      <div className="p-8">
-        <div className="flex flex-col items-center text-center mb-8">
-          <div className={`p-4 rounded-full bg-gradient-to-br ${service.gradient} shadow-lg mb-6 transform group-hover:scale-110 transition-transform duration-300 hover:rotate-3`}>
-            {service.icon}
-          </div>
-          <h3 className="text-3xl font-bold mt-4 mb-3 text-gray-800 dark:text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-pink-600 transition-all duration-300">
-            {service.title}
-          </h3>
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-            {service.description}
-          </p>
-        </div>
+    <GridCard>
+      <motion.div
+        onClick={() => router.push(`/services${service.url}`)}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.2 }}
+        className="group relative bg-card dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-[1.02] cursor-pointer"
+      >
+        <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-15 transition-opacity duration-300`} />
         
-        <ul className="space-y-4">
-          {service.features.map((feature: string, idx: number) => (
-            <motion.li
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3 + (idx * 0.1) }}
-              key={idx}
-              className="flex items-center text-gray-700 dark:text-gray-300 group-hover:transform group-hover:translate-x-2 transition-transform duration-200"
-            >
-              <span className={`w-2 h-2 rounded-full ${service.dotColor} mr-3 group-hover:scale-150 transition-transform duration-200`}></span>
-              {feature}
-            </motion.li>
-          ))}
-        </ul>
-      </div>
-    </motion.div>
+        <div className="p-8">
+          <div className="flex flex-col items-center text-center mb-8">
+            <div className={`p-4 rounded-full bg-gradient-to-br ${service.gradient} shadow-lg mb-6 transform group-hover:scale-110 transition-transform duration-300 hover:rotate-3`}>
+              {service.icon}
+            </div>
+            <h3 className="text-3xl font-bold mt-4 mb-3 text-card-foreground dark:text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-pink-600 transition-all duration-300">
+              {service.title}
+            </h3>
+            <p className="text-lg text-muted-foreground dark:text-gray-300 mb-6 leading-relaxed">
+              {service.description}
+            </p>
+          </div>
+          
+          <ul className="space-y-4">
+            {service.features.map((feature: string, idx: number) => (
+              <motion.li
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 + (idx * 0.1) }}
+                key={idx}
+                className="flex items-center text-muted-foreground dark:text-gray-300 group-hover:transform group-hover:translate-x-2 transition-transform duration-200"
+              >
+                <span className={`w-2 h-2 rounded-full ${service.dotColor} mr-3 group-hover:scale-150 transition-transform duration-200`}></span>
+                {feature}
+              </motion.li>
+            ))}
+          </ul>
+        </div>
+      </motion.div>
+    </GridCard>
   );
 };
 
@@ -162,25 +167,41 @@ export default function ServicesPage() {
   const isHeaderInView = useInView(headerRef, { once: true, amount: 0.1 });
 
   return (
-    <div className="relative min-h-screen bg-gray-900 overflow-hidden">
-      {/* Background elements */}
-      <div className="fixed inset-0 opacity-20" />
+    <div className="relative min-h-screen bg-background text-foreground">
+      <ThemeToggle />
       
-      {/* Floating particles */}
-      <div className="fixed inset-0 pointer-events-none">
-        {Array.from({ length: 20 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-2 h-2 bg-violet-500/30 rounded-full animate-float"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${5 + Math.random() * 10}s`
-            }}
+      {/* Hero Section */}
+      <section className="relative h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=80"
+            alt="Our Services"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
           />
-        ))}
-      </div>
+          <div className="absolute inset-0 bg-primary/90" />
+        </div>
+        <div className="relative container mx-auto px-4 text-center">
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 text-primary-foreground"
+          >
+            Our Services
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto px-4 text-primary-foreground"
+          >
+            Comprehensive solutions tailored to elevate your digital presence and event experiences
+          </motion.p>
+        </div>
+      </section>
 
       {/* Main content */}
       <div className="relative z-10">
@@ -202,22 +223,20 @@ export default function ServicesPage() {
               animate={isHeaderInView ? "visible" : "hidden"}
               transition={{ duration: 0.6 }}
             >
-              <span className="text-sm font-semibold text-violet-400 tracking-wider uppercase mb-4 block animate-pulse neon-text">
+              <span className="text-sm font-semibold text-primary tracking-wider uppercase mb-4 block">
                 What We Offer
               </span>
-              <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-500 to-cyan-400 animate-gradient-xy">
-                Our Services
-              </h1>
-              <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                Comprehensive solutions tailored to elevate your digital presence and event experiences
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary via-violet-500 to-primary">
+                Explore Our Services
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                Discover how we can help transform your ideas into reality
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative">
               {services.map((service, index) => (
-                <div key={service.id} className="relative z-30">
-                  <ServiceCard service={service} index={index} />
-                </div>
+                <ServiceCard key={service.id} service={service} index={index} />
               ))}
             </div>
           </div>
