@@ -34,13 +34,7 @@ const Projects: React.FC = () => {
             designation: "Video production",
             src: "/images/bc.png",
           },
-             {
-            quote:
-              "",
-            name: "",
-            designation: "",
-            src: "/images/.jpg",
-          },
+      
 
       ]
 

@@ -5,18 +5,22 @@ import { useRouter } from "next/navigation";
 import { FaSun, FaMoon } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
+import {supabase, testConnection} from '../superbaseinit.js'
+
 
 export default function ContactPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phoneNo: "",
     message: "",
   });
   const [darkTheme, setDarkTheme] = useState(false);
   const [formErrors, setFormErrors] = useState({
     name: "",
     email: "",
+    phoneNo: "",
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,6 +35,7 @@ export default function ContactPage() {
       setDarkTheme(false);
       document.documentElement.classList.remove("dark");
     }
+    testConnection()
   }, []);
 
   // Toggle theme
@@ -78,6 +83,14 @@ export default function ContactPage() {
       valid = false;
     }
 
+    if (!formData.phoneNo.trim()) {
+      newErrors.phoneNo = "Phone number is required";
+      valid = false;
+    } else if (!/^\d{10}$/.test(formData.phoneNo)) {
+      newErrors.phoneNo = "Please enter a valid 10-digit phone number";
+      valid = false;
+    }
+
     if (!formData.message.trim()) {
       newErrors.message = "Message is required";
       valid = false;
@@ -109,11 +122,15 @@ export default function ContactPage() {
           secondary: '#fff',
         },
       });
-      
+      const {error}=await supabase.from('contactus').insert({name:formData.name,phoneNo:formData.phoneNo,email:formData.email,message:formData.message})
+     if(error){
+      console.log(error)
+     }
       // Reset form
       setFormData({
         name: "",
         email: "",
+        phoneNo: "",
         message: "",
       });
     } catch (error) {
@@ -257,6 +274,45 @@ export default function ContactPage() {
                       className="mt-1 text-sm text-destructive"
                     >
                       {formErrors.email}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+
+              {/* Phone Number Field */}
+              <motion.div 
+                className="relative"
+                variants={fadeInUp}
+              >
+                <input
+                  type="tel"
+                  id="phoneNo"
+                  name="phoneNo"
+                  value={formData.phoneNo}
+                  onChange={handleInputChange}
+                  className={`peer w-full p-4 pt-6 rounded-lg border-2 outline-none transition-all duration-200 
+                    bg-background text-foreground border-input focus:border-ring
+                    ${formErrors.phoneNo ? "border-destructive" : ""}`}
+                  placeholder=" "
+                />
+                <label
+                  htmlFor="phoneNo"
+                  className={`absolute left-4 transition-all duration-200 pointer-events-none 
+                    ${formData.phoneNo ? "text-xs top-2" : "text-base top-4"} 
+                    peer-focus:text-xs peer-focus:top-2 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base
+                    text-muted-foreground peer-focus:text-primary`}
+                >
+                  Phone Number
+                </label>
+                <AnimatePresence>
+                  {formErrors.phoneNo && (
+                    <motion.p 
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      className="mt-1 text-sm text-destructive"
+                    >
+                      {formErrors.phoneNo}
                     </motion.p>
                   )}
                 </AnimatePresence>
