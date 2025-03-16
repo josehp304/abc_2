@@ -17,7 +17,6 @@ export default function JoinUsPage() {
     phone: "",
     position: "",
     message: "",
-    resume: null as File | null,
   });
 
   // Animation variants
@@ -181,11 +180,6 @@ export default function JoinUsPage() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    setFormData(prev => ({ ...prev, resume: file }));
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Add your form submission logic here
@@ -197,7 +191,6 @@ export default function JoinUsPage() {
       phone: "",
       position: "",
       message: "",
-      resume: null,
     });
   };
 

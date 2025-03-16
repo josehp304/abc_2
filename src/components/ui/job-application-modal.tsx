@@ -23,18 +23,12 @@ export default function JobApplicationModal({
     phone: "",
     message: "",
   });
-  const [resume, setResume] = useState<File | null>(null);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    setResume(file);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -44,9 +38,6 @@ export default function JobApplicationModal({
     Object.entries(formData).forEach(([key, value]) => {
       formDataToSubmit.append(key, value);
     });
-    if (resume) {
-      formDataToSubmit.append("resume", resume);
-    }
     onSubmit(formDataToSubmit);
     onClose();
   };
@@ -132,21 +123,6 @@ export default function JobApplicationModal({
                   </div>
 
                   <div>
-                    <label htmlFor="resume" className="block text-sm font-medium text-foreground mb-1">
-                      Resume/CV *
-                    </label>
-                    <input
-                      type="file"
-                      id="resume"
-                      name="resume"
-                      required
-                      accept=".pdf,.doc,.docx"
-                      onChange={handleFileChange}
-                      className="w-full px-4 py-2 rounded-lg bg-background text-foreground border border-border focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
-                  </div>
-
-                  <div>
                     <label htmlFor="message" className="block text-sm font-medium text-foreground mb-1">
                       Cover Letter
                     </label>
@@ -157,6 +133,7 @@ export default function JobApplicationModal({
                       value={formData.message}
                       onChange={handleInputChange}
                       className="w-full px-4 py-2 rounded-lg bg-background text-foreground border border-border focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+                      placeholder="Tell us why you'd be a great fit for this position..."
                     />
                   </div>
 
