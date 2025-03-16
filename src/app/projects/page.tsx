@@ -100,7 +100,7 @@ const Projects: React.FC = () => {
         {
             title: "Ignite Esports Tournament: Fueling Community Engagement",
             overview: "A comprehensive esports tournament management solution",
-            description: "ABC Studios partnered with Ignite Gaming to orchestrate a multi-day esports tournament that captivated gaming enthusiasts. We managed every aspect, from registration and logistics to broadcasting thrilling matches via live streaming. Our targeted digital marketing campaign drove record-breaking viewership and participation.",
+            description: "Gooners Studio partnered with Ignite Gaming to orchestrate a multi-day esports tournament that captivated gaming enthusiasts. We managed every aspect, from registration and logistics to broadcasting thrilling matches via live streaming. Our targeted digital marketing campaign drove record-breaking viewership and participation.",
             keyAchievement: "Achieved a 300% increase in online viewership compared to the previous year's tournament",
             services: ["Esports Services", "Event Management", "Live Streaming", "Digital Marketing"],
             image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
@@ -108,7 +108,7 @@ const Projects: React.FC = () => {
         {
             title: "Elevate Conference: Hybrid Event Excellence",
             overview: "Transforming a traditional conference into a seamless hybrid experience",
-            description: "ABC Studios was entrusted with transforming a major industry conference into a high-impact hybrid event. We handled the AV production, live streaming to a global audience, and created engaging video content. Our team ensured both in-person and virtual attendees had an exceptional experience.",
+            description: "Gooners Studio was entrusted with transforming a major industry conference into a high-impact hybrid event. We handled the AV production, live streaming to a global audience, and created engaging video content. Our team ensured both in-person and virtual attendees had an exceptional experience.",
             keyAchievement: "Successfully engaged over 5,000 virtual attendees, expanding the event's reach by 60%",
             services: ["Event Management", "Live Streaming", "Media Production"],
             image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2012&q=80"
@@ -116,10 +116,58 @@ const Projects: React.FC = () => {
         {
             title: "Bloom Cosmetics: Captivating Product Launch Campaign",
             overview: "Crafting a digital marketing strategy and video content for a product launch",
-            description: "ABC Studios partnered with Bloom Cosmetics to launch their new line of organic skincare products. We produced a series of visually stunning videos and developed a targeted social media campaign to generate buzz. By leveraging influencer marketing, we created high-impact content that resonated with their target audience.",
+            description: "Gooners Studio partnered with Bloom Cosmetics to launch their new line of organic skincare products. We produced a series of visually stunning videos and developed a targeted social media campaign to generate buzz. By leveraging influencer marketing, we created high-impact content that resonated with their target audience.",
             keyAchievement: "Achieved a 40% increase in product sales within the first month of the campaign",
             services: ["Media Production", "Digital Marketing", "Content Creation"],
             image: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1965&q=80"
+        },
+        {
+            title: "TechVision Summit: Global Tech Conference",
+            overview: "Organizing a premier technology conference with industry leaders",
+            description: "Gooners Studio conceptualized and executed the TechVision Summit, bringing together tech innovators, entrepreneurs, and thought leaders from around the world. We managed everything from venue selection and speaker coordination to technical production and digital engagement strategies.",
+            keyAchievement: "Attracted over 2,000 in-person attendees and 15,000 virtual participants from 45 countries",
+            services: ["Event Management", "Technical Production", "Digital Strategy", "Content Creation"],
+            image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+        },
+        {
+            title: "Nexus Gaming Platform: UI/UX Redesign",
+            overview: "Revitalizing a gaming platform with modern user experience design",
+            description: "Gooners Studio collaborated with Nexus Gaming to completely redesign their digital platform. Our team conducted extensive user research, created intuitive navigation systems, and implemented a visually striking interface that significantly enhanced user engagement and retention.",
+            keyAchievement: "Increased user session duration by 45% and reduced bounce rate by 30% within three months of launch",
+            services: ["UI/UX Design", "User Research", "Web Development", "Analytics"],
+            image: "https://images.unsplash.com/photo-1616588589676-62b3bd4ff6d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1932&q=80"
+        },
+        {
+            title: "Velocity Sports: Brand Identity Overhaul",
+            overview: "Creating a dynamic new brand identity for a sports apparel company",
+            description: "Velocity Sports approached Gooners Studio for a complete brand refresh. We developed a comprehensive brand strategy, designed a bold new visual identity, and created guidelines for consistent implementation across all touchpoints, from packaging to digital presence.",
+            keyAchievement: "Brand recognition increased by 65% among target demographic within six months",
+            services: ["Brand Strategy", "Visual Identity", "Packaging Design", "Brand Guidelines"],
+            image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+        },
+        {
+            title: "EcoSphere: Environmental Documentary Series",
+            overview: "Producing a compelling documentary series on environmental conservation",
+            description: "Gooners Studio conceptualized and produced EcoSphere, a five-part documentary series highlighting critical environmental issues and innovative solutions. Our team traveled to multiple locations worldwide, capturing stunning footage and powerful stories that inspired viewers to take action.",
+            keyAchievement: "Series was picked up by a major streaming platform and viewed by over 3 million people globally",
+            services: ["Video Production", "Storytelling", "Cinematography", "Post-Production"],
+            image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+        },
+        {
+            title: "Pulse Music Festival: Immersive Experience Design",
+            overview: "Creating an unforgettable multi-sensory music festival experience",
+            description: "For the Pulse Music Festival, Gooners Studio designed immersive installations that transformed the venue into an interactive wonderland. We integrated projection mapping, responsive lighting systems, and interactive digital elements that responded to the music and crowd energy.",
+            keyAchievement: "Festival hashtag generated over 2 million social media impressions with 98% positive sentiment",
+            services: ["Experience Design", "Projection Mapping", "Interactive Installations", "Technical Direction"],
+            image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+        },
+        {
+            title: "FinTech Revolution: Educational Content Series",
+            overview: "Developing accessible educational content about financial technology",
+            description: "Gooners Studio partnered with a leading financial institution to create an educational content series demystifying fintech concepts for everyday consumers. We produced animated explainer videos, interactive infographics, and engaging social media content that simplified complex topics.",
+            keyAchievement: "Content series reached over 5 million viewers and increased the client's customer acquisition by 25%",
+            services: ["Content Strategy", "Animation", "Educational Design", "Social Media"],
+            image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
         }
     ];
 
@@ -159,7 +207,7 @@ const Projects: React.FC = () => {
             id: 6,
             title: "Content Creation Session",
             category: "Production",
-            src: "https://images.unsplash.com/photo-1574717024453-354056afd6fc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+            src: "https://media.istockphoto.com/id/2151451946/photo/two-joyful-women-hosting-a-live-podcast-session.jpg?s=1024x1024&w=is&k=20&c=1HehYBoReWfBQiCwLzhPdYKJIKYDemQvRWDjrYRLZJA=",
         },
         {
             id: 7,
@@ -278,7 +326,7 @@ const Projects: React.FC = () => {
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.5, duration: 0.7 }}
                         >
-                            Since our inception, ABC Studio has evolved from a small creative team to a powerhouse of digital innovation. 
+                            Since our inception, Gooners Studio has evolved from a small creative team to a powerhouse of digital innovation. 
                             Our projects showcase our commitment to excellence, pushing boundaries, and delivering exceptional results 
                             that exceed client expectations. Each project represents our journey of growth and our passion for creating 
                             impactful digital experiences.
