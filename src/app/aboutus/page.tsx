@@ -177,40 +177,40 @@ export default function AboutPage() {
   // Team members data with updated roles for a creative studio
   const teamMembers = [
     { 
-      name: "Arjun Mehta", 
-      role: "Creative Director", 
-      bio: "Visionary artist with a passion for groundbreaking digital experiences.", 
-      image: "/images/8878659.jpg", 
+      name: "Iman Gandzi", 
+      role: "Shopify digital marketing head", 
+      bio: "Our best employee who helped multiple clients to become millionair", 
+      image: "/images/iman.jpg", 
       social: [
         { url: "https://www.linkedin.com", icon: <FaLinkedin size={18} /> },
         { url: "https://www.behance.net", icon: <FaBehance size={18} /> }
       ]
     },
     { 
-      name: "Priya Sharma", 
-      role: "Art Director", 
-      bio: "Award-winning designer crafting visual stories that captivate and inspire.", 
-      image: "/images/8878659.jpg", 
+      name: "Andrew", 
+      role: "Director", 
+      bio: "Directed Award-winning filims like matrix .", 
+      image: "/images/andrew.jpg", 
       social: [
         { url: "https://www.linkedin.com", icon: <FaLinkedin size={18} /> },
         { url: "https://www.behance.net", icon: <FaBehance size={18} /> }
       ]
     },
     { 
-      name: "Rohan Iyer", 
-      role: "Technical Lead", 
-      bio: "Innovation maestro bringing creative concepts to life through technology.", 
-      image: "/images/8878659.jpg", 
+      name: "Tfue", 
+      role: "Fortnight & streaming coach", 
+      bio: "washed fortnight player", 
+      image: "/images/tfue.jpg", 
       social: [
         { url: "https://www.linkedin.com", icon: <FaLinkedin size={18} /> },
         { url: "https://www.github.com", icon: <FaGithub size={18} /> }
       ]
     },
     { 
-      name: "Zara Kapoor", 
-      role: "Production Head", 
-      bio: "Master storyteller orchestrating seamless creative productions.", 
-      image: "/images/8878659.jpg", 
+      name: "Abebayo", 
+      role: "content generation head", 
+      bio: "nigerian prince.", 
+      image: "/images/randomnig.jpeg", 
       social: [
         { url: "https://www.linkedin.com", icon: <FaLinkedin size={18} /> },
         { url: "https://www.behance.net", icon: <FaBehance size={18} /> }
@@ -357,7 +357,7 @@ export default function AboutPage() {
         <HeroVideoDialog  className="z-[1000] max-w-[600px]"
         animationStyle="from-center"
         videoSrc="https://www.youtube.com/embed/xvFZjo5PgG0?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=1&loop=1&playlist=xvFZjo5PgG0"
-        thumbnailSrc="/images/8878659.jpg"
+        thumbnailSrc="/images/tn.jpg"
         thumbnailAlt="Hero Video" />
          
       </section>

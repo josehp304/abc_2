@@ -163,10 +163,10 @@ export default function ServicesPage() {
 
   return (
     <div className="relative min-h-screen bg-gray-900 overflow-hidden">
-      {/* Animated background elements */}
-      <div className="fixed inset-0  opacity-20" />
+      {/* Background elements */}
+      <div className="fixed inset-0 opacity-20" />
       
-      {/* Floating particles effect */}
+      {/* Floating particles */}
       <div className="fixed inset-0 pointer-events-none">
         {Array.from({ length: 20 }).map((_, i) => (
           <div
@@ -213,9 +213,11 @@ export default function ServicesPage() {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-20">
               {services.map((service, index) => (
-                <ServiceCard key={service.id} service={service} index={index} />
+                <div key={service.id} className="relative z-30">
+                  <ServiceCard service={service} index={index} />
+                </div>
               ))}
             </div>
           </div>

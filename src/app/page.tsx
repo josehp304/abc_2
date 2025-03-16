@@ -34,7 +34,7 @@ const App: React.FC = () => {
       title: "Become a professional gamer",
       description: "High-quality streaming solutions for events of any scale."
     },
-    {url:"/images/sp.png",
+    {url:"/images/shopify.jpg",
       title:"Wanna see results like this?",
       description:"With our digital marketing services, you'll be able to crake the algorithm."
     },
@@ -65,7 +65,7 @@ const App: React.FC = () => {
       icon: "fa-chart-line",
       description: "Strategic campaigns that drive results",
       image:
-        "/images/dm2.jpg",
+        "/images/dm2.png",
     },
     {
       title: "Event Management",
@@ -86,7 +86,7 @@ const App: React.FC = () => {
       icon: "fa-gamepad",
       description: "Complete tournament and league solutions",
       image:
-        "/images/ep.jpg",
+        "/images/ep.png",
     },
   ];
 
