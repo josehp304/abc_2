@@ -385,7 +385,7 @@ export default function AboutPage() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 {/* Year Circle */}
-                <div className="z-10 w-16 h-16 rounded-full flex items-center justify-center bg-primary text-foreground font-bold shadow-lg mb-4 md:mb-0">
+                <div className="z-10 w-16 h-16 rounded-full flex items-center justify-center bg-primary text-white-500 font-bold shadow-lg mb-4 md:mb-0 ">
                   {event.year}
                 </div>
                 
