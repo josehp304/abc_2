@@ -75,7 +75,7 @@ const tournaments: Tournament[] = [
     prizePool: "₹5,00,000",
     maxTeams: 32,
     currentRegistrations: 24,
-    gameImage: "/valorant-banner.jpg",
+    gameImage: "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     requirements: ["5 players + 1 substitute", "Minimum rank: Immortal", "Discord required", "Valid ID proof"]
   },
   {
@@ -89,7 +89,7 @@ const tournaments: Tournament[] = [
     prizePool: "₹3,00,000",
     maxTeams: 64,
     currentRegistrations: 45,
-    gameImage: "/bgmi-banner.jpg",
+    gameImage: "https://images.unsplash.com/photo-1614294148960-9aa740b3a120?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     requirements: ["4 players + 1 substitute", "Minimum tier: Crown", "Working microphone", "Stable internet"]
   },
   {
@@ -103,7 +103,7 @@ const tournaments: Tournament[] = [
     prizePool: "₹1,50,000",
     maxTeams: 128,
     currentRegistrations: 86,
-    gameImage: "/fifa24-banner.jpg",
+    gameImage: "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     requirements: ["Individual participation", "Own FIFA 24 copy", "PS5/Xbox Series X", "PSN/Xbox Live subscription"]
   },
   {
@@ -117,7 +117,7 @@ const tournaments: Tournament[] = [
     prizePool: "₹75,000",
     maxTeams: 32,
     currentRegistrations: 28,
-    gameImage: "/rocket-league-banner.jpg",
+    gameImage: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     requirements: ["3 players per team", "Minimum rank: Champion", "Discord required"]
   },
   {
@@ -131,7 +131,7 @@ const tournaments: Tournament[] = [
     prizePool: "₹8,00,000",
     maxTeams: 16,
     currentRegistrations: 12,
-    gameImage: "/cs2-banner.jpg",
+    gameImage: "https://images.unsplash.com/photo-1576240436533-1a04f258e560?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     requirements: ["5 players + 1 coach", "Minimum rank: Global Elite", "Anti-cheat compliance", "Team uniforms"]
   },
   {
@@ -145,7 +145,7 @@ const tournaments: Tournament[] = [
     prizePool: "₹10,00,000",
     maxTeams: 16,
     currentRegistrations: 14,
-    gameImage: "/dota2-banner.jpg",
+    gameImage: "https://images.unsplash.com/photo-1542751110-97427bbecf20?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     requirements: ["5 players + 1 substitute", "Minimum MMR: 6000", "Team organization registration", "Valid passports"]
   },
   {
@@ -159,7 +159,7 @@ const tournaments: Tournament[] = [
     prizePool: "₹7,00,000",
     maxTeams: 32,
     currentRegistrations: 28,
-    gameImage: "/lol-banner.jpg",
+    gameImage: "https://images.unsplash.com/photo-1542751371-6533a4095f9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     requirements: ["5 players + 2 substitutes", "Minimum rank: Diamond", "Team logo submission", "Age 16+"]
   },
   {
@@ -173,7 +173,7 @@ const tournaments: Tournament[] = [
     prizePool: "₹4,00,000",
     maxTeams: 24,
     currentRegistrations: 18,
-    gameImage: "/overwatch2-banner.jpg",
+    gameImage: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     requirements: ["6 players + 2 substitutes", "Minimum rank: Masters", "Discord required"]
   },
   {
@@ -187,7 +187,7 @@ const tournaments: Tournament[] = [
     prizePool: "₹2,50,000",
     maxTeams: 40,
     currentRegistrations: 35,
-    gameImage: "/apex-banner.jpg",
+    gameImage: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     requirements: ["3 players + 1 substitute", "Minimum rank: Diamond", "Webcam required"]
   },
   {
@@ -201,7 +201,7 @@ const tournaments: Tournament[] = [
     prizePool: "₹1,00,000",
     maxTeams: 64,
     currentRegistrations: 42,
-    gameImage: "/sf6-banner.jpg",
+    gameImage: "https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     requirements: ["Individual participation", "Own controller/fight stick", "Age 15+"]
   }
 ];

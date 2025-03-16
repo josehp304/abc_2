@@ -86,19 +86,19 @@ const successStories = [
     client: "TechStart Inc.",
     results: "500% increase in organic traffic",
     description: "Comprehensive SEO and content strategy transformed their online presence.",
-    image: "/case-studies/tech-start.jpg"
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
   },
   {
     client: "Fashion Brand Co.",
     results: "3x social media engagement",
     description: "Strategic social media campaigns drove massive audience growth.",
-    image: "/case-studies/fashion-brand.jpg"
+    image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
   },
   {
     client: "Service Pro",
     results: "45% increase in leads",
     description: "Integrated digital marketing approach boosted lead generation.",
-    image: "/case-studies/service-pro.jpg"
+    image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
   }
 ];
 
