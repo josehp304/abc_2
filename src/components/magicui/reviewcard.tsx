@@ -1,9 +1,10 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import React from "react";
+import React, { useState } from "react";
 import { FaStar, FaStarHalf, FaMapMarkerAlt } from "react-icons/fa";
 import { motion } from "framer-motion";
+import TestimonialModal from "./testimonial-modal";
 
 interface ReviewCardProps {
   img: string;
@@ -15,7 +16,10 @@ interface ReviewCardProps {
   rating: number;
 }
 
-const ReviewCard = ({ img, name, username, role, location, body, rating }: ReviewCardProps) => {
+const ReviewCard = (review: ReviewCardProps) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { img, name, username, role, location, rating } = review;
+
   const renderStars = (rating: number) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -44,66 +48,55 @@ const ReviewCard = ({ img, name, username, role, location, body, rating }: Revie
   };
 
   return (
-    <motion.figure
-      whileHover={{ scale: 1.02 }}
-      className={cn(
-        "relative h-full w-72 cursor-pointer overflow-hidden rounded-xl p-6",
-        "bg-gradient-to-br from-card/50 via-card/30 to-card/50 text-card-foreground backdrop-blur-sm",
-        "border border-border/20 shadow-lg hover:shadow-xl",
-        "transition-all duration-300"
-      )}
-    >
-      <div className="flex flex-row items-center gap-4">
-        <motion.div 
-          whileHover={{ scale: 1.1 }}
-          className="overflow-hidden rounded-full bg-muted/50 p-0.5 ring-1 ring-border/10"
-        >
-          <img
-            className="h-10 w-10 rounded-full object-cover"
-            src={img}
-            alt={name}
-          />
-        </motion.div>
-        <div className="flex flex-col gap-0.5">
-          <motion.figcaption 
-            whileHover={{ scale: 1.05 }}
-            className="text-sm font-semibold text-foreground"
-          >
-            {name}
-          </motion.figcaption>
-          <p className="text-xs text-muted-foreground/80">{username}</p>
-          <motion.p 
-            whileHover={{ scale: 1.05 }}
-            className="text-xs font-medium text-primary/80"
-          >
-            {role}
-          </motion.p>
-        </div>
-      </div>
-      
-      <div className="mt-2 flex items-center justify-between">
-        <motion.div 
-          whileHover={{ scale: 1.05 }}
-          className="flex items-center gap-1"
-        >
-          {renderStars(rating)}
-        </motion.div>
-        <motion.div 
-          whileHover={{ scale: 1.05 }}
-          className="flex items-center gap-1 text-xs text-muted-foreground/70"
-        >
-          <FaMapMarkerAlt className="h-3 w-3" />
-          <span>{location}</span>
-        </motion.div>
-      </div>
-
-      <motion.blockquote 
-        whileHover={{ scale: 1.01 }}
-        className="mt-4 text-sm text-muted-foreground/90 leading-relaxed"
+    <>
+      <motion.div
+        className={cn(
+          "w-64 cursor-pointer rounded-xl p-6",
+          "bg-gradient-to-br from-card/50 via-card/30 to-card/50",
+          "border border-border/20 shadow-lg hover:shadow-xl",
+          "transition-all duration-300"
+        )}
+        onClick={() => setIsModalOpen(true)}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
       >
-        {body}
-      </motion.blockquote>
-    </motion.figure>
+        <div className="flex flex-col items-center gap-4">
+          <motion.div 
+            className="w-20 h-20 overflow-hidden rounded-full bg-muted/50 p-0.5 ring-2 ring-border/10"
+            whileHover={{ scale: 1.05 }}
+          >
+            <img
+              className="w-full h-full rounded-full object-cover"
+              src={img}
+              alt={name}
+            />
+          </motion.div>
+          
+          <div className="text-center space-y-2">
+            <h3 className="text-lg font-semibold text-foreground">{name}</h3>
+            <p className="text-sm text-muted-foreground/80">{username}</p>
+            <p className="text-sm font-medium text-primary/80">{role}</p>
+            <div className="flex items-center justify-center gap-1">
+              {renderStars(rating)}
+            </div>
+            <div className="flex items-center justify-center gap-1 text-xs text-muted-foreground/70">
+              <FaMapMarkerAlt className="h-3 w-3" />
+              <span>{location}</span>
+            </div>
+          </div>
+
+          <p className="text-xs text-muted-foreground/60">
+            Click to read review
+          </p>
+        </div>
+      </motion.div>
+
+      <TestimonialModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        review={review}
+      />
+    </>
   );
 };
 
