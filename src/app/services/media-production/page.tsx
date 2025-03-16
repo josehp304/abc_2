@@ -47,7 +47,7 @@ const services = [
       "Training Videos"
     ],
     icon: <FaVideo className="w-6 h-6" />,
-    image: "/media/videography.jpg"
+    image: "https://images.unsplash.com/photo-1579632652768-6cb9dcf85912?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
   },
   {
     category: "Photography",
@@ -59,7 +59,7 @@ const services = [
       "Fashion Photography"
     ],
     icon: <FaCamera className="w-6 h-6" />,
-    image: "/media/photography.jpg"
+    image: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
   },
   {
     category: "Post-Production",
@@ -71,7 +71,7 @@ const services = [
       "Visual Effects"
     ],
     icon: <FaMagic className="w-6 h-6" />,
-    image: "/media/post-production.jpg"
+    image: "https://images.unsplash.com/photo-1535016120720-40c646be5580?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
   },
   {
     category: "Live Production",
@@ -83,7 +83,7 @@ const services = [
       "Event Broadcasting"
     ],
     icon: <FaPhotoVideo className="w-6 h-6" />,
-    image: "/media/live-production.jpg"
+    image: "https://images.unsplash.com/photo-1505673542670-a5e3ff5b14a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
   }
 ];
 
@@ -119,21 +119,21 @@ const portfolio = [
     title: "Brand Commercial",
     client: "TechCorp International",
     description: "A cinematic commercial showcasing product innovation",
-    image: "/portfolio/commercial.jpg",
+    image: "https://images.unsplash.com/photo-1523395175685-d5f3f4f88f3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     metrics: "2M+ views across platforms"
   },
   {
     title: "Corporate Event",
     client: "Global Summit 2024",
     description: "Complete event coverage and highlight reel",
-    image: "/portfolio/event.jpg",
+    image: "https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     metrics: "Live streamed to 50K+ viewers"
   },
   {
     title: "Product Launch",
     client: "NextGen Devices",
     description: "Product showcase with stunning visuals",
-    image: "/portfolio/product.jpg",
+    image: "https://images.unsplash.com/photo-1603574670812-d24560880210?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     metrics: "300% increase in product interest"
   }
 ];
@@ -144,14 +144,14 @@ const testimonials = [
     role: "Marketing Director",
     company: "TechCorp",
     quote: "ABC Studios transformed our vision into reality with exceptional quality.",
-    image: "/testimonials/client1.jpg"
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
   },
   {
     name: "Michael Chen",
     role: "Event Manager",
     company: "Global Events",
     quote: "Their attention to detail and creativity exceeded our expectations.",
-    image: "/testimonials/client2.jpg"
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
   }
 ];
 
