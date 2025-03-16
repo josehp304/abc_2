@@ -43,6 +43,15 @@ Yes, for creative roles like graphic design, web design, or branding, a portfoli
 *7. Is remote work an option at Gooners Studio?*  
 Some positions at Gooners Studio may offer remote work options. The details regarding remote work availability will be specified in the job listing on the [Join Us p
 
+
+*8. How long does the hiring process take?*  
+The hiring process varies depending on the role and the number of applications. After submitting your application, you will be contacted by our HR team if we wish to proceed with an interview.
+
+*9. Will I be notified if I am not selected for a job?*  
+Yes, we strive to notify all candidates about the status of their application. If you are not selected, we encourage you to check back for future opportunities.
+
+*10. Can I contact Gooners Studio for more information about a job listing?*  
+Yes, if you have any specific questions about a job listing, feel free to reach out through our [Contact page](https://abc-2-omega.vercel.app/contact), and we’ll be happy to assist you.
 Key information:
 - Business hours: Mon-Fri 9am-6pm, Sat 10am-4pm, Closed on Sundays
 - Contact: contact@abcstudios.com, +91 (484) 246-1930
