@@ -4,44 +4,35 @@ import { useState, useEffect } from "react";
 import { FaSun, FaMoon } from "react-icons/fa";
 
 export default function ThemeToggle() {
-  const [darkTheme, setDarkTheme] = useState<boolean>(() => {
-    // Initialize from localStorage if available, otherwise use system preference
-    if (typeof window !== 'undefined') {
-      const savedTheme = localStorage.getItem("theme");
-      if (savedTheme !== null) {
-        return savedTheme === "dark";
-      }
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-    return false;
-  });
+  const [darkTheme, setDarkTheme] = useState<boolean | null>(null);
 
   // Theme toggle handler
   const toggleTheme = () => {
     setDarkTheme(prev => {
       const newTheme = !prev;
-      if (typeof window !== 'undefined') {
-        // Save to localStorage
-        localStorage.setItem("theme", newTheme ? "dark" : "light");
-        // Update document class
-        document.documentElement.classList.toggle("dark", newTheme);
-      }
+      localStorage.setItem("theme", newTheme ? "dark" : "light");
+      document.documentElement.classList.toggle("dark", newTheme);
       return newTheme;
     });
   };
 
   // Initialize theme on mount and handle system theme changes
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    // Apply initial theme
-    document.documentElement.classList.toggle("dark", darkTheme);
+    // Get user's preference from localStorage or system
+    const savedTheme = localStorage.getItem("theme");
+    const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    
+    // If user has a saved preference, use that
+    // Otherwise, use system preference
+    const isDark = savedTheme ? savedTheme === "dark" : systemDark;
+    setDarkTheme(isDark);
+    document.documentElement.classList.toggle("dark", isDark);
 
     // Listen for system theme changes
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const handleChange = (e: MediaQueryListEvent) => {
+      // Only update if user hasn't set a preference
       if (!localStorage.getItem("theme")) {
-        // Only update if user hasn't set a preference
         setDarkTheme(e.matches);
         document.documentElement.classList.toggle("dark", e.matches);
       }
@@ -50,6 +41,9 @@ export default function ThemeToggle() {
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
+
+  // Don't render until we know the theme
+  if (darkTheme === null) return null;
 
   return (
     <button
