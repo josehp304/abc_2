@@ -15,7 +15,6 @@ export default function JoinUsPage() {
     name: "",
     email: "",
     phone: "",
-    position: "",
     message: "",
   });
 
@@ -182,14 +181,12 @@ export default function JoinUsPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Add your form submission logic here
     console.log("Form submitted:", formData);
     // Reset form after submission
     setFormData({
       name: "",
       email: "",
       phone: "",
-      position: "",
       message: "",
     });
   };
