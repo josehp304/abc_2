@@ -8,6 +8,7 @@ import Image from 'next/image'
 import ThemeToggle from "@/components/theme-toggle";
 import { Marquee } from "@/components/magicui/marquee";
 import ReviewCard from "@/components/magicui/reviewcard";
+import TestimonialCarousel from "@/components/magicui/testimonial-carousel";
 
 
 
@@ -96,43 +97,61 @@ const App: React.FC = () => {
     { number: "200+", label: "Tournaments Hosted" },
   ];
 
-  const reviews = [
+  const reviews = [ 
     {
-      name: "Jack",
-      username: "@jack",
-      body: "I've never seen anything like this before. It's amazing. I love it.",
+      name: "Jack Thompson",
+      username: "@jackthompson",
+      role: "Professional Streamer",
+      location: "Los Angeles, CA",
+      body: "ABC Studios revolutionized my streaming career. Their custom overlay designs and stream optimization increased my viewer retention by 40%. The technical support team is available 24/7 and really understands what streamers need.",
       img: "https://avatar.vercel.sh/jack",
+      rating: 5
     },
     {
-      name: "Jill",
-      username: "@jill",
-      body: "I don't know what to say. I'm speechless. This is amazing.",
+      name: "Jill Martinez",
+      username: "@jillmartinez",
+      role: "Esports Team Manager",
+      location: "New York, NY",
+      body: "Managing a top-tier esports team requires flawless production. ABC Studios delivered beyond expectations, handling our tournament streams with zero technical issues. Their instant replay system and multi-camera setups are game-changers.",
       img: "https://avatar.vercel.sh/jill",
+      rating: 5
     },
     {
-      name: "John",
-      username: "@john",
-      body: "I'm at a loss for words. This is amazing. I love it.",
+      name: "John Chen",
+      username: "@johnchen",
+      role: "Content Creator",
+      location: "Toronto, Canada",
+      body: "Their SEO and content strategy transformed my YouTube channel. Within 6 months, my subscriber count went from 50K to 500K. Their data-driven approach to content optimization really works.",
       img: "https://avatar.vercel.sh/john",
+      rating: 4
     },
     {
-      name: "Jane",
-      username: "@jane",
-      body: "I'm at a loss for words. This is amazing. I love it.",
+      name: "Jane Wilson",
+      username: "@janewilson",
+      role: "Event Coordinator",
+      location: "London, UK",
+      body: "Coordinated a 3-day gaming festival with ABC Studios. They handled everything from stage design to live streaming. The AR integration for audience participation was brilliant. 10,000+ attendees and not a single technical hiccup.",
       img: "https://avatar.vercel.sh/jane",
+      rating: 5
     },
     {
-      name: "Jenny",
-      username: "@jenny",
-      body: "I'm at a loss for words. This is amazing. I love it.",
+      name: "Jenny Kim",
+      username: "@jennykim",
+      role: "Gaming Influencer",
+      location: "Seoul, South Korea",
+      body: "As a bilingual streamer, I needed a team that could handle multi-language broadcasts. ABC Studios set up a seamless system for real-time translations and region-specific content delivery. My international audience grew by 200%.",
       img: "https://avatar.vercel.sh/jenny",
+      rating: 4
     },
     {
-      name: "James",
-      username: "@james",
-      body: "I'm at a loss for words. This is amazing. I love it.",
+      name: "James Rodriguez",
+      username: "@jamesrod",
+      role: "Tournament Organizer",
+      location: "Madrid, Spain",
+      body: "Organized the largest LATAM esports tournament with ABC Studios. Their production team handled 6 simultaneous game streams, real-time stats integration, and player cams flawlessly. The viewing experience was on par with major league broadcasts.",
       img: "https://avatar.vercel.sh/james",
-    },
+      rating: 5
+    }
   ];
 
   useEffect(() => {
@@ -265,7 +284,7 @@ const App: React.FC = () => {
       </div>
 
   
-       <section className="container relative mx-auto px-6 py-16 sm:py-24 overflow:hidden">
+       <section className="container relative mx-auto px-6 py-16 sm:py-24 overflow-hidden">
         <div className="relative">
           <div className="absolute inset-0 flex items-center" aria-hidden="true">
             <div className="w-full border-t border-border/10"></div>
@@ -281,21 +300,10 @@ const App: React.FC = () => {
           What Our Users Say
         </h2>
         <p className="text-lg text-muted-foreground text-center mb-16 max-w-2xl mx-auto">
-          Hear from our community about their experiences with ABC Studios
+          Hear from our global community about their experiences with ABC Studios
         </p>
         
-        <div className="relative flex w-full flex-col items-center justify-center gap-8">
-          <Marquee className="[--gap:2rem] [--duration:40s] py-4" pauseOnHover>
-            {firstRow.map((review) => (
-              <ReviewCard key={review.username} {...review} />
-            ))}
-          </Marquee>
-          <Marquee className="[--gap:2rem] [--duration:40s] py-4" pauseOnHover reverse>
-            {secondRow.map((review) => (
-              <ReviewCard key={review.username} {...review} />
-            ))}
-          </Marquee>
-        </div>
+        <TestimonialCarousel reviews={reviews} />
       </section>
     <div className="h-[100px]"></div>
     </div>
