@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTimes } from "react-icons/fa";
+import { createClient } from '@supabase/supabase-js'
 
 interface JobApplicationModalProps {
   isOpen: boolean;
@@ -10,6 +11,12 @@ interface JobApplicationModalProps {
   jobTitle: string;
   onSubmit: (formData: FormData) => void;
 }
+
+// Initialize Supabase client
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
 
 export default function JobApplicationModal({
   isOpen,
@@ -20,10 +27,9 @@ export default function JobApplicationModal({
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
+    phoneNo: "",
     message: "",
   });
-  const [resume, setResume] = useState<File | null>(null);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -32,23 +38,31 @@ export default function JobApplicationModal({
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    setResume(file);
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const formDataToSubmit = new FormData();
-    formDataToSubmit.append("jobTitle", jobTitle);
-    Object.entries(formData).forEach(([key, value]) => {
-      formDataToSubmit.append(key, value);
-    });
-    if (resume) {
-      formDataToSubmit.append("resume", resume);
+    
+    try {
+      // Insert data into Supabase
+      const { error } = await supabase
+        .from('joinus')
+        .insert([
+          {
+            name: formData.name,
+            email: formData.email,
+            phoneNo: formData.phoneNo,
+            message: formData.message,
+          }
+        ]);
+
+      if (error) throw error;
+
+      // Clear form and close modal
+      setFormData({ name: "", email: "", phoneNo: "", message: "" });
+      onClose();
+    } catch (error) {
+      console.error('Error submitting application:', error);
+      // Handle error (you might want to show a toast notification here)
     }
-    onSubmit(formDataToSubmit);
-    onClose();
   };
 
   return (
@@ -117,31 +131,16 @@ export default function JobApplicationModal({
                   </div>
 
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-1">
+                    <label htmlFor="phoneNo" className="block text-sm font-medium text-foreground mb-1">
                       Phone Number *
                     </label>
                     <input
                       type="tel"
-                      id="phone"
-                      name="phone"
+                      id="phoneNo"
+                      name="phoneNo"
                       required
-                      value={formData.phone}
+                      value={formData.phoneNo}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 rounded-lg bg-background text-foreground border border-border focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="resume" className="block text-sm font-medium text-foreground mb-1">
-                      Resume/CV *
-                    </label>
-                    <input
-                      type="file"
-                      id="resume"
-                      name="resume"
-                      required
-                      accept=".pdf,.doc,.docx"
-                      onChange={handleFileChange}
                       className="w-full px-4 py-2 rounded-lg bg-background text-foreground border border-border focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
@@ -157,6 +156,7 @@ export default function JobApplicationModal({
                       value={formData.message}
                       onChange={handleInputChange}
                       className="w-full px-4 py-2 rounded-lg bg-background text-foreground border border-border focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+                      placeholder="Tell us why you'd be a great fit for this position..."
                     />
                   </div>
 

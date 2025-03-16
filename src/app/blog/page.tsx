@@ -7,6 +7,10 @@ import Image from "next/image";
 import Head from "next/head";
 import toast, { Toaster } from "react-hot-toast";
 
+
+
+
+
 interface BlogPost {
   id: string;
   title: string;
@@ -181,6 +185,8 @@ export default function BlogPage() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+
+
   }, []);
 
   useEffect(() => {
