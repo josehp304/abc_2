@@ -1,10 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FaVideo, FaUsers, FaComments, FaCog, FaCheck, FaQuestionCircle } from 'react-icons/fa';
+import { FaVideo, FaUsers, FaComments, FaCog, FaCheck, FaQuestionCircle, FaArrowRight } from 'react-icons/fa';
 import { useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import ThemeToggle from "@/components/theme-toggle";
+import { GridCard } from "@/components/ui/grid-card";
+import Link from 'next/link';
 
 const features = [
   {
@@ -97,213 +100,240 @@ export default function LiveStreamingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const router = useRouter();
 
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gray-900">
-      {/* Hero Section - Updated for better mobile responsiveness */}
-      <div className="relative min-h-[100vh] md:h-screen">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-50"
-        >
-          <source src="/videos/streaming-bg.mp4" type="video/mp4" />
-        </video>
-        
-        <div className="relative z-10 h-full flex items-center justify-center p-4 md:p-8">
-          <div className="text-center max-w-4xl mx-auto">
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white"
+    <div className="relative min-h-screen bg-background text-foreground">
+      <ThemeToggle />
+      
+      {/* Hero Section */}
+      <section className="relative h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1576085898323-218337e3e43c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+            alt="Live Streaming"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-primary/90" />
+        </div>
+        <div className="relative container mx-auto px-4 text-center">
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 text-primary-foreground"
+          >
+            Live Streaming Solutions
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto px-4 text-primary-foreground"
+          >
+            Professional-grade streaming solutions for virtual and hybrid events, delivering exceptional quality and engagement.
+          </motion.p>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 bg-card">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <motion.div 
+            className="text-center mb-16"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
+            <motion.h2 
+              variants={fadeInUp}
+              className="text-3xl md:text-4xl font-bold mb-4 text-card-foreground"
             >
-              Seamless Live Streaming
-              <br className="hidden sm:block" />
-              for Every Event
-            </motion.h1>
+              Why Choose Our Streaming Service?
+            </motion.h2>
             <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto px-4"
+              variants={fadeInUp}
+              className="text-lg text-muted-foreground max-w-2xl mx-auto"
             >
-              Professional-grade streaming solutions for virtual and hybrid events,
-              delivering exceptional quality and engagement.
+              Experience the difference with our professional streaming solutions
             </motion.p>
-            <motion.button
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              onClick={() => router.push('/contact')}
-              className="group px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full text-base sm:text-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105"
-            >
-              <span className="flex items-center justify-center">
-                Book a Consultation
-                <svg 
-                  className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-200" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </span>
-            </motion.button>
-          </div>
-        </div>
-      </div>
+          </motion.div>
 
-      {/* Features Section - Updated for better mobile layout */}
-      <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <motion.h2 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-3xl sm:text-4xl font-bold text-center mb-12 md:mb-16 text-white"
-          >
-            Why Choose Our Streaming Service?
-          </motion.h2>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl border border-gray-700 hover:border-purple-500/50 transition-all duration-300 hover:transform hover:scale-[1.02]"
-              >
-                <div className={`w-16 h-16 rounded-lg bg-gradient-to-r ${feature.gradient} flex items-center justify-center mb-4 group-hover:transform group-hover:scale-110 transition-transform duration-300`}>
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-2">{feature.title}</h3>
-                <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300">{feature.description}</p>
-              </motion.div>
+              <GridCard key={index}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="p-6 h-full"
+                >
+                  <div className={`w-16 h-16 rounded-lg bg-gradient-to-r ${feature.gradient} flex items-center justify-center mb-4 transform transition-transform duration-300 hover:scale-110`}>
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold text-card-foreground mb-2">{feature.title}</h3>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </motion.div>
+              </GridCard>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Process Section - Updated for better spacing on mobile */}
-      <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gray-800/30">
-        <div className="max-w-7xl mx-auto">
-          <motion.h2 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+      {/* Process Section */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <motion.div 
+            className="text-center mb-16"
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
-            className="text-3xl sm:text-4xl font-bold text-center mb-12 md:mb-16 text-white"
+            variants={staggerContainer}
           >
-            How It Works
-          </motion.h2>
+            <motion.h2 
+              variants={fadeInUp}
+              className="text-3xl md:text-4xl font-bold mb-4 text-foreground"
+            >
+              Our Process
+            </motion.h2>
+            <motion.p 
+              variants={fadeInUp}
+              className="text-lg text-muted-foreground max-w-2xl mx-auto"
+            >
+              A streamlined approach to deliver exceptional streaming experiences
+            </motion.p>
+          </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {process.map((step, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="relative group"
-              >
-                <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl border border-gray-700 hover:border-purple-500/50 transition-all duration-300 hover:transform hover:scale-[1.02]">
-                  <div className="text-4xl sm:text-5xl font-bold text-purple-500 mb-4 group-hover:text-purple-400 transition-colors duration-300">{step.step}</div>
-                  <h3 className="text-xl font-semibold text-white mb-2">{step.title}</h3>
-                  <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300">{step.description}</p>
-                </div>
-                {index < process.length - 1 && (
-                  <div className="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-purple-500/50" />
-                )}
-              </motion.div>
+              <GridCard key={index}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="p-6 h-full relative"
+                >
+                  <div className="text-4xl font-bold text-primary mb-4">{step.step}</div>
+                  <h3 className="text-xl font-semibold text-card-foreground mb-2">{step.title}</h3>
+                  <p className="text-muted-foreground">{step.description}</p>
+                  {index < process.length - 1 && (
+                    <div className="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-primary/50" />
+                  )}
+                </motion.div>
+              </GridCard>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonials Section - Updated for better mobile view */}
-      <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <motion.h2 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+      {/* FAQ Section */}
+      <section className="py-20 bg-card">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <motion.div 
+            className="text-center mb-16"
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
-            className="text-3xl sm:text-4xl font-bold text-center mb-12 md:mb-16 text-white"
+            variants={staggerContainer}
           >
-            Success Stories
-          </motion.h2>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl border border-gray-700 hover:border-purple-500/50 transition-all duration-300 hover:transform hover:scale-[1.02]"
-              >
-                <div className="relative h-40 sm:h-48 mb-6 rounded-lg overflow-hidden">
-                  <Image
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    fill
-                    className="object-cover transform group-hover:scale-110 transition-transform duration-500"
-                  />
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-2">{testimonial.name}</h3>
-                <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300">{testimonial.quote}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section - Updated for better mobile interaction */}
-      <section className="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gray-800/30">
-        <div className="max-w-4xl mx-auto">
-          <motion.h2 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-3xl sm:text-4xl font-bold text-center mb-12 md:mb-16 text-white"
-          >
-            Frequently Asked Questions
-          </motion.h2>
+            <motion.h2 
+              variants={fadeInUp}
+              className="text-3xl md:text-4xl font-bold mb-4 text-card-foreground"
+            >
+              Frequently Asked Questions
+            </motion.h2>
+            <motion.p 
+              variants={fadeInUp}
+              className="text-lg text-muted-foreground"
+            >
+              Find answers to common questions about our streaming services
+            </motion.p>
+          </motion.div>
 
           <div className="space-y-4">
             {faqs.map((faq, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-gray-800/50 backdrop-blur-sm rounded-xl border border-gray-700 overflow-hidden hover:border-purple-500/50 transition-all duration-300"
-              >
-                <button
+              <GridCard key={index}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="p-6"
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                  className="w-full px-4 sm:px-6 py-4 text-left flex items-center justify-between text-white hover:bg-gray-700/50 transition-colors duration-300"
                 >
-                  <span className="font-semibold pr-4">{faq.question}</span>
-                  <FaQuestionCircle className={`transform transition-transform duration-300 ${openFaq === index ? 'rotate-180' : ''}`} />
-                </button>
-                {openFaq === index && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="px-4 sm:px-6 pb-4 text-gray-400"
-                  >
-                    {faq.answer}
-                  </motion.div>
-                )}
-              </motion.div>
+                  <div className="flex justify-between items-center cursor-pointer">
+                    <h3 className="text-lg font-semibold text-card-foreground">{faq.question}</h3>
+                    <FaQuestionCircle className={`text-primary transition-transform duration-300 ${openFaq === index ? 'rotate-180' : ''}`} />
+                  </div>
+                  {openFaq === index && (
+                    <motion.p
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="mt-4 text-muted-foreground"
+                    >
+                      {faq.answer}
+                    </motion.p>
+                  )}
+                </motion.div>
+              </GridCard>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <motion.div 
+            className="bg-gradient-to-r from-primary/20 to-accent/20 rounded-2xl p-10 md:p-16 text-center relative overflow-hidden"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <motion.h2 
+              className="text-3xl md:text-4xl font-bold mb-6 text-foreground"
+              variants={fadeInUp}
+            >
+              Ready to Start Streaming?
+            </motion.h2>
+            <motion.p 
+              className="text-lg md:text-xl mb-8 text-muted-foreground max-w-2xl mx-auto"
+              variants={fadeInUp}
+            >
+              Let's create an exceptional streaming experience for your audience
+            </motion.p>
+            <motion.div variants={fadeInUp}>
+              <Link href="/contactus">
+                <button className="px-8 py-3 bg-primary text-primary-foreground rounded-full font-medium hover:bg-primary/90 transition-colors duration-300 shadow-lg">
+                  Get Started
+                </button>
+              </Link>
+            </motion.div>
+
+            {/* Decorative Elements */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
+          </motion.div>
         </div>
       </section>
     </div>

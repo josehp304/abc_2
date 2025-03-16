@@ -1,11 +1,14 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaGamepad, FaTrophy, FaTwitch, FaUsers, FaTimes, FaCalendar, FaClock, FaRupeeSign, FaMinus, FaPlus } from 'react-icons/fa';
+import { FaGamepad, FaTrophy, FaTwitch, FaUsers, FaTimes, FaCalendar, FaClock, FaRupeeSign, FaMinus, FaPlus, FaCheck } from 'react-icons/fa';
 import Image from 'next/image';
 import { useState, useRef, ReactNode } from 'react';
 import { SiTwitch as SiTwitchIcon, SiYoutubegaming, SiEpicgames } from 'react-icons/si';
 import { GiTrophyCup, GiGamepadCross } from 'react-icons/gi';
+import ThemeToggle from "@/components/theme-toggle";
+import { GridCard } from "@/components/ui/grid-card";
+import Link from 'next/link';
 
 interface Tournament {
   id: number;
@@ -203,6 +206,33 @@ const tournaments: Tournament[] = [
   }
 ];
 
+const features = [
+  {
+    title: "Professional Tournaments",
+    description: "Compete in high-stakes tournaments with substantial prize pools",
+    icon: <GiTrophyCup className="w-8 h-8 text-white" />,
+    gradient: "from-purple-600 to-indigo-600"
+  },
+  {
+    title: "Live Streaming",
+    description: "Professional broadcasting of all matches on major platforms",
+    icon: <SiTwitchIcon className="w-8 h-8 text-white" />,
+    gradient: "from-blue-600 to-cyan-600"
+  },
+  {
+    title: "Community Events",
+    description: "Regular community tournaments and gaming events",
+    icon: <FaUsers className="w-8 h-8 text-white" />,
+    gradient: "from-green-600 to-teal-600"
+  },
+  {
+    title: "Gaming Support",
+    description: "Technical support and gaming infrastructure",
+    icon: <GiGamepadCross className="w-8 h-8 text-white" />,
+    gradient: "from-red-600 to-pink-600"
+  }
+];
+
 export default function EsportsPage() {
   const [selectedTournament, setSelectedTournament] = useState<Tournament | null>(null);
   const tournamentsRef = useRef<HTMLDivElement>(null);
@@ -216,6 +246,21 @@ export default function EsportsPage() {
     phone: '',
     agreeToTerms: false
   });
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
 
   const scrollToTournaments = () => {
     tournamentsRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -244,454 +289,360 @@ export default function EsportsPage() {
   };
 
   return (
-    <div className="min-h-screen relative bg-gray-900">
-      {/* Video Background */}
-      <video
-        autoPlay
-        loop
-        muted
-        className="fixed inset-0 w-full h-full object-cover z-0 opacity-20"
-      >
-        <source src="/gaming-background.mp4" type="video/mp4" />
-      </video>
-
-      {/* Content */}
-      <div className="relative z-10">
-        {/* Introduction Hero Section */}
-        <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-center max-w-5xl mx-auto"
-            >
-              <h1 className="text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-500 to-purple-500">
-                Welcome to the Future of Gaming
-              </h1>
-              <p className="text-2xl text-gray-300 mb-12 leading-relaxed">
-                Where passion meets competition in the digital arena
-              </p>
-              <motion.button
-                onClick={scrollToTournaments}
-                className="px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-violet-600 to-fuchsia-600 rounded-full hover:shadow-neon transition-all duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Explore Tournaments
-              </motion.button>
-            </motion.div>
-          </div>
+    <div className="relative min-h-screen bg-background text-foreground">
+      <ThemeToggle />
+      
+      {/* Hero Section */}
+      <section className="relative h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+            alt="Esports Gaming"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-primary/90" />
         </div>
+        <div className="relative container mx-auto px-4 text-center">
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 text-primary-foreground"
+          >
+            Esports & Gaming Excellence
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto px-4 text-primary-foreground"
+          >
+            Professional esports tournaments and gaming events that elevate competitive gaming
+          </motion.p>
+        </div>
+      </section>
 
-        {/* Statistics Section */}
-        <div className="bg-gray-800/50 backdrop-blur-sm py-20">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {statistics.map((stat, index) => (
+      {/* Statistics Section */}
+      <section className="py-20 bg-card">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <motion.div 
+            className="text-center mb-16"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
+            <motion.h2 
+              variants={fadeInUp}
+              className="text-3xl md:text-4xl font-bold mb-4 text-card-foreground"
+            >
+              Our Gaming Impact
+            </motion.h2>
+            <motion.p 
+              variants={fadeInUp}
+              className="text-lg text-muted-foreground max-w-2xl mx-auto"
+            >
+              Leading the esports revolution in India
+            </motion.p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {statistics.map((stat, index) => (
+              <GridCard key={index}>
                 <motion.div
-                  key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="text-center p-6 bg-gray-900/50 rounded-xl border border-violet-500/20"
+                  className="p-6 text-center"
                 >
-                  <div className="text-violet-400 mb-4 flex justify-center">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-primary/10 flex items-center justify-center mb-4 text-primary">
                     {stat.icon}
                   </div>
-                  <h3 className="text-4xl font-bold text-white mb-2">{stat.value}</h3>
-                  <p className="text-gray-400">{stat.label}</p>
+                  <h3 className="text-3xl font-bold text-card-foreground mb-2">{stat.value}</h3>
+                  <p className="text-muted-foreground">{stat.label}</p>
                 </motion.div>
-              ))}
-            </div>
+              </GridCard>
+            ))}
           </div>
         </div>
+      </section>
 
-        {/* Services Overview */}
-        <div className="py-20 bg-gray-900/80">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-4xl font-bold text-white mb-6">Our Esports Services</h2>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Comprehensive solutions for the competitive gaming ecosystem
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                {
-                  title: "Tournament Management",
-                  description: "End-to-end tournament organization including player registration, scheduling, and prize distribution",
-                  icon: <GiTrophyCup className="w-12 h-12" />
-                },
-                {
-                  title: "Professional Broadcasting",
-                  description: "High-quality streams with expert commentary, graphics, and multi-platform integration",
-                  icon: <SiTwitchIcon className="w-12 h-12" />
-                },
-                {
-                  title: "Content Creation",
-                  description: "Custom highlight reels, team features, and promotional content for maximum engagement",
-                  icon: <SiYoutubegaming className="w-12 h-12" />
-                }
-              ].map((service, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="p-8 bg-gray-800/50 rounded-xl border border-violet-500/20"
-                >
-                  <div className="text-violet-400 mb-6">{service.icon}</div>
-                  <h3 className="text-2xl font-bold text-white mb-4">{service.title}</h3>
-                  <p className="text-gray-300">{service.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Tournaments Section */}
-        <div ref={tournamentsRef} className="min-h-screen bg-gray-900/90 backdrop-blur-sm py-20">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-fuchsia-500 to-purple-500 mb-6">
-                Upcoming Tournaments
-              </h2>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Join the most prestigious gaming competitions and prove your worth
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {tournaments.map((tournament, index) => (
-                <motion.div
-                  key={tournament.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  onClick={() => setSelectedTournament(tournament)}
-                  className="bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden cursor-pointer hover:transform hover:scale-105 transition-all duration-300 border border-violet-500/20"
-                  whileHover={{ scale: 1.03 }}
-                >
-                  <div className="relative h-48">
-                    <Image
-                      src={tournament.gameImage}
-                      alt={tournament.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-2xl font-bold text-white mb-4">{tournament.title}</h3>
-                    <div className="space-y-3">
-                      <div className="flex items-center text-gray-300">
-                        <FaRupeeSign className="w-5 h-5 mr-3 text-violet-400" />
-                        <span>Registration Fee: ₹{tournament.registrationFee}</span>
-                      </div>
-                      <div className="flex items-center text-gray-300">
-                        <FaClock className="w-5 h-5 mr-3 text-violet-400" />
-                        <span>Duration: {tournament.duration}</span>
-                      </div>
-                      <div className="flex items-center text-gray-300">
-                        <FaCalendar className="w-5 h-5 mr-3 text-violet-400" />
-                        <span>Date: {tournament.date}</span>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Tournament Details Modal */}
-        <AnimatePresence>
-          {selectedTournament && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center px-4"
-            >
-              <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setSelectedTournament(null)} />
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                className="relative bg-gray-900 rounded-2xl max-w-2xl w-full p-8 border border-violet-500/20"
-              >
-                <button
-                  onClick={() => setSelectedTournament(null)}
-                  className="absolute top-4 right-4 text-gray-400 hover:text-white"
-                >
-                  <FaTimes className="w-6 h-6" />
-                </button>
-
-                <div className="relative h-48 rounded-xl overflow-hidden mb-6">
-                  <Image
-                    src={selectedTournament.gameImage}
-                    alt={selectedTournament.title}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-
-                <h3 className="text-3xl font-bold text-white mb-4">{selectedTournament.title}</h3>
-                <p className="text-gray-300 mb-6">{selectedTournament.description}</p>
-
-                <div className="grid grid-cols-2 gap-6 mb-6">
-                  <div className="space-y-3">
-                    <div className="flex items-center text-gray-300">
-                      <FaRupeeSign className="w-5 h-5 mr-3 text-violet-400" />
-                      <span>Fee: ₹{selectedTournament.registrationFee}</span>
-                    </div>
-                    <div className="flex items-center text-gray-300">
-                      <FaClock className="w-5 h-5 mr-3 text-violet-400" />
-                      <span>{selectedTournament.duration}</span>
-                    </div>
-                    <div className="flex items-center text-gray-300">
-                      <FaCalendar className="w-5 h-5 mr-3 text-violet-400" />
-                      <span>{selectedTournament.date}</span>
-                    </div>
-                  </div>
-                  <div className="space-y-3">
-                    <div className="flex items-center text-gray-300">
-                      <FaTrophy className="w-5 h-5 mr-3 text-violet-400" />
-                      <span>Prize Pool: {selectedTournament.prizePool}</span>
-                    </div>
-                    <div className="flex items-center text-gray-300">
-                      <FaUsers className="w-5 h-5 mr-3 text-violet-400" />
-                      <span>{selectedTournament.currentRegistrations}/{selectedTournament.maxTeams} Teams</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mb-6">
-                  <h4 className="text-white font-semibold mb-3">Requirements:</h4>
-                  <ul className="list-disc list-inside text-gray-300 space-y-2">
-                    {selectedTournament.requirements.map((req, index) => (
-                      <li key={index}>{req}</li>
-                    ))}
-                  </ul>
-                </div>
-
-                <button 
-                  onClick={() => {
-                    setShowRegistrationModal(true);
-                    setSelectedTournament(null);
-                  }}
-                  className="w-full py-4 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white rounded-xl font-semibold hover:shadow-neon transition-all duration-300"
-                >
-                  Register Now
-                </button>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {showRegistrationModal && selectedTournament && (
-          <RegistrationModal
-            tournament={selectedTournament}
-            onClose={() => {
-              setShowRegistrationModal(false);
-              setRegistrationComplete(false);
-            }}
-          />
-        )}
-      </div>
-    </div>
-  );
-}
-
-const RegistrationModal = ({ tournament, onClose }: { tournament: Tournament; onClose: () => void }) => {
-  const [registrationComplete, setRegistrationComplete] = useState(false);
-  const [registrationForm, setRegistrationForm] = useState<RegistrationForm>({
-    teamName: '',
-    numberOfTeams: 1,
-    captainName: '',
-    email: '',
-    phone: '',
-    agreeToTerms: false
-  });
-
-  const handleRegistration = (e: React.FormEvent) => {
-    e.preventDefault();
-    setRegistrationComplete(true);
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-black/70 backdrop-blur-sm"
-    >
-      <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
-        className="relative bg-gray-900 rounded-2xl max-w-md w-full p-8 border border-violet-500/20"
-      >
-        {!registrationComplete ? (
-          <>
-            <h3 className="text-2xl font-bold text-white mb-6">
-              Register for {tournament.title}
-            </h3>
-            <form onSubmit={handleRegistration} className="space-y-6">
-              <div>
-                <label className="block text-gray-300 mb-2">Team Name</label>
-                <input
-                  type="text"
-                  required
-                  value={registrationForm.teamName}
-                  onChange={(e) => setRegistrationForm({
-                    ...registrationForm,
-                    teamName: e.target.value
-                  })}
-                  className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-violet-500 focus:ring-violet-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-300 mb-2">Number of Teams</label>
-                <div className="flex items-center space-x-4">
-                  <button
-                    type="button"
-                    onClick={() => setRegistrationForm(prev => ({
-                      ...prev,
-                      numberOfTeams: Math.max(1, prev.numberOfTeams - 1)
-                    }))}
-                    className="p-2 bg-gray-800 rounded-lg hover:bg-gray-700"
-                  >
-                    <FaMinus className="text-white" />
-                  </button>
-                  <span className="text-white text-xl font-bold">
-                    {registrationForm.numberOfTeams}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => setRegistrationForm(prev => ({
-                      ...prev,
-                      numberOfTeams: Math.min(5, prev.numberOfTeams + 1)
-                    }))}
-                    className="p-2 bg-gray-800 rounded-lg hover:bg-gray-700"
-                  >
-                    <FaPlus className="text-white" />
-                  </button>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-gray-300 mb-2">Captain Name</label>
-                <input
-                  type="text"
-                  required
-                  value={registrationForm.captainName}
-                  onChange={(e) => setRegistrationForm({
-                    ...registrationForm,
-                    captainName: e.target.value
-                  })}
-                  className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-violet-500 focus:ring-violet-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-300 mb-2">Email</label>
-                <input
-                  type="email"
-                  required
-                  value={registrationForm.email}
-                  onChange={(e) => setRegistrationForm({
-                    ...registrationForm,
-                    email: e.target.value
-                  })}
-                  className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-violet-500 focus:ring-violet-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-gray-300 mb-2">Phone Number</label>
-                <input
-                  type="tel"
-                  required
-                  value={registrationForm.phone}
-                  onChange={(e) => setRegistrationForm({
-                    ...registrationForm,
-                    phone: e.target.value
-                  })}
-                  className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-violet-500 focus:ring-violet-500"
-                />
-              </div>
-
-              <div className="flex items-center space-x-3">
-                <input
-                  type="checkbox"
-                  required
-                  checked={registrationForm.agreeToTerms}
-                  onChange={(e) => setRegistrationForm({
-                    ...registrationForm,
-                    agreeToTerms: e.target.checked
-                  })}
-                  className="w-4 h-4 border-gray-700 rounded text-violet-500 focus:ring-violet-500"
-                />
-                <label className="text-gray-300 text-sm">
-                  I agree to the tournament rules and terms
-                </label>
-              </div>
-
-              <div className="flex space-x-4">
-                <button
-                  type="submit"
-                  className="flex-1 py-3 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white rounded-lg font-semibold hover:shadow-neon transition-all duration-300"
-                >
-                  Register
-                </button>
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700"
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </>
-        ) : (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center"
+      {/* Features Section */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <motion.div 
+            className="text-center mb-16"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
           >
-            <div className="mb-6 text-green-400">
-              <svg className="w-16 h-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <h3 className="text-2xl font-bold text-white mb-4">
-              Registration Complete!
-            </h3>
-            <p className="text-gray-300 mb-6">
-              Thank you for registering for {tournament.title}.<br />
-              Your allotted time is: <span className="font-bold text-violet-400">{`${Math.floor(Math.random() * 24).toString().padStart(2, '0')}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')}`}</span>
-            </p>
-            <button
-              onClick={onClose}
-              className="px-6 py-3 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white rounded-lg font-semibold hover:shadow-neon transition-all duration-300"
+            <motion.h2 
+              variants={fadeInUp}
+              className="text-3xl md:text-4xl font-bold mb-4 text-foreground"
             >
-              Close
-            </button>
+              Why Choose Our Gaming Services
+            </motion.h2>
+            <motion.p 
+              variants={fadeInUp}
+              className="text-lg text-muted-foreground max-w-2xl mx-auto"
+            >
+              Experience gaming excellence with our professional services
+            </motion.p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <GridCard key={index}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="p-6 h-full"
+                >
+                  <div className={`w-16 h-16 rounded-lg bg-gradient-to-r ${feature.gradient} flex items-center justify-center mb-4 transform transition-transform duration-300 hover:scale-110`}>
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold text-card-foreground mb-2">{feature.title}</h3>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </motion.div>
+              </GridCard>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Tournaments Section */}
+      <section ref={tournamentsRef} className="py-20 bg-card">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <motion.div 
+            className="text-center mb-16"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
+            <motion.h2 
+              variants={fadeInUp}
+              className="text-3xl md:text-4xl font-bold mb-4 text-card-foreground"
+            >
+              Upcoming Tournaments
+            </motion.h2>
+            <motion.p 
+              variants={fadeInUp}
+              className="text-lg text-muted-foreground max-w-2xl mx-auto"
+            >
+              Register for our upcoming esports tournaments
+            </motion.p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {tournaments.slice(0, 6).map((tournament, index) => (
+              <GridCard key={index}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="group relative aspect-video overflow-hidden rounded-t-lg"
+                  onClick={() => {
+                    setSelectedTournament(tournament);
+                    setShowRegistrationModal(true);
+                  }}
+                >
+                  <Image
+                    src={tournament.gameImage}
+                    alt={tournament.title}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <h3 className="text-xl font-semibold text-white mb-2">{tournament.title}</h3>
+                    <p className="text-white/80">{tournament.game}</p>
+                  </div>
+                </motion.div>
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center">
+                      <FaCalendar className="text-primary mr-2" />
+                      <span className="text-muted-foreground">{tournament.date}</span>
+                    </div>
+                    <div className="flex items-center">
+                      <FaRupeeSign className="text-primary mr-2" />
+                      <span className="text-muted-foreground">{tournament.prizePool}</span>
+                    </div>
+                  </div>
+                  <p className="text-muted-foreground mb-4">{tournament.description}</p>
+                  <div className="flex justify-between items-center">
+                    <span className="text-primary font-semibold">
+                      {tournament.currentRegistrations}/{tournament.maxTeams} Teams
+                    </span>
+                    <button
+                      onClick={() => {
+                        setSelectedTournament(tournament);
+                        setShowRegistrationModal(true);
+                      }}
+                      className="px-4 py-2 bg-primary text-primary-foreground rounded-full text-sm font-medium hover:bg-primary/90 transition-colors duration-300"
+                    >
+                      Register Now
+                    </button>
+                  </div>
+                </div>
+              </GridCard>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <motion.div 
+            className="bg-gradient-to-r from-primary/20 to-accent/20 rounded-2xl p-10 md:p-16 text-center relative overflow-hidden"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <motion.h2 
+              className="text-3xl md:text-4xl font-bold mb-6 text-foreground"
+              variants={fadeInUp}
+            >
+              Ready to Join the Competition?
+            </motion.h2>
+            <motion.p 
+              className="text-lg md:text-xl mb-8 text-muted-foreground max-w-2xl mx-auto"
+              variants={fadeInUp}
+            >
+              Register for our upcoming tournaments and showcase your gaming skills
+            </motion.p>
+            <motion.div variants={fadeInUp}>
+              <button
+                onClick={() => tournamentsRef.current?.scrollIntoView({ behavior: 'smooth' })}
+                className="px-8 py-3 bg-primary text-primary-foreground rounded-full font-medium hover:bg-primary/90 transition-colors duration-300 shadow-lg"
+              >
+                View Tournaments
+              </button>
+            </motion.div>
+
+            {/* Decorative Elements */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Registration Modal */}
+      <AnimatePresence>
+        {showRegistrationModal && selectedTournament && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="bg-card w-full max-w-lg rounded-xl shadow-xl overflow-hidden"
+            >
+              {registrationComplete ? (
+                <div className="p-6 text-center">
+                  <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <FaCheck className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-card-foreground mb-2">Registration Complete!</h3>
+                  <p className="text-muted-foreground mb-6">Thank you for registering. Check your email for further details.</p>
+                  <button
+                    onClick={() => {
+                      setShowRegistrationModal(false);
+                      setRegistrationComplete(false);
+                    }}
+                    className="px-6 py-2 bg-primary text-primary-foreground rounded-full font-medium hover:bg-primary/90 transition-colors duration-300"
+                  >
+                    Close
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <div className="flex justify-between items-center p-6 border-b border-border">
+                    <h3 className="text-xl font-semibold text-card-foreground">{selectedTournament.title}</h3>
+                    <button
+                      onClick={() => setShowRegistrationModal(false)}
+                      className="text-muted-foreground hover:text-card-foreground transition-colors"
+                    >
+                      <FaTimes className="w-5 h-5" />
+                    </button>
+                  </div>
+                  <form onSubmit={handleRegistration} className="p-6 space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-card-foreground mb-1">Team Name</label>
+                      <input
+                        type="text"
+                        required
+                        value={registrationForm.teamName}
+                        onChange={(e) => setRegistrationForm({ ...registrationForm, teamName: e.target.value })}
+                        className="w-full px-4 py-2 rounded-lg bg-background border border-border text-foreground"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-card-foreground mb-1">Captain Name</label>
+                      <input
+                        type="text"
+                        required
+                        value={registrationForm.captainName}
+                        onChange={(e) => setRegistrationForm({ ...registrationForm, captainName: e.target.value })}
+                        className="w-full px-4 py-2 rounded-lg bg-background border border-border text-foreground"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-card-foreground mb-1">Email</label>
+                      <input
+                        type="email"
+                        required
+                        value={registrationForm.email}
+                        onChange={(e) => setRegistrationForm({ ...registrationForm, email: e.target.value })}
+                        className="w-full px-4 py-2 rounded-lg bg-background border border-border text-foreground"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-card-foreground mb-1">Phone</label>
+                      <input
+                        type="tel"
+                        required
+                        value={registrationForm.phone}
+                        onChange={(e) => setRegistrationForm({ ...registrationForm, phone: e.target.value })}
+                        className="w-full px-4 py-2 rounded-lg bg-background border border-border text-foreground"
+                      />
+                    </div>
+                    <div className="flex items-center">
+                      <input
+                        type="checkbox"
+                        required
+                        checked={registrationForm.agreeToTerms}
+                        onChange={(e) => setRegistrationForm({ ...registrationForm, agreeToTerms: e.target.checked })}
+                        className="mr-2"
+                      />
+                      <label className="text-sm text-muted-foreground">I agree to the terms and conditions</label>
+                    </div>
+                    <button
+                      type="submit"
+                      className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-full font-medium hover:bg-primary/90 transition-colors duration-300"
+                    >
+                      Complete Registration
+                    </button>
+                  </form>
+                </>
+              )}
+            </motion.div>
           </motion.div>
         )}
-      </motion.div>
-    </motion.div>
+      </AnimatePresence>
+    </div>
   );
-}; 
+} 

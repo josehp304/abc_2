@@ -6,8 +6,11 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { 
   FaMicrophone, FaRing, FaMusic, FaTrophy, FaVideo, 
-  FaCheck, FaClock, FaUsers, FaStar, FaQuestionCircle 
+  FaCheck, FaClock, FaUsers, FaStar, FaQuestionCircle, FaTimes 
 } from 'react-icons/fa';
+import ThemeToggle from "@/components/theme-toggle";
+import { GridCard } from "@/components/ui/grid-card";
+import Link from 'next/link';
 
 const eventServices = [
   {
@@ -168,341 +171,321 @@ export default function EventManagementPage() {
   const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
   const contactRef = useRef<HTMLDivElement>(null);
 
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
   const scrollToContact = () => {
     contactRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="relative min-h-screen bg-background text-foreground">
+      <ThemeToggle />
+      
       {/* Hero Section */}
-      <div className="relative min-h-[100vh] flex items-center justify-center">
+      <section className="relative h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover opacity-30"
-          >
-            <source src="/videos/events.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-gray-900/50 to-gray-900" />
+          <Image
+            src="https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80"
+            alt="Event Management"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-primary/90" />
         </div>
-
-        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+        <div className="relative container mx-auto px-4 text-center">
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white"
+            transition={{ duration: 0.6 }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 text-primary-foreground"
           >
-            Flawless Event Planning & Execution
-            <br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
-              for Every Occasion
-            </span>
+            Event Management Excellence
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-xl md:text-2xl text-gray-300 mb-8"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg sm:text-xl md:text-2xl max-w-2xl mx-auto px-4 text-primary-foreground"
           >
-            From intimate gatherings to grand celebrations, we bring your vision to life
+            Creating unforgettable experiences through flawless event planning and execution
           </motion.p>
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            onClick={scrollToContact}
-            className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full text-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105"
-          >
-            Plan Your Event Now
-          </motion.button>
         </div>
-      </div>
+      </section>
 
       {/* Services Section */}
-      <section className="py-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+      <section className="py-20 bg-card">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <motion.div 
+            className="text-center mb-16"
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
-            className="text-3xl sm:text-4xl font-bold text-center mb-16 text-white"
+            variants={staggerContainer}
           >
-            Our Event Services
-          </motion.h2>
+            <motion.h2 
+              variants={fadeInUp}
+              className="text-3xl md:text-4xl font-bold mb-4 text-card-foreground"
+            >
+              Our Event Services
+            </motion.h2>
+            <motion.p 
+              variants={fadeInUp}
+              className="text-lg text-muted-foreground max-w-2xl mx-auto"
+            >
+              Comprehensive event solutions for every occasion
+            </motion.p>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {eventServices.map((service, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                onClick={() => setSelectedService(selectedService === index ? null : index)}
-                className="group cursor-pointer bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700 hover:border-purple-500/50 transition-all duration-300"
-              >
-                <div className="relative h-48">
+              <GridCard key={index}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="group relative aspect-video overflow-hidden rounded-t-lg"
+                >
                   <Image
                     src={service.image}
                     alt={service.title}
                     fill
-                    className="object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    className="object-cover transition-transform duration-300 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent" />
-                  <div className="absolute bottom-0 left-0 p-6">
-                    <div className="flex items-center text-white">
-                      <div className={`w-12 h-12 rounded-lg bg-gradient-to-r ${service.gradient} flex items-center justify-center mr-4`}>
-                        {service.icon}
-                      </div>
-                      <h3 className="text-2xl font-semibold">{service.title}</h3>
-                    </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <h3 className="text-xl font-semibold text-white mb-2">{service.title}</h3>
+                    <p className="text-white/80">{service.description}</p>
                   </div>
+                </motion.div>
+                <div className="p-6">
+                  <div className="flex items-center mb-4">
+                    <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${service.gradient} flex items-center justify-center text-white`}>
+                      {service.icon}
+                    </div>
+                    <h3 className="text-xl font-semibold text-card-foreground ml-4">{service.title}</h3>
+                  </div>
+                  <ul className="space-y-2">
+                    {service.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-center text-muted-foreground">
+                        <FaCheck className="w-4 h-4 text-primary mr-2" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                
-                <AnimatePresence>
-                  {selectedService === index && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="p-6"
-                    >
-                      <p className="text-gray-300 mb-4">{service.description}</p>
-                      <ul className="space-y-2">
-                        {service.features.map((feature, idx) => (
-                          <motion.li
-                            key={idx}
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: idx * 0.1 }}
-                            className="flex items-center text-gray-400"
-                          >
-                            <FaCheck className="w-4 h-4 text-purple-500 mr-2" />
-                            {feature}
-                          </motion.li>
-                        ))}
-                      </ul>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
+              </GridCard>
             ))}
           </div>
         </div>
       </section>
 
       {/* Process Section */}
-      <section className="py-20 px-4 bg-gray-800/30">
-        <div className="max-w-7xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <motion.div 
+            className="text-center mb-16"
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
-            className="text-3xl sm:text-4xl font-bold text-center mb-16 text-white"
+            variants={staggerContainer}
           >
-            How We Work
-          </motion.h2>
+            <motion.h2 
+              variants={fadeInUp}
+              className="text-3xl md:text-4xl font-bold mb-4 text-foreground"
+            >
+              Our Event Process
+            </motion.h2>
+            <motion.p 
+              variants={fadeInUp}
+              className="text-lg text-muted-foreground max-w-2xl mx-auto"
+            >
+              A streamlined approach to deliver exceptional events
+            </motion.p>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {process.map((step, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="relative"
-              >
-                <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl border border-gray-700">
-                  <div className="w-16 h-16 rounded-full bg-purple-600/20 flex items-center justify-center mb-4">
-                    {step.icon}
-                  </div>
-                  <div className="text-4xl font-bold text-purple-500 mb-4">{step.step}</div>
-                  <h3 className="text-xl font-semibold text-white mb-2">{step.title}</h3>
-                  <p className="text-gray-400">{step.description}</p>
-                </div>
-                {index < process.length - 1 && (
-                  <div className="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-purple-500/50" />
-                )}
-              </motion.div>
+              <GridCard key={index}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="p-6 h-full relative"
+                >
+                  <div className="text-4xl font-bold text-primary mb-4">{step.step}</div>
+                  <div className="mb-4 text-primary">{step.icon}</div>
+                  <h3 className="text-xl font-semibold text-card-foreground mb-2">{step.title}</h3>
+                  <p className="text-muted-foreground">{step.description}</p>
+                  {index < process.length - 1 && (
+                    <div className="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-primary/50" />
+                  )}
+                </motion.div>
+              </GridCard>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Featured Events */}
-      <section className="py-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+      {/* Featured Events Section */}
+      <section className="py-20 bg-card">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <motion.div 
+            className="text-center mb-16"
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
-            className="text-3xl sm:text-4xl font-bold text-center mb-16 text-white"
+            variants={staggerContainer}
           >
-            Featured Events
-          </motion.h2>
+            <motion.h2 
+              variants={fadeInUp}
+              className="text-3xl md:text-4xl font-bold mb-4 text-card-foreground"
+            >
+              Featured Events
+            </motion.h2>
+            <motion.p 
+              variants={fadeInUp}
+              className="text-lg text-muted-foreground max-w-2xl mx-auto"
+            >
+              Showcasing our most memorable events
+            </motion.p>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredEvents.map((event, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden border border-gray-700 hover:border-purple-500/50 transition-all duration-300"
-              >
-                <div className="relative h-48">
+              <GridCard key={index}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="group relative aspect-video overflow-hidden rounded-t-lg"
+                >
                   <Image
                     src={event.image}
                     alt={event.title}
                     fill
-                    className="object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    className="object-cover transition-transform duration-300 group-hover:scale-110"
                   />
-                </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+                    <h3 className="text-xl font-semibold text-white mb-2">{event.title}</h3>
+                    <p className="text-white/80">{event.type}</p>
+                  </div>
+                </motion.div>
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold text-white mb-2">{event.title}</h3>
-                  <p className="text-purple-400 mb-2">{event.type}</p>
-                  <p className="text-gray-400 mb-4">{event.description}</p>
-                  <p className="text-sm text-gray-500">{event.metrics}</p>
+                  <p className="text-muted-foreground mb-2">{event.description}</p>
+                  <p className="text-primary font-semibold">{event.metrics}</p>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="py-20 px-4 bg-gray-800/30">
-        <div className="max-w-7xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-3xl sm:text-4xl font-bold text-center mb-16 text-white"
-          >
-            Client Testimonials
-          </motion.h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl border border-gray-700"
-              >
-                <div className="flex items-center mb-4">
-                  <div className="relative w-16 h-16 rounded-full overflow-hidden mr-4">
-                    <Image
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold text-white">{testimonial.name}</h3>
-                    <p className="text-purple-400">{testimonial.role}</p>
-                    <p className="text-gray-400">{testimonial.company}</p>
-                    <div className="flex mt-1">
-                      {Array.from({ length: testimonial.rating }).map((_, i) => (
-                        <FaStar key={i} className="text-yellow-500 w-4 h-4" />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <p className="text-gray-300 italic">"{testimonial.quote}"</p>
-              </motion.div>
+              </GridCard>
             ))}
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 px-4">
-        <div className="max-w-3xl mx-auto">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <motion.div 
+            className="text-center mb-16"
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
-            className="text-3xl sm:text-4xl font-bold text-center mb-16 text-white"
+            variants={staggerContainer}
           >
-            Frequently Asked Questions
-          </motion.h2>
+            <motion.h2 
+              variants={fadeInUp}
+              className="text-3xl md:text-4xl font-bold mb-4 text-foreground"
+            >
+              Frequently Asked Questions
+            </motion.h2>
+            <motion.p 
+              variants={fadeInUp}
+              className="text-lg text-muted-foreground"
+            >
+              Find answers to common questions about our event services
+            </motion.p>
+          </motion.div>
 
           <div className="space-y-4">
             {faqs.map((faq, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden"
-              >
-                <button
+              <GridCard key={index}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="p-6"
                   onClick={() => setSelectedFaq(selectedFaq === index ? null : index)}
-                  className="w-full px-6 py-4 text-left flex items-center justify-between text-white"
                 >
-                  <span className="font-semibold">{faq.question}</span>
-                  <FaQuestionCircle className={`transform transition-transform duration-300 ${
-                    selectedFaq === index ? 'rotate-180' : ''
-                  }`} />
-                </button>
-                <AnimatePresence>
+                  <div className="flex justify-between items-center cursor-pointer">
+                    <h3 className="text-lg font-semibold text-card-foreground">{faq.question}</h3>
+                    <FaQuestionCircle className={`text-primary transition-transform duration-300 ${selectedFaq === index ? 'rotate-180' : ''}`} />
+                  </div>
                   {selectedFaq === index && (
-                    <motion.div
-                      initial={{ height: 0 }}
-                      animate={{ height: "auto" }}
-                      exit={{ height: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="px-6 pb-4"
+                    <motion.p
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="mt-4 text-muted-foreground"
                     >
-                      <p className="text-gray-400">{faq.answer}</p>
-                    </motion.div>
+                      {faq.answer}
+                    </motion.p>
                   )}
-                </AnimatePresence>
-              </motion.div>
+                </motion.div>
+              </GridCard>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Contact CTA Section */}
-      <section ref={contactRef} className="py-20 px-4 bg-gray-800/30">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-3xl sm:text-4xl font-bold mb-8 text-white"
-          >
-            Ready to Create an Unforgettable Event?
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
+      {/* CTA Section */}
+      <section className="py-20 bg-card">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <motion.div 
+            className="bg-gradient-to-r from-primary/20 to-accent/20 rounded-2xl p-10 md:p-16 text-center relative overflow-hidden"
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-xl text-gray-300 mb-12"
           >
-            Let's bring your vision to life. Contact us for a free consultation.
-          </motion.p>
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            onClick={() => router.push('/contact')}
-            className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full text-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105"
-          >
-            Contact Us Now
-          </motion.button>
+            <motion.h2 
+              className="text-3xl md:text-4xl font-bold mb-6 text-card-foreground"
+              variants={fadeInUp}
+            >
+              Ready to Plan Your Event?
+            </motion.h2>
+            <motion.p 
+              className="text-lg md:text-xl mb-8 text-muted-foreground max-w-2xl mx-auto"
+              variants={fadeInUp}
+            >
+              Let's create an unforgettable experience together
+            </motion.p>
+            <motion.div variants={fadeInUp}>
+              <Link href="/contactus">
+                <button className="px-8 py-3 bg-primary text-primary-foreground rounded-full font-medium hover:bg-primary/90 transition-colors duration-300 shadow-lg">
+                  Get Started
+                </button>
+              </Link>
+            </motion.div>
+
+            {/* Decorative Elements */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
+          </motion.div>
         </div>
       </section>
     </div>
