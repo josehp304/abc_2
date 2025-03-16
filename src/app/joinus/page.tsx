@@ -2,15 +2,13 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { FaCode, FaPalette, FaVideo, FaChevronRight, FaServer, FaMobile, FaChartLine, FaLock, FaRobot, FaBrain } from "react-icons/fa";
+import { FaCode, FaPalette, FaVideo, FaChevronRight } from "react-icons/fa";
 import Image from "next/image";
 import Head from "next/head";
 import ThemeToggle from "@/components/theme-toggle";
-import JobApplicationModal from "@/components/ui/job-application-modal";
 
 export default function JoinUsPage() {
   const [activeJobId, setActiveJobId] = useState<string | null>(null);
-  const [selectedJob, setSelectedJob] = useState<{id: string, title: string} | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -82,96 +80,6 @@ export default function JoinUsPage() {
         "Experience with character animation a plus",
       ],
     },
-    {
-      id: "backend-engineer",
-      title: "Backend Engineer",
-      department: "Engineering",
-      location: "Bangalore, India (Hybrid)",
-      type: "Full-time",
-      icon: <FaServer className="w-6 h-6" />,
-      description: "Design and develop scalable backend systems and APIs that power our cutting-edge applications.",
-      requirements: [
-        "4+ years of backend development experience",
-        "Expertise in Node.js, Python, or Java",
-        "Experience with microservices architecture",
-        "Strong knowledge of database design and optimization",
-      ],
-    },
-    {
-      id: "mobile-developer",
-      title: "Mobile Developer",
-      department: "Engineering",
-      location: "Mumbai, India (Remote)",
-      type: "Full-time",
-      icon: <FaMobile className="w-6 h-6" />,
-      description: "Build native mobile applications that provide seamless experiences across iOS and Android platforms.",
-      requirements: [
-        "3+ years of mobile development experience",
-        "Proficiency in React Native or Flutter",
-        "Experience with native iOS/Android development",
-        "Understanding of mobile UI/UX best practices",
-      ],
-    },
-    {
-      id: "digital-marketing-manager",
-      title: "Digital Marketing Manager",
-      department: "Marketing",
-      location: "Delhi, India (Hybrid)",
-      type: "Full-time",
-      icon: <FaChartLine className="w-6 h-6" />,
-      description: "Lead our digital marketing initiatives to drive growth and enhance our brand presence across digital channels.",
-      requirements: [
-        "5+ years of digital marketing experience",
-        "Expertise in SEO, SEM, and social media marketing",
-        "Experience with marketing analytics tools",
-        "Strong content strategy skills",
-      ],
-    },
-    {
-      id: "security-engineer",
-      title: "Security Engineer",
-      department: "Engineering",
-      location: "Bangalore, India (Hybrid)",
-      type: "Full-time",
-      icon: <FaLock className="w-6 h-6" />,
-      description: "Protect our systems and data by implementing robust security measures and best practices.",
-      requirements: [
-        "4+ years of security engineering experience",
-        "Knowledge of cybersecurity frameworks",
-        "Experience with penetration testing",
-        "Security certifications (CISSP, CEH, etc.)",
-      ],
-    },
-    {
-      id: "ai-engineer",
-      title: "AI/ML Engineer",
-      department: "Engineering",
-      location: "Bangalore, India (Remote)",
-      type: "Full-time",
-      icon: <FaBrain className="w-6 h-6" />,
-      description: "Develop and implement AI/ML solutions to enhance our products and services with intelligent features.",
-      requirements: [
-        "3+ years of AI/ML development experience",
-        "Strong background in Python and ML frameworks",
-        "Experience with deep learning and NLP",
-        "MS/PhD in Computer Science or related field",
-      ],
-    },
-    {
-      id: "automation-engineer",
-      title: "Automation Engineer",
-      department: "Engineering",
-      location: "Delhi, India (Hybrid)",
-      type: "Full-time",
-      icon: <FaRobot className="w-6 h-6" />,
-      description: "Build and maintain automation frameworks to improve our development and deployment processes.",
-      requirements: [
-        "3+ years of automation experience",
-        "Expertise in CI/CD tools and practices",
-        "Experience with test automation",
-        "Knowledge of containerization and orchestration",
-      ],
-    },
   ];
 
   // Form handlers
@@ -194,20 +102,10 @@ export default function JoinUsPage() {
     });
   };
 
-  const handleApply = (jobId: string, jobTitle: string) => {
-    setSelectedJob({ id: jobId, title: jobTitle });
-  };
-
-  const handleApplicationSubmit = async (formData: FormData) => {
-    // Here you would typically send the form data to your backend
-    console.log("Application submitted:", Object.fromEntries(formData));
-    // Add your API call here
-  };
-
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Head>
-        <title>Join Us - ABC Studios</title>
+        <title>Join Us - Gooners Studio</title>
       </Head>
       <main className="min-h-screen bg-background text-foreground">
         <ThemeToggle />
@@ -269,14 +167,15 @@ export default function JoinUsPage() {
               </motion.p>
             </motion.div>
 
-            <div className="grid grid -cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {jobs.map((job) => (
                 <motion.div
                   key={job.id}
                   variants={fadeInUp}
-                  className={`bg-card rounded-xl p-6 shadow-lg transition-all duration-300 ${
+                  className={`bg-card rounded-xl p-6 shadow-lg transition-all duration-300 cursor-pointer ${
                     activeJobId === job.id ? 'ring-2 ring-ring' : ''
                   }`}
+                  onClick={() => setActiveJobId(activeJobId === job.id ? null : job.id)}
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div className="text-primary">{job.icon}</div>
@@ -302,38 +201,139 @@ export default function JoinUsPage() {
                     </motion.div>
                   )}
                   
-                  <div className="flex items-center justify-between mt-4">
-                    <button 
-                      className="inline-flex items-center text-primary hover:text-primary/80 transition-colors"
-                      onClick={() => setActiveJobId(activeJobId === job.id ? null : job.id)}
-                    >
-                      {activeJobId === job.id ? 'Show Less' : 'Learn More'}
-                      <FaChevronRight className={`ml-1 transition-transform ${activeJobId === job.id ? 'rotate-90' : ''}`} />
-                    </button>
-                    
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleApply(job.id, job.title);
-                      }}
-                      className="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors"
-                    >
-                      Apply Now
-                    </button>
-                  </div>
+                  <button className="mt-4 inline-flex items-center text-primary hover:text-primary/80 transition-colors">
+                    {activeJobId === job.id ? 'Show Less' : 'Learn More'}
+                    <FaChevronRight className={`ml-1 transition-transform ${activeJobId === job.id ? 'rotate-90' : ''}`} />
+                  </button>
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Add the JobApplicationModal */}
-        <JobApplicationModal
-          isOpen={selectedJob !== null}
-          onClose={() => setSelectedJob(null)}
-          jobTitle={selectedJob?.title || ""}
-          onSubmit={handleApplicationSubmit}
-        />
+        {/* Application Form */}
+        <section className="py-12 md:py-20 bg-card">
+          <div className="container mx-auto px-4 max-w-3xl">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerContainer}
+              className="text-center mb-12"
+            >
+              <motion.h2 
+                variants={fadeInUp}
+                className="text-3xl md:text-4xl font-bold mb-4 text-card-foreground"
+              >
+                Apply Now
+              </motion.h2>
+              <motion.p 
+                variants={fadeInUp}
+                className="text-lg text-muted-foreground"
+              >
+                Take the first step towards your next great opportunity
+              </motion.p>
+            </motion.div>
+
+            <motion.form
+              variants={fadeInUp}
+              onSubmit={handleSubmit}
+              className="space-y-6"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-card-foreground mb-2">Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 rounded-lg border bg-background text-foreground border-input focus:ring-2 focus:ring-ring focus:outline-none"
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-card-foreground mb-2">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 rounded-lg border bg-background text-foreground border-input focus:ring-2 focus:ring-ring focus:outline-none"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-card-foreground mb-2">Phone</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 rounded-lg border bg-background text-foreground border-input focus:ring-2 focus:ring-ring focus:outline-none"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="position" className="block text-sm font-medium text-card-foreground mb-2">Position</label>
+                  <select
+                    id="position"
+                    name="position"
+                    value={formData.position}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 rounded-lg border bg-background text-foreground border-input focus:ring-2 focus:ring-ring focus:outline-none"
+                    required
+                  >
+                    <option value="">Select a position</option>
+                    {jobs.map(job => (
+                      <option key={job.id} value={job.title}>{job.title}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-card-foreground mb-2">Cover Letter</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  rows={4}
+                  className="w-full px-4 py-2 rounded-lg border bg-background text-foreground border-input focus:ring-2 focus:ring-ring focus:outline-none"
+                  required
+                />
+              </div>
+
+              <div>
+                <label htmlFor="resume" className="block text-sm font-medium text-card-foreground mb-2">Resume/CV</label>
+                <input
+                  type="file"
+                  id="resume"
+                  name="resume"
+                  onChange={handleFileChange}
+                  accept=".pdf,.doc,.docx"
+                  className="w-full px-4 py-2 rounded-lg border bg-background text-foreground border-input focus:ring-2 focus:ring-ring focus:outline-none"
+                  required
+                />
+              </div>
+
+              <div className="text-center">
+                <button
+                  type="submit"
+                  className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-medium shadow-lg hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-ring"
+                >
+                  Submit Application
+                </button>
+              </div>
+            </motion.form>
+          </div>
+        </section>
       </main>
     </div>
   );
