@@ -5,6 +5,8 @@ import Link from "next/link";
 import { FaSun, FaMoon, FaPlay, FaQuoteLeft, FaAward, FaUsers, FaLightbulb, FaHeart, FaTrophy, FaLinkedin, FaBehance, FaGithub } from "react-icons/fa";
 import { motion, useScroll, useTransform } from "framer-motion";
 import HeroVideoDialog from "@/components/magicui/hero-video-dialog";
+import ProjectModal from "@/components/magicui/project-modal";
+
 export default function AboutPage() {
   const [darkTheme, setDarkTheme] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -12,7 +14,9 @@ export default function AboutPage() {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const statsRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const projectsRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll();
+  const [selectedProject, setSelectedProject] = useState<number | null>(null);
 
   // Theme toggle handler
   const toggleTheme = () => {
@@ -238,6 +242,34 @@ export default function AboutPage() {
     { year: "2022", description: "We continued to innovate, incorporating AI and sustainable design practices into our work." }
   ];
 
+  // Project data
+  const projects = [
+    {
+      title: "Ignite Esports Tournament",
+      overview: "A comprehensive esports tournament management solution",
+      description: "ABC Studios partnered with Ignite Gaming to orchestrate a multi-day esports tournament that captivated gaming enthusiasts. We managed every aspect, from registration and logistics to broadcasting thrilling matches via live streaming. Our targeted digital marketing campaign drove record-breaking viewership and participation.",
+      keyAchievement: "Achieved a 300% increase in online viewership compared to the previous year's tournament",
+      services: ["Esports Services", "Event Management", "Live Streaming", "Digital Marketing"],
+      image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+    },
+    {
+      title: "Elevate Conference",
+      overview: "Transforming a traditional conference into a seamless hybrid experience",
+      description: "ABC Studios was entrusted with transforming a major industry conference into a high-impact hybrid event. We handled the AV production, live streaming to a global audience, and created engaging video content. Our team ensured both in-person and virtual attendees had an exceptional experience.",
+      keyAchievement: "Successfully engaged over 5,000 virtual attendees, expanding the event's reach by 60%",
+      services: ["Event Management", "Live Streaming", "Media Production"],
+      image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2012&q=80"
+    },
+    {
+      title: "Bloom Cosmetics Launch",
+      overview: "Crafting a digital marketing strategy and video content for a product launch",
+      description: "ABC Studios partnered with Bloom Cosmetics to launch their new line of organic skincare products. We produced a series of visually stunning videos and developed a targeted social media campaign to generate buzz. By leveraging influencer marketing, we created high-impact content that resonated with their target audience.",
+      keyAchievement: "Achieved a 40% increase in product sales within the first month of the campaign",
+      services: ["Media Production", "Digital Marketing", "Content Creation"],
+      image: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1965&q=80"
+    }
+  ];
+
   return (
     <main className="min-h-screen bg-background text-foreground">
       {/* Scroll Progress Indicator */}
@@ -315,31 +347,6 @@ export default function AboutPage() {
             >
               At ABC Studio, we transform ideas into captivating digital experiences. Our passion for creativity drives us to push boundaries and redefine what&apos;s possible in the digital realm.
             </motion.p>
-            
-            <motion.div 
-              className="flex flex-col sm:flex-row items-center justify-center gap-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.7, duration: 0.7 }}
-            >
-              <motion.button
-                className="px-8 py-3 rounded-full font-medium border-2 shadow-lg w-full sm:w-auto bg-card text-foreground hover:bg-accent/30"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                Explore Our Work
-              </motion.button>
-              
-              <motion.button
-                className="px-8 py-3 rounded-full font-medium border-2 shadow-lg w-full sm:w-auto bg-card text-foreground hover:bg-accent/30"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                Get in Touch
-              </motion.button>
-            </motion.div>
           </div>
         </div>
       </section>
@@ -371,7 +378,7 @@ export default function AboutPage() {
           
           <div className="relative mt-20 pb-10">
             {/* Timeline center line - hidden on mobile */}
-            <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary rounded-full" />
+            <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary/30 rounded-full" />
             
             {timelineEvents.map((event, index) => (
               <motion.div
@@ -385,7 +392,7 @@ export default function AboutPage() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 {/* Year Circle */}
-                <div className="z-10 w-16 h-16 rounded-full flex items-center justify-center bg-primary text-white-500 font-bold shadow-lg mb-4 md:mb-0 ">
+                <div className="z-10 w-16 h-16 rounded-full flex items-center justify-center border-2 border-primary text-foreground font-bold shadow-lg mb-4 md:mb-0 bg-background">
                   {event.year}
                 </div>
                 
@@ -433,7 +440,7 @@ export default function AboutPage() {
               transition={{ duration: 0.5 }}
               whileHover={{ y: -10, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}
             >
-              <div className="mb-6 w-16 h-16 rounded-full bg-primary flex items-center justify-center text-foreground mx-auto">
+              <div className="mb-6 w-16 h-16 rounded-full border-2 border-primary bg-transparent flex items-center justify-center text-primary mx-auto">
                 <FaLightbulb size={28} />
               </div>
               <h3 className="text-xl md:text-2xl font-semibold mb-4 text-center text-card-foreground">Our Mission</h3>
@@ -450,7 +457,7 @@ export default function AboutPage() {
               transition={{ duration: 0.5, delay: 0.2 }}
               whileHover={{ y: -10, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}
             >
-              <div className="mb-6 w-16 h-16 rounded-full bg-primary flex items-center justify-center text-foreground mx-auto">
+              <div className="mb-6 w-16 h-16 rounded-full border-2 border-primary bg-transparent flex items-center justify-center text-primary mx-auto">
                 <FaUsers size={28} />
               </div>
               <h3 className="text-xl md:text-2xl font-semibold mb-4 text-center text-card-foreground">Our Vision</h3>
@@ -467,7 +474,7 @@ export default function AboutPage() {
               transition={{ duration: 0.5, delay: 0.4 }}
               whileHover={{ y: -10, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}
             >
-              <div className="mb-6 w-16 h-16 rounded-full bg-primary flex items-center justify-center text-foreground mx-auto">
+              <div className="mb-6 w-16 h-16 rounded-full border-2 border-primary bg-transparent flex items-center justify-center text-primary mx-auto">
                 <FaHeart size={28} />
               </div>
               <h3 className="text-xl md:text-2xl font-semibold mb-4 text-center text-card-foreground">Our Values</h3>
@@ -541,6 +548,70 @@ export default function AboutPage() {
             <div className="absolute top-0 left-0 w-48 h-48 bg-accent/30 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
             <div className="absolute bottom-0 right-0 w-64 h-64 bg-accent/30 rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2"></div>
           </div>
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section ref={projectsRef} className="py-20 bg-background">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <motion.h2 
+            className="text-3xl md:text-4xl font-bold text-center mb-16 relative inline-block left-1/2 transform -translate-x-1/2 text-foreground"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+          >
+            Our Projects
+            <span className="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 w-20 h-1 bg-primary"></span>
+          </motion.h2>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {projects.map((project, index) => (
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                className="group relative overflow-hidden rounded-xl bg-card shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer"
+                whileHover={{ y: -10 }}
+                onClick={() => setSelectedProject(index)}
+              >
+                <div className="aspect-video overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2 text-card-foreground">{project.title}</h3>
+                  <p className="text-muted-foreground mb-4">
+                    {project.overview}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.services.slice(0, 3).map((service, idx) => (
+                      <span key={idx} className="px-3 py-1 text-xs rounded-full bg-primary/10 text-primary">
+                        {service}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Project Modal */}
+          {selectedProject !== null && (
+            <ProjectModal
+              isOpen={selectedProject !== null}
+              onClose={() => setSelectedProject(null)}
+              project={projects[selectedProject]}
+            />
+          )}
         </div>
       </section>
 
