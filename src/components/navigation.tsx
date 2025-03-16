@@ -11,7 +11,7 @@ export const navItems = [
   { name: 'Projects', url: '/projects', icon: PanelsTopLeft },
   { name: 'Join us', url:'/joinus', icon: BriefcaseBusiness},
   { name: 'Services', url:'/services', icon: Handshake},
-  {name: 'blog',url:'blog',icon:BookOpen}
+  {name: 'Blog',url:'blog',icon:BookOpen}
 ]
 
 export function Navigation() {

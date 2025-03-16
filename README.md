@@ -28,17 +28,18 @@ Gooners Studio is a fully functional, visually appealing website built for a fic
 
 - **Intuitive Navigation and Content Hierarchy:**  
   The design emphasizes clear navigation with anchor links, a fixed header, and well-defined sections, making it easy for users to find relevant information quickly.
+-  **Backend Integration:**  
+  The contact forms and job application forms currently have full backend integration. They are set up for front-end validation also.
+-  **AI Chatbot Integration:**
+  An AI-powered chatbot for instant user support is planned and implemented.
 
 ## Known Limitations or Unfinished Features
 
-- **Backend Integration:**  
-  The contact forms and job application forms currently do not have full backend integration. They are set up for front-end validation only and will require further development for server-side processing.
 
 - **Dynamic Content Loading:**  
   Some sections such as the Blog and Portfolio currently use static placeholder content. Future updates may include dynamic fetching from a CMS or API for real-time content updates.
 
 - **Advanced Features Pending:**  
-  - **AI Chatbot Integration:** An AI-powered chatbot for instant user support is planned but not yet implemented.
   - **Multi-Language Support:** While the design is ready for multi-language integration, localization features are pending.
   - **Esports Live Leaderboard & Player Profiles:** Although the Esports section outlines the structure for events and registrations, the live leaderboard and player profile functionalities are still under development.
   - **Social Media Auto-Posting:** Automated social media posting for new blogs or event updates is a potential future enhancement.
