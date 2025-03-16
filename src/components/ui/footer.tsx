@@ -58,16 +58,17 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-card text-card-foreground border-t border-border">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Brand Section */}
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-foreground">ABC Studio</h2>
-            <p className="text-muted-foreground">
+    <footer className="bg-background border-t border-border/10 py-16">
+      <div className="container mx-auto px-6 max-w-6xl">
+        {/* Main Footer Content */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10">
+          {/* Brand Section - Simplified */}
+          <div className="col-span-2 md:col-span-1">
+            <h2 className="text-lg font-medium text-foreground mb-6">ABC Studio</h2>
+            <p className="text-sm text-muted-foreground mb-6 max-w-xs">
               Crafting digital experiences that inspire and innovate.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex space-x-5">
               {socialLinks.map((social) => (
                 <Link
                   key={social.name}
@@ -75,23 +76,24 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-primary transition-colors"
+                  aria-label={social.name}
                 >
-                  <social.icon className="w-5 h-5" />
+                  <social.icon className="w-4 h-4" />
                 </Link>
               ))}
             </div>
           </div>
 
-          {/* Navigation Sections */}
+          {/* Navigation Links - Cleaner Layout */}
           {footerLinks.map((section) => (
-            <div key={section.title}>
-              <h3 className="font-semibold text-foreground mb-4">{section.title}</h3>
-              <ul className="space-y-2">
+            <div key={section.title} className="col-span-1">
+              <h3 className="text-sm font-medium text-foreground mb-4">{section.title}</h3>
+              <ul className="space-y-3">
                 {section.links.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-muted-foreground hover:text-primary transition-colors"
+                      className="text-xs text-muted-foreground hover:text-primary transition-colors"
                     >
                       {link.name}
                     </Link>
@@ -100,35 +102,40 @@ export default function Footer() {
               </ul>
             </div>
           ))}
+        </div>
 
-          {/* Newsletter Section */}
-          <div className="lg:col-span-1">
-            <h3 className="font-semibold text-foreground mb-4">Stay Updated</h3>
-            <form onSubmit={handleSubscribe} className="space-y-2">
-              <div className="relative">
+        {/* Newsletter - Separate Section with Cleaner Design */}
+        <div className="mt-16 pt-10 border-t border-border/10">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div>
+              <h3 className="text-sm font-medium text-foreground mb-1">Stay Updated</h3>
+              <p className="text-xs text-muted-foreground">Subscribe to our newsletter</p>
+            </div>
+            <form onSubmit={handleSubscribe} className="w-full md:w-auto md:min-w-[320px]">
+              <div className="flex">
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="w-full px-4 py-2 rounded-lg bg-background text-foreground border border-border focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="flex-grow px-3 py-2 text-xs rounded-l-md bg-background text-foreground border border-border/30 focus:outline-none focus:border-primary"
                   required
                 />
                 <button
                   type="submit"
                   disabled={subscribeStatus === "loading"}
-                  className="mt-2 w-full bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
+                  className="bg-primary/10 text-primary px-4 py-2 text-xs rounded-r-md hover:bg-primary/20 transition-colors disabled:opacity-50"
                 >
-                  {subscribeStatus === "loading" ? "Subscribing..." : 
-                   subscribeStatus === "success" ? "Subscribed!" : 
+                  {subscribeStatus === "loading" ? "..." : 
+                   subscribeStatus === "success" ? "✓" : 
                    "Subscribe"}
                 </button>
               </div>
               {subscribeStatus === "success" && (
                 <motion.p
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 5 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="text-sm text-green-500"
+                  className="text-xs text-green-500 mt-2"
                 >
                   Thank you for subscribing!
                 </motion.p>
@@ -137,21 +144,14 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-border">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-muted-foreground text-sm">
-              © {new Date().getFullYear()} ABC Studio. All rights reserved.
-            </p>
-            <div className="mt-4 md:mt-0">
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary transition-colors text-sm"
-              >
-                Made with ❤️ by ABC Studio
-              </Link>
-            </div>
-          </div>
+        {/* Bottom Bar - Ultra Minimal */}
+        <div className="mt-16 pt-6 border-t border-border/10 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-xs text-muted-foreground/70">
+            © {new Date().getFullYear()} ABC Studio
+          </p>
+          <p className="text-xs text-muted-foreground/70 mt-2 md:mt-0">
+            Made with ♥ by ABC Studio
+          </p>
         </div>
       </div>
     </footer>
