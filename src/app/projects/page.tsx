@@ -100,7 +100,7 @@ const Projects: React.FC = () => {
         {
             title: "Ignite Esports Tournament: Fueling Community Engagement",
             overview: "A comprehensive esports tournament management solution",
-            description: "Gooners Studio partnered with Ignite Gaming to orchestrate a multi-day esports tournament that captivated gaming enthusiasts. We managed every aspect, from registration and logistics to broadcasting thrilling matches via live streaming. Our targeted digital marketing campaign drove record-breaking viewership and participation.",
+            description: "ABC Studios partnered with Ignite Gaming to orchestrate a multi-day esports tournament that captivated gaming enthusiasts. We managed every aspect, from registration and logistics to broadcasting thrilling matches via live streaming. Our targeted digital marketing campaign drove record-breaking viewership and participation.",
             keyAchievement: "Achieved a 300% increase in online viewership compared to the previous year's tournament",
             services: ["Esports Services", "Event Management", "Live Streaming", "Digital Marketing"],
             image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
@@ -108,7 +108,7 @@ const Projects: React.FC = () => {
         {
             title: "Elevate Conference: Hybrid Event Excellence",
             overview: "Transforming a traditional conference into a seamless hybrid experience",
-            description: "Gooners Studio was entrusted with transforming a major industry conference into a high-impact hybrid event. We handled the AV production, live streaming to a global audience, and created engaging video content. Our team ensured both in-person and virtual attendees had an exceptional experience.",
+            description: "ABC Studios was entrusted with transforming a major industry conference into a high-impact hybrid event. We handled the AV production, live streaming to a global audience, and created engaging video content. Our team ensured both in-person and virtual attendees had an exceptional experience.",
             keyAchievement: "Successfully engaged over 5,000 virtual attendees, expanding the event's reach by 60%",
             services: ["Event Management", "Live Streaming", "Media Production"],
             image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2012&q=80"
@@ -116,58 +116,10 @@ const Projects: React.FC = () => {
         {
             title: "Bloom Cosmetics: Captivating Product Launch Campaign",
             overview: "Crafting a digital marketing strategy and video content for a product launch",
-            description: "Gooners Studio partnered with Bloom Cosmetics to launch their new line of organic skincare products. We produced a series of visually stunning videos and developed a targeted social media campaign to generate buzz. By leveraging influencer marketing, we created high-impact content that resonated with their target audience.",
+            description: "ABC Studios partnered with Bloom Cosmetics to launch their new line of organic skincare products. We produced a series of visually stunning videos and developed a targeted social media campaign to generate buzz. By leveraging influencer marketing, we created high-impact content that resonated with their target audience.",
             keyAchievement: "Achieved a 40% increase in product sales within the first month of the campaign",
             services: ["Media Production", "Digital Marketing", "Content Creation"],
             image: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1965&q=80"
-        },
-        {
-            title: "TechVision AR Experience: Immersive Product Showcase",
-            overview: "Creating an augmented reality experience for product visualization",
-            description: "Gooners Studio developed an innovative AR application for TechVision that allows customers to visualize products in their own space before purchasing. The interactive experience increased customer engagement and confidence in purchasing decisions.",
-            keyAchievement: "Reduced product return rates by 25% and increased conversion rates by 35%",
-            services: ["AR Development", "UX Design", "3D Modeling", "Mobile App Development"],
-            image: "https://images.unsplash.com/photo-1626379953822-baec19c3accd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-        },
-        {
-            title: "Rhythm Music Festival: Audiovisual Production",
-            overview: "Delivering end-to-end production for a three-day music festival",
-            description: "Gooners Studio provided comprehensive audiovisual production services for the Rhythm Music Festival, including stage design, lighting, sound engineering, and live streaming. Our team created an immersive experience for both in-person attendees and online viewers.",
-            keyAchievement: "Managed production across 4 stages with over 40 artists and 25,000 attendees",
-            services: ["Event Production", "Stage Design", "Live Streaming", "Sound Engineering"],
-            image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-        },
-        {
-            title: "EcoSolutions Brand Transformation",
-            overview: "Revitalizing a sustainable products brand with a complete identity overhaul",
-            description: "Gooners Studio led a comprehensive brand transformation for EcoSolutions, including new visual identity, website redesign, and marketing collateral. Our strategic approach helped position the company as a leader in sustainable consumer products.",
-            keyAchievement: "Increased brand recognition by 45% and website traffic by 120% within 3 months",
-            services: ["Brand Strategy", "Visual Identity", "Web Design", "Content Creation"],
-            image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2013&q=80"
-        },
-        {
-            title: "Global Tech Summit: Virtual Conference Platform",
-            overview: "Building a custom virtual conference platform for a major tech event",
-            description: "Gooners Studio designed and developed a bespoke virtual conference platform for the Global Tech Summit, featuring interactive sessions, networking opportunities, and exhibitor booths. The platform supported over 10,000 concurrent users with seamless performance.",
-            keyAchievement: "Facilitated 150+ sessions with speakers from 30+ countries and 98% uptime",
-            services: ["Web Development", "UX/UI Design", "Live Streaming Integration", "Virtual Event Management"],
-            image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-        },
-        {
-            title: "Velocity Sports: Social Media Campaign",
-            overview: "Driving engagement through strategic social media content",
-            description: "Gooners Studio created and executed a multi-platform social media campaign for Velocity Sports, including video content, influencer partnerships, and interactive challenges. The campaign significantly increased brand awareness and customer engagement.",
-            keyAchievement: "Generated 15M+ impressions and 500K+ user-generated content submissions",
-            services: ["Social Media Strategy", "Content Production", "Influencer Marketing", "Community Management"],
-            image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-        },
-        {
-            title: "Culinary Masters: Cooking Show Production",
-            overview: "Producing a high-quality cooking competition series",
-            description: "Gooners Studio handled the end-to-end production of Culinary Masters, a cooking competition series featuring renowned chefs. Our team managed everything from concept development and casting to filming, editing, and distribution across multiple platforms.",
-            keyAchievement: "Secured distribution deals with 3 major streaming platforms and garnered 2.5M+ views per episode",
-            services: ["TV Production", "Direction", "Post-Production", "Distribution Strategy"],
-            image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
         }
     ];
 
@@ -207,7 +159,7 @@ const Projects: React.FC = () => {
             id: 6,
             title: "Content Creation Session",
             category: "Production",
-            src: "https://images.unsplash.com/photo-1598550476439-6847785fcea6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+            src: "https://images.unsplash.com/photo-1574717024453-354056afd6fc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
         },
         {
             id: 7,
@@ -326,7 +278,7 @@ const Projects: React.FC = () => {
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.5, duration: 0.7 }}
                         >
-                            Since our inception, Gooners Studio has evolved from a small creative team to a powerhouse of digital innovation. 
+                            Since our inception, ABC Studio has evolved from a small creative team to a powerhouse of digital innovation. 
                             Our projects showcase our commitment to excellence, pushing boundaries, and delivering exceptional results 
                             that exceed client expectations. Each project represents our journey of growth and our passion for creating 
                             impactful digital experiences.
@@ -671,13 +623,13 @@ const Projects: React.FC = () => {
                                     Get in Touch
                                 </button>
                             </Link>
-                        </motion.div>
+            </motion.div>
 
                         {/* Decorative Elements */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
                         <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
                     </motion.div>
-                </div>
+        </div>
             </section>
         </main>
     );

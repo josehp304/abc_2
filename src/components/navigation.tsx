@@ -1,6 +1,6 @@
 "use client"
 
-import { Home, User, Briefcase, FileText, UserRoundPen, BriefcaseBusiness, PanelsTopLeft, Settings,Handshake } from 'lucide-react'
+import { Home, User, Briefcase, FileText, UserRoundPen, BriefcaseBusiness, PanelsTopLeft, Settings,Handshake,BookOpen } from 'lucide-react'
 import { NavBar } from "@/components/ui/tubelight-navbar"
 
 export const navItems = [
@@ -10,7 +10,8 @@ export const navItems = [
   { name: 'Contact', url:'/contactus', icon: UserRoundPen},
   { name: 'Projects', url: '/projects', icon: PanelsTopLeft },
   { name: 'Join us', url:'/joinus', icon: BriefcaseBusiness},
-  { name: 'Services', url:'/services', icon: Handshake}
+  { name: 'Services', url:'/services', icon: Handshake},
+  {name: 'blog',url:'blog',icon:BookOpen}
 ]
 
 export function Navigation() {

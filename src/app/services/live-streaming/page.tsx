@@ -64,20 +64,14 @@ const testimonials = [
   },
   {
     name: "Global Music Festival",
-    quote: "Gooners Studio helped us reach 1M+ viewers across multiple platforms simultaneously.",
+    quote: "ABC Studios helped us reach 1M+ viewers across multiple platforms simultaneously.",
     image: "/testimonials/music-fest.jpg"
   },
   {
     name: "Corporate Summit",
     quote: "Professional team that delivered beyond our expectations. Will definitely work with them again.",
     image: "/testimonials/corporate.jpg"
-  },
-  {
-    name: "Michael Chen",
-    role: "Event Manager",
-    quote: "Gooners Studio helped us reach 1M+ viewers across multiple platforms simultaneously.",
-    image: "/images/testimonials/michael.jpg",
-  },
+  }
 ];
 
 const faqs = [

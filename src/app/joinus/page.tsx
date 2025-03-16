@@ -112,7 +112,7 @@ export default function JoinUsPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Head>
-        <title>Join Us - ABC Studios</title>
+        <title>Join Us - Gooners Studio</title>
       </Head>
       <main className="min-h-screen bg-background text-foreground">
         <ThemeToggle />

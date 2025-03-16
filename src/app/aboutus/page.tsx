@@ -167,7 +167,7 @@ export default function AboutPage() {
 
   // Company timeline data
   const timelineData = [
-    { year: "2010", title: "Studio Launch", description: "Gooners Studio was born with a vision to create groundbreaking digital experiences." },
+    { year: "2010", title: "Studio Launch", description: "ABC Studio was born with a vision to create groundbreaking digital experiences." },
     { year: "2013", title: "Creative Excellence", description: "Delivered award-winning projects for global brands, setting new industry standards." },
     { year: "2016", title: "Global Reach", description: "Expanded our creative footprint across continents, bringing innovation worldwide." },
     { year: "2019", title: "Digital Revolution", description: "Pioneered immersive AR/VR experiences and interactive digital solutions." },
@@ -221,12 +221,12 @@ export default function AboutPage() {
   // Testimonials data
   const testimonials = [
     { 
-      text: "Gooners Studio transformed our brand with their exceptional creative vision. Their ability to blend artistry with technology is unmatched in the industry.", 
+      text: "ABC Studio transformed our brand with their exceptional creative vision. Their ability to blend artistry with technology is unmatched in the industry.", 
       author: "Ananya Desai, Creative Head at TechVision",
       image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
     },
     { 
-      text: "Working with Gooners Studio was transformative. They don't just create content; they craft experiences that leave lasting impressions.", 
+      text: "Working with ABC Studio was transformative. They don't just create content; they craft experiences that leave lasting impressions.", 
       author: "Vikram Malhotra, CEO of Digital Dynamics",
       image: "https://images.unsplash.com/photo-1472099645785-4d0ef436c909?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
     }
@@ -234,7 +234,7 @@ export default function AboutPage() {
 
   // Timeline events data
   const timelineEvents = [
-    { year: "2010", description: "Gooners Studio was founded with a vision to create innovative digital experiences." },
+    { year: "2010", description: "ABC Studio was founded with a vision to create innovative digital experiences." },
     { year: "2012", description: "We delivered our first award-winning project, setting the tone for our future success." },
     { year: "2015", description: "Our team expanded to include talented individuals from diverse creative backgrounds." },
     { year: "2018", description: "We pioneered the use of AR/VR technology in our projects, pushing the boundaries of digital innovation." },
@@ -247,7 +247,7 @@ export default function AboutPage() {
     {
       title: "Ignite Esports Tournament",
       overview: "A comprehensive esports tournament management solution",
-      description: "Gooners Studio partnered with Ignite Gaming to orchestrate a multi-day esports tournament that captivated gaming enthusiasts. We managed every aspect, from registration and logistics to broadcasting thrilling matches via live streaming. Our targeted digital marketing campaign drove record-breaking viewership and participation.",
+      description: "ABC Studios partnered with Ignite Gaming to orchestrate a multi-day esports tournament that captivated gaming enthusiasts. We managed every aspect, from registration and logistics to broadcasting thrilling matches via live streaming. Our targeted digital marketing campaign drove record-breaking viewership and participation.",
       keyAchievement: "Achieved a 300% increase in online viewership compared to the previous year's tournament",
       services: ["Esports Services", "Event Management", "Live Streaming", "Digital Marketing"],
       image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
@@ -255,7 +255,7 @@ export default function AboutPage() {
     {
       title: "Elevate Conference",
       overview: "Transforming a traditional conference into a seamless hybrid experience",
-      description: "Gooners Studio was entrusted with transforming a major industry conference into a high-impact hybrid event. We handled the AV production, live streaming to a global audience, and created engaging video content. Our team ensured both in-person and virtual attendees had an exceptional experience.",
+      description: "ABC Studios was entrusted with transforming a major industry conference into a high-impact hybrid event. We handled the AV production, live streaming to a global audience, and created engaging video content. Our team ensured both in-person and virtual attendees had an exceptional experience.",
       keyAchievement: "Successfully engaged over 5,000 virtual attendees, expanding the event's reach by 60%",
       services: ["Event Management", "Live Streaming", "Media Production"],
       image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2012&q=80"
@@ -263,7 +263,7 @@ export default function AboutPage() {
     {
       title: "Bloom Cosmetics Launch",
       overview: "Crafting a digital marketing strategy and video content for a product launch",
-      description: "Gooners Studio partnered with Bloom Cosmetics to launch their new line of organic skincare products. We produced a series of visually stunning videos and developed a targeted social media campaign to generate buzz. By leveraging influencer marketing, we created high-impact content that resonated with their target audience.",
+      description: "ABC Studios partnered with Bloom Cosmetics to launch their new line of organic skincare products. We produced a series of visually stunning videos and developed a targeted social media campaign to generate buzz. By leveraging influencer marketing, we created high-impact content that resonated with their target audience.",
       keyAchievement: "Achieved a 40% increase in product sales within the first month of the campaign",
       services: ["Media Production", "Digital Marketing", "Content Creation"],
       image: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1965&q=80"
@@ -345,7 +345,7 @@ export default function AboutPage() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.7 }}
             >
-              At Gooners Studio, we transform ideas into captivating digital experiences. Our passion for creativity drives us to push boundaries and redefine what&apos;s possible in the digital realm.
+              At ABC Studio, we transform ideas into captivating digital experiences. Our passion for creativity drives us to push boundaries and redefine what&apos;s possible in the digital realm.
             </motion.p>
           </div>
         </div>
@@ -479,7 +479,7 @@ export default function AboutPage() {
               </div>
               <h3 className="text-xl md:text-2xl font-semibold mb-4 text-center text-card-foreground">Our Values</h3>
               <p className="text-center md:max-w-md mx-auto text-muted-foreground">
-                Innovation, Excellence, Integrity, Collaboration, and Client Success guide everything we do at Gooners Studio.
+                Innovation, Excellence, Integrity, Collaboration, and Client Success guide everything we do at ABC Studio.
               </p>
             </motion.div>
           </div>

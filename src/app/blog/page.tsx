@@ -266,7 +266,7 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       <Head>
-        <title>Blog - Gooners Studio</title>
+        <title>Blog - ABC Studios</title>
       </Head>
       <Toaster position="bottom-right" />
 
