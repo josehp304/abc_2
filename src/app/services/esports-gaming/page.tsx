@@ -9,6 +9,12 @@ import { GiTrophyCup, GiGamepadCross } from 'react-icons/gi';
 import ThemeToggle from "@/components/theme-toggle";
 import { GridCard } from "@/components/ui/grid-card";
 import Link from 'next/link';
+import { createClient } from '@supabase/supabase-js';
+
+// Initialize Supabase client
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 interface Tournament {
   id: number;
@@ -306,6 +312,8 @@ export default function EsportsPage() {
   });
   const [leaderboardFilter, setLeaderboardFilter] = useState<string>("all");
   const [leaderboardData, setLeaderboardData] = useState<LeaderboardPlayer[]>(leaderboardPlayers);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [registrationError, setRegistrationError] = useState<string | null>(null);
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
@@ -326,16 +334,37 @@ export default function EsportsPage() {
     tournamentsRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleRegistration = (e: React.FormEvent) => {
+  const handleRegistration = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the data to your backend
-    const randomHour = Math.floor(Math.random() * 24);
-    const randomMinute = Math.floor(Math.random() * 60);
-    const allottedTime = `${randomHour.toString().padStart(2, '0')}:${randomMinute.toString().padStart(2, '0')}`;
+    setIsSubmitting(true);
+    setRegistrationError(null);
     
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      // Insert data into Supabase
+      const { data, error } = await supabase
+        .from('gameregistrations')
+        .insert([
+          { 
+            teamname: registrationForm.teamName,
+            captianname: registrationForm.captainName,
+            email: registrationForm.email,
+            phoneno: parseInt(registrationForm.phone) || 0,
+            registration_date: new Date().toISOString(),
+            tournament_id: selectedTournament?.id,
+            tournment_name: selectedTournament?.title
+          }
+        ]);
+      
+      if (error) {
+        console.error('Error inserting data:', error);
+        setRegistrationError('Failed to submit registration. Please try again.');
+        setIsSubmitting(false);
+        return;
+      }
+      
+      // Registration successful
       setRegistrationComplete(true);
+      
       // Reset form
       setRegistrationForm({
         teamName: '',
@@ -345,7 +374,13 @@ export default function EsportsPage() {
         phone: '',
         agreeToTerms: false
       });
-    }, 1500);
+      
+    } catch (error) {
+      console.error('Unexpected error:', error);
+      setRegistrationError('An unexpected error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const filterLeaderboard = (game: string) => {
@@ -795,6 +830,11 @@ export default function EsportsPage() {
                     </button>
                   </div>
                   <form onSubmit={handleRegistration} className="p-6 space-y-4">
+                    {registrationError && (
+                      <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-red-500 text-sm">
+                        {registrationError}
+                      </div>
+                    )}
                     <div>
                       <label className="block text-sm font-medium text-card-foreground mb-1">Team Name</label>
                       <input
@@ -847,9 +887,10 @@ export default function EsportsPage() {
                     </div>
                     <button
                       type="submit"
-                      className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-full font-medium hover:bg-primary/90 transition-colors duration-300"
+                      disabled={isSubmitting}
+                      className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-full font-medium hover:bg-primary/90 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Complete Registration
+                      {isSubmitting ? "Processing..." : "Complete Registration"}
                     </button>
                   </form>
                 </>
