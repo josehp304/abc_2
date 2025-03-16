@@ -40,6 +40,16 @@ interface RegistrationForm {
   agreeToTerms: boolean;
 }
 
+interface LeaderboardPlayer {
+  rank: number;
+  name: string;
+  team: string;
+  game: string;
+  points: number;
+  winRate: string;
+  avatar: string;
+}
+
 const statistics: EsportsStat[] = [
   {
     value: "500+",
@@ -75,7 +85,7 @@ const tournaments: Tournament[] = [
     prizePool: "₹5,00,000",
     maxTeams: 32,
     currentRegistrations: 24,
-    gameImage: "/valorant-banner.jpg",
+    gameImage: "https://images.unsplash.com/photo-1580327344181-c1163234e5a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
     requirements: ["5 players + 1 substitute", "Minimum rank: Immortal", "Discord required", "Valid ID proof"]
   },
   {
@@ -89,7 +99,7 @@ const tournaments: Tournament[] = [
     prizePool: "₹3,00,000",
     maxTeams: 64,
     currentRegistrations: 45,
-    gameImage: "/bgmi-banner.jpg",
+    gameImage: "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
     requirements: ["4 players + 1 substitute", "Minimum tier: Crown", "Working microphone", "Stable internet"]
   },
   {
@@ -103,7 +113,7 @@ const tournaments: Tournament[] = [
     prizePool: "₹1,50,000",
     maxTeams: 128,
     currentRegistrations: 86,
-    gameImage: "/fifa24-banner.jpg",
+    gameImage: "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
     requirements: ["Individual participation", "Own FIFA 24 copy", "PS5/Xbox Series X", "PSN/Xbox Live subscription"]
   },
   {
@@ -117,7 +127,7 @@ const tournaments: Tournament[] = [
     prizePool: "₹75,000",
     maxTeams: 32,
     currentRegistrations: 28,
-    gameImage: "/rocket-league-banner.jpg",
+    gameImage: "https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
     requirements: ["3 players per team", "Minimum rank: Champion", "Discord required"]
   },
   {
@@ -131,7 +141,7 @@ const tournaments: Tournament[] = [
     prizePool: "₹8,00,000",
     maxTeams: 16,
     currentRegistrations: 12,
-    gameImage: "/cs2-banner.jpg",
+    gameImage: "https://images.unsplash.com/photo-1548686304-89d188a80029?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
     requirements: ["5 players + 1 coach", "Minimum rank: Global Elite", "Anti-cheat compliance", "Team uniforms"]
   },
   {
@@ -145,7 +155,7 @@ const tournaments: Tournament[] = [
     prizePool: "₹10,00,000",
     maxTeams: 16,
     currentRegistrations: 14,
-    gameImage: "/dota2-banner.jpg",
+    gameImage: "https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
     requirements: ["5 players + 1 substitute", "Minimum MMR: 6000", "Team organization registration", "Valid passports"]
   },
   {
@@ -206,6 +216,54 @@ const tournaments: Tournament[] = [
   }
 ];
 
+const leaderboardPlayers: LeaderboardPlayer[] = [
+  {
+    rank: 1,
+    name: "Phantom_X",
+    team: "Invictus Gaming",
+    game: "VALORANT",
+    points: 2850,
+    winRate: "78%",
+    avatar: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
+  },
+  {
+    rank: 2,
+    name: "ShadowStrike",
+    team: "Team Eclipse",
+    game: "CS2",
+    points: 2720,
+    winRate: "75%",
+    avatar: "https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80"
+  },
+  {
+    rank: 3,
+    name: "NeonBlade",
+    team: "Nexus Esports",
+    game: "VALORANT",
+    points: 2680,
+    winRate: "72%",
+    avatar: "https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+  },
+  {
+    rank: 4,
+    name: "VortexKing",
+    team: "Quantum Force",
+    game: "BGMI",
+    points: 2590,
+    winRate: "70%",
+    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
+  },
+  {
+    rank: 5,
+    name: "TitanSlayer",
+    team: "Phoenix Rising",
+    game: "Dota 2",
+    points: 2510,
+    winRate: "68%",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
+  }
+];
+
 const features = [
   {
     title: "Professional Tournaments",
@@ -246,6 +304,8 @@ export default function EsportsPage() {
     phone: '',
     agreeToTerms: false
   });
+  const [leaderboardFilter, setLeaderboardFilter] = useState<string>("all");
+  const [leaderboardData, setLeaderboardData] = useState<LeaderboardPlayer[]>(leaderboardPlayers);
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
@@ -286,6 +346,15 @@ export default function EsportsPage() {
         agreeToTerms: false
       });
     }, 1500);
+  };
+
+  const filterLeaderboard = (game: string) => {
+    setLeaderboardFilter(game);
+    if (game === "all") {
+      setLeaderboardData(leaderboardPlayers);
+    } else {
+      setLeaderboardData(leaderboardPlayers.filter(player => player.game === game));
+    }
   };
 
   return (
@@ -533,6 +602,152 @@ export default function EsportsPage() {
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Add the Leaderboard Section after the CTA Section and before the Registration Modal */}
+      <section className="py-20 bg-card">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <motion.div 
+            className="text-center mb-16"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
+            <motion.h2 
+              variants={fadeInUp}
+              className="text-3xl md:text-4xl font-bold mb-4 text-card-foreground"
+            >
+              Pro Players Leaderboard
+            </motion.h2>
+            <motion.p 
+              variants={fadeInUp}
+              className="text-lg text-muted-foreground max-w-2xl mx-auto"
+            >
+              Top performers across our tournaments
+            </motion.p>
+          </motion.div>
+          
+          <div className="mb-8 flex flex-wrap justify-center gap-2">
+            <button 
+              onClick={() => filterLeaderboard("all")}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
+                leaderboardFilter === "all" 
+                  ? "bg-primary text-primary-foreground" 
+                  : "bg-muted text-muted-foreground hover:bg-muted/80"
+              }`}
+            >
+              All Games
+            </button>
+            <button 
+              onClick={() => filterLeaderboard("VALORANT")}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
+                leaderboardFilter === "VALORANT" 
+                  ? "bg-primary text-primary-foreground" 
+                  : "bg-muted text-muted-foreground hover:bg-muted/80"
+              }`}
+            >
+              VALORANT
+            </button>
+            <button 
+              onClick={() => filterLeaderboard("CS2")}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
+                leaderboardFilter === "CS2" 
+                  ? "bg-primary text-primary-foreground" 
+                  : "bg-muted text-muted-foreground hover:bg-muted/80"
+              }`}
+            >
+              CS2
+            </button>
+            <button 
+              onClick={() => filterLeaderboard("BGMI")}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
+                leaderboardFilter === "BGMI" 
+                  ? "bg-primary text-primary-foreground" 
+                  : "bg-muted text-muted-foreground hover:bg-muted/80"
+              }`}
+            >
+              BGMI
+            </button>
+            <button 
+              onClick={() => filterLeaderboard("Dota 2")}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
+                leaderboardFilter === "Dota 2" 
+                  ? "bg-primary text-primary-foreground" 
+                  : "bg-muted text-muted-foreground hover:bg-muted/80"
+              }`}
+            >
+              Dota 2
+            </button>
+          </div>
+          
+          <GridCard>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-border">
+                    <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Rank</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Player</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Team</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Game</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Points</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Win Rate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {leaderboardData.map((player, index) => (
+                    <motion.tr 
+                      key={index}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.05 }}
+                      className="border-b border-border hover:bg-muted/50 transition-colors duration-200"
+                    >
+                      <td className="px-4 py-4">
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
+                          player.rank === 1 ? "bg-yellow-500" : 
+                          player.rank === 2 ? "bg-gray-300" : 
+                          player.rank === 3 ? "bg-amber-600" : "bg-muted"
+                        } ${player.rank <= 3 ? "text-white" : "text-muted-foreground"}`}>
+                          {player.rank}
+                        </div>
+                      </td>
+                      <td className="px-4 py-4">
+                        <div className="flex items-center">
+                          <div className="w-10 h-10 rounded-full overflow-hidden mr-3 bg-muted">
+                            <Image
+                              src={player.avatar}
+                              alt={player.name}
+                              width={40}
+                              height={40}
+                              className="object-cover"
+                            />
+                          </div>
+                          <span className="font-medium text-card-foreground">{player.name}</span>
+                        </div>
+                      </td>
+                      <td className="px-4 py-4 text-muted-foreground">{player.team}</td>
+                      <td className="px-4 py-4">
+                        <span className="px-2 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                          {player.game}
+                        </span>
+                      </td>
+                      <td className="px-4 py-4 font-semibold text-card-foreground">{player.points}</td>
+                      <td className="px-4 py-4 text-green-500">{player.winRate}</td>
+                    </motion.tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            
+            <div className="p-4 text-center">
+              <Link href="/leaderboard" className="text-primary hover:underline text-sm font-medium">
+                View Complete Leaderboard →
+              </Link>
+            </div>
+          </GridCard>
         </div>
       </section>
 
