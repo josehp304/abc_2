@@ -63,10 +63,12 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand Section */}
           <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-foreground">ABC Studio</h2>
-            <p className="text-muted-foreground">
-              Crafting digital experiences that inspire and innovate.
-            </p>
+            <div className="flex flex-col space-y-4">
+              <h2 className="text-2xl font-bold text-foreground">Gooners Studio</h2>
+              <p className="text-muted-foreground max-w-xs">
+                Transforming ideas into captivating digital experiences with creativity and innovation.
+              </p>
+            </div>
             <div className="flex space-x-4">
               {socialLinks.map((social) => (
                 <Link
@@ -138,19 +140,14 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-border">
+        <div className="border-t border-border pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-muted-foreground text-sm">
-              © {new Date().getFullYear()} ABC Studio. All rights reserved.
+              © {new Date().getFullYear()} Gooners Studio. All rights reserved.
             </p>
-            <div className="mt-4 md:mt-0">
-              <Link
-                href="#"
-                className="text-muted-foreground hover:text-primary transition-colors text-sm"
-              >
-                Made with ❤️ by ABC Studio
-              </Link>
-            </div>
+            <p className="text-muted-foreground text-sm mt-4 md:mt-0">
+              Made with ❤️ by Gooners Studio
+            </p>
           </div>
         </div>
       </div>

@@ -19,13 +19,13 @@ interface ChatbotProps {
 }
 
 // System prompt for the AI
-const SYSTEM_PROMPT = `You are a helpful AI assistant for ABC Studios, a creative agency specializing in photography, videography, film production, and post-production editing. 
+const SYSTEM_PROMPT = `You are a helpful AI assistant for Gooners Studio, a creative agency specializing in photography, videography, film production, and post-production editing. 
 Your responses should be friendly, professional, and concise. 
 You can help with inquiries about our services, pricing, contact information, and business hours.
 
 Key information:
 - Business hours: Mon-Fri 9am-6pm, Sat 10am-4pm, Closed on Sundays
-- Contact: contact@abcstudios.com, +91 (484) 246-1930
+- Contact: contact@goonersstudio.com, +91 (484) 246-1930
 - Location: St Joseph's College of Engineering and Technology, Choondacherry, Palai, Kottayam, Kerala - 686579
 - Services: Photography, Videography, Film Production, Post-production editing
 
@@ -120,7 +120,7 @@ export function Chatbot({ className }: ChatbotProps) {
       return data.response;
     } catch (error) {
       console.error('Error getting AI response:', error);
-      return "I apologize, but I'm having trouble connecting right now. Please try again later or contact us directly at contact@abcstudios.com";
+      return "I apologize, but I'm having trouble connecting right now. Please try again later or contact us directly at contact@goonersstudio.com";
     }
   };
 
@@ -208,7 +208,7 @@ export function Chatbot({ className }: ChatbotProps) {
           >
             {/* Chat header */}
             <div className="bg-primary text-primary-foreground p-4">
-              <h2 className="text-lg font-semibold">Chat with Gooners Studios</h2>
+              <h2 className="text-lg font-semibold">Chat with Gooners Studio</h2>
             </div>
 
             {/* Messages container with ref */}

@@ -137,11 +137,10 @@ const portfolio = [
 
 const testimonials = [
   {
-    name: "Sarah Johnson",
+    name: "John Smith",
     role: "Marketing Director",
-    company: "TechCorp",
-    quote: "ABC Studios transformed our vision into reality with exceptional quality.",
-    image: "/testimonials/client1.jpg"
+    quote: "Gooners Studio transformed our vision into reality with exceptional quality.",
+    image: "/images/testimonials/john.jpg"
   },
   {
     name: "Michael Chen",

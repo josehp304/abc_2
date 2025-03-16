@@ -133,7 +133,7 @@ const testimonials = [
     name: "John Smith",
     role: "CEO",
     company: "Tech Innovations",
-    quote: "ABC Studios delivered an exceptional conference experience. Every detail was perfect.",
+    quote: "Gooners Studio delivered an exceptional conference experience. Every detail was perfect.",
     image: "/testimonials/john.jpg",
     rating: 5
   },
@@ -452,59 +452,78 @@ export default function EventManagementPage() {
                   className="w-full px-6 py-4 text-left flex items-center justify-between text-white"
                 >
                   <span className="font-semibold">{faq.question}</span>
-                  <FaQuestionCircle className={`transform transition-transform duration-300 ${
-                    selectedFaq === index ? 'rotate-180' : ''
-                  }`} />
+                  <FaQuestionCircle className={`transform transition-transform duration-300 ${selectedFaq === index ? 'rotate-180' : ''}`} />
                 </button>
-                <AnimatePresence>
-                  {selectedFaq === index && (
-                    <motion.div
-                      initial={{ height: 0 }}
-                      animate={{ height: "auto" }}
-                      exit={{ height: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="px-6 pb-4"
-                    >
-                      <p className="text-gray-400">{faq.answer}</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {selectedFaq === index && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="px-6 pb-4 text-gray-400"
+                  >
+                    {faq.answer}
+                  </motion.div>
+                )}
               </motion.div>
             ))}
           </div>
         </div>
       </section>
-
-      {/* Contact CTA Section */}
-      <section ref={contactRef} className="py-20 px-4 bg-gray-800/30">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-3xl sm:text-4xl font-bold mb-8 text-white"
-          >
-            Ready to Create an Unforgettable Event?
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-xl text-gray-300 mb-12"
-          >
-            Let's bring your vision to life. Contact us for a free consultation.
-          </motion.p>
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            onClick={() => router.push('/contact')}
-            className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full text-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105"
-          >
-            Contact Us Now
-          </motion.button>
+      
+      {/* Contact Form Section */}
+      <div ref={contactRef} className="py-20 px-4">
+        <div className="max-w-3xl mx-auto bg-gray-800/50 backdrop-blur-sm rounded-xl p-8 border border-gray-700">
+          <h2 className="text-3xl font-bold text-center mb-8 text-white">Get Started</h2>
+          <form className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Name</label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  placeholder="Your name"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                <input
+                  type="email"
+                  className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  placeholder="Your email"
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">Event Type</label>
+              <select className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                <option value="">Select event type</option>
+                <option value="corporate">Corporate Event</option>
+                <option value="wedding">Wedding</option>
+                <option value="concert">Concert</option>
+                <option value="award">Award Show</option>
+                <option value="virtual">Virtual Event</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">Message</label>
+              <textarea
+                rows={4}
+                className="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                placeholder="Tell us about your event"
+              ></textarea>
+            </div>
+            <div>
+              <button
+                type="submit"
+                className="w-full py-3 px-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-medium hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300"
+              >
+                Submit Request
+              </button>
+            </div>
+          </form>
         </div>
-      </section>
+      </div>
     </div>
   );
 }

@@ -103,7 +103,7 @@ const App: React.FC = () => {
       username: "@jackthompson",
       role: "Professional Streamer",
       location: "Los Angeles, CA",
-      body: "ABC Studios revolutionized my streaming career. Their custom overlay designs and stream optimization increased my viewer retention by 40%. The technical support team is available 24/7 and really understands what streamers need.",
+      body: "Gooners Studio revolutionized my streaming career. Their custom overlay designs and stream optimization increased my viewer retention by 40%. The technical support team is available 24/7 and really understands what streamers need.",
       img: "https://avatar.vercel.sh/jack",
       rating: 5
     },
@@ -112,7 +112,7 @@ const App: React.FC = () => {
       username: "@jillmartinez",
       role: "Esports Team Manager",
       location: "New York, NY",
-      body: "Managing a top-tier esports team requires flawless production. ABC Studios delivered beyond expectations, handling our tournament streams with zero technical issues. Their instant replay system and multi-camera setups are game-changers.",
+      body: "Managing a top-tier esports team requires flawless production. Gooners Studio delivered beyond expectations, handling our tournament streams with zero technical issues. Their instant replay system and multi-camera setups are game-changers.",
       img: "https://avatar.vercel.sh/jill",
       rating: 5
     },
@@ -130,7 +130,7 @@ const App: React.FC = () => {
       username: "@janewilson",
       role: "Event Coordinator",
       location: "London, UK",
-      body: "Coordinated a 3-day gaming festival with ABC Studios. They handled everything from stage design to live streaming. The AR integration for audience participation was brilliant. 10,000+ attendees and not a single technical hiccup.",
+      body: "Coordinated a 3-day gaming festival with Gooners Studio. They handled everything from stage design to live streaming. The AR integration for audience participation was brilliant. 10,000+ attendees and not a single technical hiccup.",
       img: "https://avatar.vercel.sh/jane",
       rating: 5
     },
@@ -139,7 +139,7 @@ const App: React.FC = () => {
       username: "@jennykim",
       role: "Gaming Influencer",
       location: "Seoul, South Korea",
-      body: "As a bilingual streamer, I needed a team that could handle multi-language broadcasts. ABC Studios set up a seamless system for real-time translations and region-specific content delivery. My international audience grew by 200%.",
+      body: "As a bilingual streamer, I needed a team that could handle multi-language broadcasts. Gooners Studio set up a seamless system for real-time translations and region-specific content delivery. My international audience grew by 200%.",
       img: "https://avatar.vercel.sh/jenny",
       rating: 4
     },
@@ -148,7 +148,7 @@ const App: React.FC = () => {
       username: "@jamesrod",
       role: "Tournament Organizer",
       location: "Madrid, Spain",
-      body: "Organized the largest LATAM esports tournament with ABC Studios. Their production team handled 6 simultaneous game streams, real-time stats integration, and player cams flawlessly. The viewing experience was on par with major league broadcasts.",
+      body: "Organized the largest LATAM esports tournament with Gooners Studio. Their production team handled 6 simultaneous game streams, real-time stats integration, and player cams flawlessly. The viewing experience was on par with major league broadcasts.",
       img: "https://avatar.vercel.sh/james",
       rating: 5
     }
@@ -296,12 +296,9 @@ const App: React.FC = () => {
           </div>
         </div>
         
-        <h2 className="mt-8 text-4xl md:text-5xl font-bold text-center mb-4 text-foreground">
-          What Our Users Say
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+          Hear from our global community about their experiences with Gooners Studio
         </h2>
-        <p className="text-lg text-muted-foreground text-center mb-16 max-w-2xl mx-auto">
-          Hear from our global community about their experiences with ABC Studios
-        </p>
         
         <TestimonialCarousel reviews={reviews} />
       </section>
