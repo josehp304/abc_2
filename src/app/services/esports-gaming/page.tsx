@@ -1,9 +1,9 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaGamepad, FaTrophy, FaTwitch, FaUsers, FaTimes, FaCalendar, FaClock, FaRupeeSign, FaMinus, FaPlus, FaCheck } from 'react-icons/fa';
+import { FaGamepad, FaTrophy, FaTwitch, FaUsers, FaTimes, FaCalendar, FaClock, FaRupeeSign, FaMinus, FaPlus, FaCheck, FaPlay, FaYoutube } from 'react-icons/fa';
 import Image from 'next/image';
-import { useState, useRef, ReactNode } from 'react';
+import { useState, useRef, ReactNode, useEffect } from 'react';
 import { SiTwitch as SiTwitchIcon, SiYoutubegaming, SiEpicgames } from 'react-icons/si';
 import { GiTrophyCup, GiGamepadCross } from 'react-icons/gi';
 import ThemeToggle from "@/components/theme-toggle";
@@ -54,6 +54,16 @@ interface LeaderboardPlayer {
   points: number;
   winRate: string;
   avatar: string;
+}
+
+interface LiveStream {
+  id: string;
+  title: string;
+  channelTitle: string;
+  thumbnailUrl: string;
+  viewerCount: string;
+  startTime: string;
+  channelThumbnail?: string;
 }
 
 const statistics: EsportsStat[] = [
@@ -314,6 +324,11 @@ export default function EsportsPage() {
   const [leaderboardData, setLeaderboardData] = useState<LeaderboardPlayer[]>(leaderboardPlayers);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [registrationError, setRegistrationError] = useState<string | null>(null);
+  const [liveStreams, setLiveStreams] = useState<LiveStream[]>([]);
+  const [isLoadingStreams, setIsLoadingStreams] = useState(false);
+  const [streamError, setStreamError] = useState<string | null>(null);
+  const [selectedStream, setSelectedStream] = useState<LiveStream | null>(null);
+  const [showStreamModal, setShowStreamModal] = useState(false);
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
@@ -390,6 +405,36 @@ export default function EsportsPage() {
     } else {
       setLeaderboardData(leaderboardPlayers.filter(player => player.game === game));
     }
+  };
+
+  // Fetch YouTube gaming streams
+  useEffect(() => {
+    const fetchGamingStreams = async () => {
+      setIsLoadingStreams(true);
+      setStreamError(null);
+      
+      try {
+        const response = await fetch('/api/youtube-gaming-streams');
+        if (!response.ok) {
+          throw new Error('Failed to fetch streams');
+        }
+        const data = await response.json();
+        setLiveStreams(data.streams);
+      } catch (error) {
+        console.error('Error fetching live streams:', error);
+        setStreamError('Failed to load gaming streams. Please try again later.');
+      } finally {
+        setIsLoadingStreams(false);
+      }
+    };
+    
+    fetchGamingStreams();
+  }, []);
+
+  // Function to handle stream click
+  const handleStreamClick = (stream: LiveStream) => {
+    setSelectedStream(stream);
+    setShowStreamModal(true);
   };
 
   return (
@@ -599,6 +644,118 @@ export default function EsportsPage() {
                 </div>
               </GridCard>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Live Gaming Streams Section */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <motion.div 
+            className="text-center mb-16"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
+            <motion.h2 
+              variants={fadeInUp}
+              className="text-3xl md:text-4xl font-bold mb-4 text-foreground"
+            >
+              Live Gaming Streams
+            </motion.h2>
+            <motion.p 
+              variants={fadeInUp}
+              className="text-lg text-muted-foreground max-w-2xl mx-auto"
+            >
+              Watch popular esports events and gaming streams happening right now
+            </motion.p>
+          </motion.div>
+
+          {isLoadingStreams ? (
+            <div className="flex justify-center items-center py-20">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+            </div>
+          ) : streamError ? (
+            <div className="text-center py-10">
+              <p className="text-red-500">{streamError}</p>
+              <button 
+                onClick={() => window.location.reload()}
+                className="mt-4 px-4 py-2 bg-primary text-primary-foreground rounded-full text-sm font-medium hover:bg-primary/90 transition-colors"
+              >
+                Retry
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {liveStreams.map((stream) => (
+                <GridCard key={stream.id}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="h-full flex flex-col cursor-pointer"
+                    onClick={() => handleStreamClick(stream)}
+                  >
+                    <div className="relative aspect-video rounded-t-lg overflow-hidden group">
+                      <Image
+                        src={stream.thumbnailUrl}
+                        alt={stream.title}
+                        fill
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <div
+                          className="w-16 h-16 rounded-full bg-primary/80 flex items-center justify-center transform scale-90 group-hover:scale-100 transition-transform duration-300"
+                        >
+                          <FaPlay className="text-white w-6 h-6 ml-1" />
+                        </div>
+                      </div>
+                      <div className="absolute top-2 right-2 bg-red-600 text-white text-xs font-medium px-2 py-1 rounded">
+                        LIVE
+                      </div>
+                      <div className="absolute bottom-2 left-2 bg-black/70 text-white text-xs font-medium px-2 py-1 rounded flex items-center">
+                        <FaUsers className="mr-1 text-xs" /> {stream.viewerCount}
+                      </div>
+                    </div>
+                    <div className="p-4 flex-grow flex flex-col">
+                      <h3 className="font-medium text-foreground line-clamp-2 mb-2">{stream.title}</h3>
+                      <div className="flex items-center mt-auto">
+                        {stream.channelThumbnail && (
+                          <div className="w-6 h-6 rounded-full overflow-hidden mr-2 flex-shrink-0">
+                            <Image
+                              src={stream.channelThumbnail}
+                              alt={stream.channelTitle}
+                              width={24}
+                              height={24}
+                              className="object-cover"
+                            />
+                          </div>
+                        )}
+                        <span className="text-sm text-muted-foreground truncate">{stream.channelTitle}</span>
+                      </div>
+                      <div className="flex justify-between items-center mt-2 text-xs text-muted-foreground">
+                        <span>Started {stream.startTime}</span>
+                        <span className="text-primary hover:underline flex items-center">
+                          <FaYoutube className="mr-1" /> Watch
+                        </span>
+                      </div>
+                    </div>
+                  </motion.div>
+                </GridCard>
+              ))}
+            </div>
+          )}
+          
+          <div className="mt-10 text-center">
+            <Link
+              href="https://www.youtube.com/gaming/live"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 bg-primary/10 text-primary rounded-full font-medium hover:bg-primary/20 transition-colors inline-flex items-center"
+            >
+              <FaYoutube className="mr-2 text-lg" /> View More on YouTube Gaming
+            </Link>
           </div>
         </div>
       </section>
@@ -895,6 +1052,80 @@ export default function EsportsPage() {
                   </form>
                 </>
               )}
+            </motion.div>
+          </motion.div>
+        )}
+        
+      </AnimatePresence>
+
+      {/* YouTube Stream Modal */}
+      <AnimatePresence>
+        {showStreamModal && selectedStream && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setShowStreamModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-card w-full max-w-4xl rounded-xl shadow-xl overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex justify-between items-center p-4 border-b border-border">
+                <h3 className="text-xl font-semibold text-card-foreground line-clamp-1">{selectedStream.title}</h3>
+                <button
+                  onClick={() => setShowStreamModal(false)}
+                  className="text-muted-foreground hover:text-card-foreground transition-colors"
+                >
+                  <FaTimes className="w-5 h-5" />
+                </button>
+              </div>
+              <div className="relative aspect-video w-full">
+                <iframe
+                  src={`https://www.youtube.com/embed/${selectedStream.id}?autoplay=1`}
+                  title={selectedStream.title}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                ></iframe>
+              </div>
+              <div className="p-4">
+                <div className="flex items-center mb-4">
+                  {selectedStream.channelThumbnail && (
+                    <div className="w-10 h-10 rounded-full overflow-hidden mr-3 flex-shrink-0">
+                      <Image
+                        src={selectedStream.channelThumbnail}
+                        alt={selectedStream.channelTitle}
+                        width={40}
+                        height={40}
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
+                  <div>
+                    <p className="font-medium">{selectedStream.channelTitle}</p>
+                    <p className="text-sm text-muted-foreground">Live stream started {selectedStream.startTime}</p>
+                  </div>
+                  <div className="ml-auto flex items-center">
+                    <span className="flex items-center bg-primary/10 text-primary px-3 py-1 rounded-full text-sm mr-2">
+                      <FaUsers className="mr-1 text-xs" /> {selectedStream.viewerCount} watching
+                    </span>
+                    <Link
+                      href={`https://youtube.com/watch?v=${selectedStream.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-red-600 text-white px-3 py-1 rounded-full text-sm flex items-center hover:bg-red-700 transition-colors"
+                    >
+                      <FaYoutube className="mr-1" /> Open on YouTube
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </motion.div>
         )}
